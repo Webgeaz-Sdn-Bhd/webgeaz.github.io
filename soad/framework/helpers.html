@@ -2062,54 +2062,47 @@
 <ul>
 <li><strong>if</strong>: Conditionally renders content.</li>
 </ul>
-<p>```handlebars
-{{#if loggedIn}}
-<br />
-<p>Welcome back, {{username}}!</p></p>
-<p>{{/if}}
-```</p>
+<div class="language-handlebars highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">{{</span><span class="m m-Attribute">#if</span> <span class="nv">loggedIn</span><span class="cp">}}</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="x">  &lt;p&gt;Welcome back, </span><span class="cp">{{</span><span class="nv">username</span><span class="cp">}}</span><span class="x">!&lt;/p&gt;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="cp">{{</span><span class="m m-Attribute">/if</span><span class="cp">}}</span>
+</span></code></pre></div>
 <ul>
 <li><strong>unless</strong>: Inverse of <code>if</code>.</li>
 </ul>
-<p>```handlebars
-{{#unless loggedIn}}
-<br />
-<p>Please log in.</p></p>
-<p>{{/unless}}
-```</p>
+<div class="language-handlebars highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">{{</span><span class="m m-Attribute">#unless</span> <span class="nv">loggedIn</span><span class="cp">}}</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="x">  &lt;p&gt;Please log in.&lt;/p&gt;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="cp">{{</span><span class="m m-Attribute">/unless</span><span class="cp">}}</span>
+</span></code></pre></div>
 <h3 id="2-iteration-helper">2. Iteration Helper</h3>
 <ul>
 <li><strong>each</strong>: Iterates over a collection.</li>
 </ul>
-<p>```handlebars</p>
-<ul>
-  {{#each items}}
-    <li>{{this}}</li>
-  {{/each}}
-</ul>
-<p>```</p>
+<div class="language-handlebars highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="x">&lt;ul&gt;</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">#each</span> <span class="nv">items</span><span class="cp">}}</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="x">    &lt;li&gt;</span><span class="cp">{{</span><span class="nv">this</span><span class="cp">}}</span><span class="x">&lt;/li&gt;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">/each</span><span class="cp">}}</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="x">&lt;/ul&gt;</span>
+</span></code></pre></div>
 <h3 id="3-logical-helpers">3. Logical Helpers</h3>
 <ul>
 <li><strong>eq</strong>: Checks equality.</li>
 </ul>
-<p>```handlebars
-{{#eq role "admin"}}
-<br />
-<p>Admin Panel</p></p>
-<p>{{/eq}}</p>
-<p>{{#if (eq role "admin")}}
-<br />
-<p>Admin Panel</p></p>
-<p>{{/if}}
-```</p>
+<div class="language-handlebars highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">{{</span><span class="m m-Attribute">#eq</span> <span class="nv">role</span> <span class="s2">&quot;admin&quot;</span><span class="cp">}}</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="x">  &lt;p&gt;Admin Panel&lt;/p&gt;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="cp">{{</span><span class="m m-Attribute">/eq</span><span class="cp">}}</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="cp">{{</span><span class="m m-Attribute">#if</span> <span class="nv">(eq</span> <span class="nv">role</span> <span class="s2">&quot;admin&quot;</span><span class="nv">)</span><span class="cp">}}</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="x">  &lt;p&gt;Admin Panel&lt;/p&gt;</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="cp">{{</span><span class="m m-Attribute">/if</span><span class="cp">}}</span>
+</span></code></pre></div>
 <p>For more information on the Handlebars templating language and available features, visit the official documentation at <a href="https://jknack.github.io/handlebars.java/">https://jknack.github.io/handlebars.java/</a>.</p>
 <hr />
 <h2 id="sad-custom-helpers">SØAD Custom Helpers</h2>
 <p>SØAD provides additional custom helpers to simplify common tasks:</p>
 <h3 id="1-ref_lookup">1. <code>ref_lookup</code></h3>
 <p>Lookup a value from a database table using a given key.</p>
-<p><code>handlebars
-{{ref_lookup key table="tableName"? refs="object"? label="name"? value="id"?}}</code></p>
+<div class="language-handlebars highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">{{</span><span class="nv">ref_lookup</span> <span class="nv">key</span> <span class="na">table</span><span class="o">=</span><span class="s2">&quot;tableName&quot;</span><span class="err">?</span> <span class="na">refs</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="err">?</span> <span class="na">label</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="err">?</span> <span class="na">value</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="err">?</span><span class="cp">}}</span>
+</span></code></pre></div>
 <p><strong>Parameters:</strong></p>
 <ul>
 <li><code>table</code>: The name of the database table to query.</li>
@@ -2118,20 +2111,18 @@
 <li><code>value</code>: The column to match against the provided key. Defaults to <code>id</code>. This column is typically the primary key of the table.</li>
 </ul>
 <p><strong>Example Usage</strong></p>
-<p><code>handlebars
-{{ref_lookup user.id table="user" label="login_id" value="id"}}</code></p>
+<div class="language-handlebars highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="cp">{{</span><span class="nv">ref_lookup</span> <span class="nv">user.id</span> <span class="na">table</span><span class="o">=</span><span class="s2">&quot;user&quot;</span> <span class="na">label</span><span class="o">=</span><span class="s2">&quot;login_id&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="cp">}}</span>
+</span></code></pre></div>
 <p>This will look up the <code>login_id</code> for the user with the specified <code>id</code> in the <code>user</code> table.</p>
-<p>```handlebars
-{{#each users}}
-<br />
-<p>{{ref_lookup this.id table="user_details" label="full_name" value="user_id"}}</p></p>
-<p>{{/each}}
-```</p>
+<div class="language-handlebars highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">{{</span><span class="m m-Attribute">#each</span> <span class="nv">users</span><span class="cp">}}</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="x">  &lt;p&gt;</span><span class="cp">{{</span><span class="nv">ref_lookup</span> <span class="nv">this.id</span> <span class="na">table</span><span class="o">=</span><span class="s2">&quot;user_details&quot;</span> <span class="na">label</span><span class="o">=</span><span class="s2">&quot;full_name&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s2">&quot;user_id&quot;</span><span class="cp">}}</span><span class="x">&lt;/p&gt;</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="cp">{{</span><span class="m m-Attribute">/each</span><span class="cp">}}</span>
+</span></code></pre></div>
 <p>This iterates over a list of <code>users</code> and retrieves the <code>full_name</code> from the <code>user_details</code> table for each user.</p>
 <h3 id="2-select-and-option">2. <code>select</code> and <code>option</code></h3>
 <p>Generate dropdown menus (<code>&lt;select&gt;</code>) and their options.</p>
-<p><code>handlebars
-{{select table="tableName"? refs="object"? filter=""? id=""? name=""? class=""? label="name" value="id" selected=context? required="true"? readonly? sel_text=""?}}</code></p>
+<div class="language-handlebars highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="cp">{{</span><span class="nv">select</span> <span class="na">table</span><span class="o">=</span><span class="s2">&quot;tableName&quot;</span><span class="err">?</span> <span class="na">refs</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="err">?</span> <span class="na">filter</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="err">?</span> <span class="na">id</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="err">?</span> <span class="na">name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="err">?</span> <span class="na">class</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="err">?</span> <span class="na">label</span><span class="o">=</span><span class="s2">&quot;name&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s2">&quot;id&quot;</span> <span class="na">selected</span><span class="o">=</span><span class="nv">context</span><span class="err">?</span> <span class="na">required</span><span class="o">=</span><span class="s2">&quot;true&quot;</span><span class="err">?</span> <span class="nv">readonly</span><span class="err">?</span> <span class="na">sel_text</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="err">?</span><span class="cp">}}</span>
+</span></code></pre></div>
 <p><strong>Parameters:</strong></p>
 <ul>
 <li><code>table</code>: The name of the database table to query.</li>
@@ -2148,60 +2139,54 @@
 <li><code>sel_text</code>: Text to display when no option is selected. Defaults to "Please Select".</li>
 </ul>
 <p>Generate <code>&lt;option&gt;</code> elements based on the specified table or object.</p>
-<p><code>handlebars
-{{option table="tableName"? refs="object"? filter=""? label="name" value="id" selected=context? required="true"? sel_text=""?}}</code></p>
+<div class="language-handlebars highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="cp">{{</span><span class="nv">option</span> <span class="na">table</span><span class="o">=</span><span class="s2">&quot;tableName&quot;</span><span class="err">?</span> <span class="na">refs</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="err">?</span> <span class="na">filter</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="err">?</span> <span class="na">label</span><span class="o">=</span><span class="s2">&quot;name&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s2">&quot;id&quot;</span> <span class="na">selected</span><span class="o">=</span><span class="nv">context</span><span class="err">?</span> <span class="na">required</span><span class="o">=</span><span class="s2">&quot;true&quot;</span><span class="err">?</span> <span class="na">sel_text</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="err">?</span><span class="cp">}}</span>
+</span></code></pre></div>
 <p>Uses the same parameters as <code>select</code>, but generates individual <code>&lt;option&gt;</code> elements instead of a full <code>&lt;select&gt;</code>. This is useful when you need to customize the <code>&lt;select&gt;</code> tag.</p>
 <p><strong>Example Usage</strong></p>
-<p><code>handlebars
-{{select table="countries" selected=selected_country label="name" value="code"}}</code></p>
-<p><code>html+handlebars
-&lt;select id="sel_country" name="country_code" class="form-select" data-live-search="true" required&gt;
-    {{option table="countries" selected=selectedCountry label="name" value="code"}}
-&lt;/select&gt;</code></p>
+<div class="language-handlebars highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="cp">{{</span><span class="nv">select</span> <span class="na">table</span><span class="o">=</span><span class="s2">&quot;countries&quot;</span> <span class="na">selected</span><span class="o">=</span><span class="nv">selected_country</span> <span class="na">label</span><span class="o">=</span><span class="s2">&quot;name&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s2">&quot;code&quot;</span><span class="cp">}}</span>
+</span></code></pre></div>
+<div class="language-html+handlebars highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">&lt;</span><span class="nt">select</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;sel_country&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;country_code&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-select&quot;</span> <span class="na">data-live-search</span><span class="o">=</span><span class="s">&quot;true&quot;</span> <span class="na">required</span><span class="p">&gt;</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    <span class="cp">{{</span><span class="nv">option</span> <span class="na">table</span><span class="o">=</span><span class="s2">&quot;countries&quot;</span> <span class="na">selected</span><span class="o">=</span><span class="nv">selectedCountry</span> <span class="na">label</span><span class="o">=</span><span class="s2">&quot;name&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s2">&quot;code&quot;</span><span class="cp">}}</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+</span></code></pre></div>
 <h3 id="3-datefmt">3. <code>dateFmt</code></h3>
 <p>Format a date object into a human-readable format.</p>
-<p><code>handlebars
-{{dateFmt registration_date "yyyy-MM-dd"}}</code></p>
+<div class="language-handlebars highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="cp">{{</span><span class="nv">dateFmt</span> <span class="nv">registration_date</span> <span class="s2">&quot;yyyy-MM-dd&quot;</span><span class="cp">}}</span>
+</span></code></pre></div>
 <p>Formats the <code>registration_date</code> into a day/month/year format. If no format is specified, it defaults to <code>dd/MM/yyyy</code>.</p>
 <h3 id="4-in">4. <code>in</code></h3>
 <p>Check if a value exists within a list or a string.</p>
-<p>```handlebars
-{{#if (in user_role_id allowed_roles)}}
-<br />
-<p>Access Granted</p></p>
-<p>{{else}}
-<br />
-<p>Access Denied</p></p>
-<p>{{/if}}
-```</p>
+<div class="language-handlebars highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="cp">{{</span><span class="m m-Attribute">#if</span> <span class="nv">(in</span> <span class="nv">user_role_id</span> <span class="nv">allowed_roles)</span><span class="cp">}}</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="x">  &lt;p&gt;Access Granted&lt;/p&gt;</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="cp">{{</span><span class="nv">else</span><span class="cp">}}</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="x">  &lt;p&gt;Access Denied&lt;/p&gt;</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="cp">{{</span><span class="m m-Attribute">/if</span><span class="cp">}}</span>
+</span></code></pre></div>
 <h3 id="5-html">5. <code>html</code></h3>
 <p>Sanitize HTML content, convert newlines to <code>&lt;br&gt;</code> and generate anchor for <strong>links</strong>.</p>
-<p>```handlebars</p>
-<div>{{html content}}</div>
-<p>```</p>
+<div class="language-handlebars highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="x">&lt;div&gt;</span><span class="cp">{{</span><span class="nv">html</span> <span class="nv">content</span><span class="cp">}}</span><span class="x">&lt;/div&gt;</span>
+</span></code></pre></div>
 <h3 id="6-session">6. <code>session</code></h3>
 <p>Access session attributes.</p>
-<p>```handlebars</p>
-<p>User ID: {{session "user_id"}}</p>
-<p>```</p>
+<div class="language-handlebars highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="x">&lt;p&gt;User ID: </span><span class="cp">{{</span><span class="nv">session</span> <span class="s2">&quot;user_id&quot;</span><span class="cp">}}</span><span class="x">&lt;/p&gt;</span>
+</span></code></pre></div>
 <h3 id="7-get">7. <code>get</code></h3>
 <p>Retrieve values from <code>ctx.output</code> by keys containing special characters or spaces.</p>
-<p>```handlebars</p>
-<p>{{get "complex key-name"}}</p>
-<p>```</p>
+<div class="language-handlebars highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="x">&lt;p&gt;</span><span class="cp">{{</span><span class="nv">get</span> <span class="s2">&quot;complex key-name&quot;</span><span class="cp">}}</span><span class="x">&lt;/p&gt;</span>
+</span></code></pre></div>
 <h3 id="8-i18n">8. <code>i18n</code></h3>
 <p>Internationalization helper to fetch localized strings. This helper retrieves strings from the i18n resource files (<code>messages.properties</code>) based on the current locale or <code>__locale__</code> value from session attributes. To use this helper, you need to have a <code>messages.properties</code> file in your resources directory with the appropriate key-value pairs.</p>
-<p><code>handlebars
-{{i18n "welcome.message"}}</code></p>
+<div class="language-handlebars highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="cp">{{</span><span class="nv">i18n</span> <span class="s2">&quot;welcome.message&quot;</span><span class="cp">}}</span>
+</span></code></pre></div>
 <p>Properties files example:</p>
 <div class="language-properties highlight"><span class="filename">messages.properties</span><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="na">welcome.message</span><span class="o">=</span><span class="s">Welcome to SØAD</span>
 </span></code></pre></div>
 <div class="language-properties highlight"><span class="filename">messages_ms.properties</span><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="na">welcome.message</span><span class="o">=</span><span class="s">Selamat datang ke SØAD</span>
 </span></code></pre></div>
 <p>To set the locale, you can use the <code>__locale__</code> session attribute:</p>
-<p><code>python
-request = ctx.getRequest()
-request.getSession(True).setAttribute("__locale__", "ms")</code></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">request</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">getRequest</span><span class="p">()</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="n">request</span><span class="o">.</span><span class="n">getSession</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s2">&quot;__locale__&quot;</span><span class="p">,</span> <span class="s2">&quot;ms&quot;</span><span class="p">)</span>
+</span></code></pre></div>
 <p>Refer to the <a href="../advanced-usage/internationalization.html">Multi-language Support</a> section for more details on how to set up and use i18n in SØAD.</p>
 
 

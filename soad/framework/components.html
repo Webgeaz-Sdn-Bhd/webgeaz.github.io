@@ -1905,7 +1905,8 @@
 <h1 id="sad-framework-components">SØAD Framework Components</h1>
 <h2 id="transaction-the-controller-layer">Transaction: The Controller Layer</h2>
 <p>Transactions in SØAD act as the primary entry point for executing business logic in response to a URL request. Each transaction is mapped to a URL using a structured convention:</p>
-<p><code>/t/{group}/{code}/{action}</code></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/t/{group}/{code}/{action}
+</span></code></pre></div>
 <ul>
 <li><strong>Group</strong>: A logical folder that represents a module or feature set, used to organize related transactions (e.g., <code>web</code>, <code>admin</code>, <code>user</code>).</li>
 <li><strong>Code</strong>: The transaction identifier, which corresponds to the <code>.py</code> file and class name (e.g., <code>home</code> maps to <code>home.py</code> and <code>Home</code> class).</li>
@@ -1936,16 +1937,15 @@
 <p><strong>Example:</strong></p>
 <p>URL: <code>/t/web/home</code></p>
 <p>File: <code>web/home.py</code>
-```python
-from utils import render</p>
-<p>class Home(Layout):
-    def <strong>init</strong>(self):
-        pass</p>
-<div class="codehilite"><pre><span></span><code>def view(self, ctx):
-    ctx.go_to = render.as_view(ctx, &quot;home&quot;)
-</code></pre></div>
-
-<p>```</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">render</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">Home</span><span class="p">(</span><span class="n">Layout</span><span class="p">):</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="k">pass</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;home&quot;</span><span class="p">)</span>
+</span></code></pre></div></p>
 <p>This Transaction maps directly to the folder structure:</p>
 <ul>
 <li>Python file: <code>web/home.py</code></li>
@@ -1958,47 +1958,47 @@ from utils import render</p>
 <li><code>Default Method</code>: <code>view()</code> is called if no action is specified in URL</li>
 </ul>
 <p><strong>View (HTML) example:</strong>
-```html</p>
-<!doctype html>
-<html>
-<body>
-    <h1>Registration Form</h1>
-    <form action="/t/web/home/register" method="post">
-        <input type="text" name="email" />
-        <button type="submit">Register</button>
-    </form>
-<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
-document$.subscribe(() => { lightbox.reload() });
-</script></body>
-</html>
-<p>```</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">&lt;!doctype html&gt;</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Registration Form<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;/t/web/home/register&quot;</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;email&quot;</span> <span class="p">/&gt;</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span><span class="p">&gt;</span>Register<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></code></pre></div></p>
 <p>In this example, submit button will invoke <code>register(ctx)</code> method in <code>Home</code> class.</p>
 <p>In SØAD, <strong>all methods defined inside a Transaction class are treated as actions</strong>, which can be invoked directly through corresponding URLs.</p>
 <p>Each action method must include the <code>ctx</code> parameter. The framework automatically calls the specified method and injects the current <a href="api.html#available-methods-and-properties">WebContext</a> object, allowing your transaction to handle requests with full access to parameters, session, and others (e.g. HTTP Request &amp; Response).</p>
 <h3 id="transaction-folder-structure">Transaction Folder Structure</h3>
-<p><code>web/
-  home.py
-  _home/
-    home.html</code></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>web/
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  home.py
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  _home/
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    home.html
+</span></code></pre></div>
 <ul>
 <li><code>.py</code> file handles logic</li>
 <li>Folder prefixed with <code>_</code> holds the view templates</li>
 <li>The main view file must match the transaction name</li>
 </ul>
 <p>In addition to the default view, each transaction can define and render multiple views. For example, a Person transaction might have:</p>
-<p><code>web/
-  person.py
-  _person/
-    person.html     (default view for `view()`)
-    add.html        (additional view to display new form)
-    edit.html       (additional view to display edit form)</code></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>web/
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  person.py
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  _person/
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    person.html     (default view for `view()`)
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    add.html        (additional view to display new form)
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    edit.html       (additional view to display edit form)
+</span></code></pre></div>
 <p>Each method can explicitly render its corresponding template using:</p>
-<p><code>python
-ctx.go_to = render.as_view(ctx, "add")</code></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;add&quot;</span><span class="p">)</span>
+</span></code></pre></div>
 <p>This approach makes it easy to organize multiple page variations under the same transaction and supports clean separation of logic and presentation.</p>
 <h3 id="routing">Routing</h3>
 <p>SØAD routes every request through a clean, convention-based URL structure to the Transaction:</p>
-<p><code>/t/{group}/{code}/{action}</code></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/t/{group}/{code}/{action}
+</span></code></pre></div>
 <ul>
 <li><code>/t</code> — transaction prefix</li>
 <li><code>{group}</code> — folder/module name</li>
@@ -2014,12 +2014,13 @@ ctx.go_to = render.as_view(ctx, "add")</code></p>
 <h3 id="context-path">Context Path</h3>
 <p>In Java Servlet architecture, the <strong>context path</strong> refers to the root path of a deployed web application. It is the prefix added to all URLs served by the application.</p>
 <p>In SØAD Framework, the context path can be retrieved within a transaction using:</p>
-<p><code>python
-ctx.ctxPath</code></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">ctx</span><span class="o">.</span><span class="n">ctxPath</span>
+</span></code></pre></div>
 <p>By default, SØAD assumes the context path is an empty string (<code>""</code>) when running as a standalone application. However, if the application is deployed with a context (for example, under <code>/myapp</code>), then this value will reflect that path.</p>
 <p><strong>Example:</strong></p>
 <p>Given a deployed application URL:</p>
-<p><code>https://www.sufia.online/myapp/t/web/welcome</code></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>https://www.sufia.online/myapp/t/web/welcome
+</span></code></pre></div>
 <ul>
 <li>Context Path: <code>/myapp</code></li>
 <li>Transaction URL: <code>/t/web/welcome</code></li>
@@ -2028,8 +2029,8 @@ ctx.ctxPath</code></p>
 <hr />
 <h2 id="view">View</h2>
 <p>Each transaction ends by setting <code>ctx.go_to</code> to a function that define the response. The most common output is an HTML page rendered using the <code>render.as_view()</code> function:</p>
-<p><code>python
-ctx.go_to = render.as_view(ctx, "home")</code></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;home&quot;</span><span class="p">)</span>
+</span></code></pre></div>
 <p>This will render the <code>home.html</code> view inside the <code>_home</code> folder.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2080,44 +2081,43 @@ ctx.go_to = render.as_view(ctx, "home")</code></p>
 <p>Instrumentation in ActiveJDBC refers to the process of enhancing the compiled Java Model classes so they are ActiveJDBC-aware. This means they gain access to methods such as <code>saveIt()</code>, <code>findAll()</code>, <code>first()</code>, <code>where()</code>, and many others provided by the ActiveJDBC framework.</p>
 <p>SØAD handles this behind the scenes. At runtime, after introspecting the database schema and generating the Model classes, the framework runs ActiveJDBC’s instrumentation process to inject the necessary metadata and behaviors. This allows you to interact with your database tables as if they were regular Java classes, making CRUD operations straightforward and intuitive.</p>
 <p>Given a <code>person</code> table:
-```java
-package models;</p>
-<p>import org.javalite.activejdbc.Model;</p>
-<p>public class Person extends Model {}
-```</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">models</span><span class="p">;</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.javalite.activejdbc.Model</span><span class="p">;</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Person</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Model</span><span class="w"> </span><span class="p">{}</span>
+</span></code></pre></div></p>
 <p>Usage in Transaction:
-```python
-from models import Person</p>
-<p>class Home(Layout):
-    def view(self, ctx):
-        persons = Person.findAll()
-        ctx.output["all_person"] = persons
-        ctx.go_to = render.as_view(ctx, "home")
-```</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Person</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">Home</span><span class="p">(</span><span class="n">Layout</span><span class="p">):</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>        <span class="n">persons</span> <span class="o">=</span> <span class="n">Person</span><span class="o">.</span><span class="n">findAll</span><span class="p">()</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>        <span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;all_person&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">persons</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>        <span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;home&quot;</span><span class="p">)</span>
+</span></code></pre></div></p>
 <h2 id="example-hello-world">Example: Hello World</h2>
 <p>Folder structure:
-<code>web/
-  hello.py
-  _hello/
-    hello.html</code></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>web/
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>  hello.py
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>  _hello/
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    hello.html
+</span></code></pre></div></p>
 <p><code>hello.py</code>
-```python
-from utils import render</p>
-<p>class Hello(Layout):
-    def view(self, ctx):
-        ctx.go_to = render.as_view(ctx, "hello")
-```</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">render</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">Hello</span><span class="p">(</span><span class="n">Layout</span><span class="p">):</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>        <span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;hello&quot;</span><span class="p">)</span>
+</span></code></pre></div></p>
 <p><code>_hello/hello.html</code>
-```html</p>
-<!doctype html>
-<html>
-<body>
-    <h1>Hello, SØAD</h1>
-<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
-document$.subscribe(() => { lightbox.reload() });
-</script></body>
-</html>
-<p>```</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="cp">&lt;!doctype html&gt;</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Hello, SØAD<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></code></pre></div></p>
 
 
 
@@ -2224,5 +2224,7 @@ document$.subscribe(() => { lightbox.reload() });
       <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
       
     
-  </body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

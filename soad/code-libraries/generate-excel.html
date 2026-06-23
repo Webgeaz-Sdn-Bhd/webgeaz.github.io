@@ -2040,28 +2040,28 @@
 </span></code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
-<p>```sql
-CREATE TABLE sale (
-    id int NOT NULL AUTO_INCREMENT,
-    product_name varchar(255),
-    customer_name varchar(255),
-    sale_date date,
-    quantity int,
-    unit_price decimal(10,2),
-    PRIMARY KEY (id)
-);</p>
-<p>INSERT INTO sale (product_name, customer_name, sale_date, quantity, unit_price) VALUES
-('Laptop Pro 15"', 'Acme Corporation', '2024-01-15', 5, 2499.99),
-('Wireless Mouse', 'Tech Solutions Ltd', '2024-01-16', 25, 29.99),
-('USB-C Hub', 'Digital Dynamics', '2024-01-17', 10, 89.99),
-('Monitor 4K 27"', 'Creative Agency', '2024-01-18', 3, 599.99),
-('Mechanical Keyboard', 'StartupXYZ', '2024-01-19', 15, 149.99),
-('Webcam HD', 'Remote Workers Inc', '2024-01-20', 8, 79.99),
-('Tablet Pro', 'Design Studio', '2024-01-21', 2, 899.99),
-('Smartphone', 'Mobile Solutions', '2024-01-22', 12, 799.99),
-('Headphones Pro', 'Audio Experts', '2024-01-23', 6, 299.99),
-('Power Bank', 'Travel Co', '2024-01-24', 20, 49.99);
-```</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">sale</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">product_name</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">customer_name</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">sale_date</span><span class="w"> </span><span class="nb">date</span><span class="p">,</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">quantity</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="n">unit_price</span><span class="w"> </span><span class="nb">decimal</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="p">);</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">sale</span><span class="w"> </span><span class="p">(</span><span class="n">product_name</span><span class="p">,</span><span class="w"> </span><span class="n">customer_name</span><span class="p">,</span><span class="w"> </span><span class="n">sale_date</span><span class="p">,</span><span class="w"> </span><span class="n">quantity</span><span class="p">,</span><span class="w"> </span><span class="n">unit_price</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">(</span><span class="s1">&#39;Laptop Pro 15&quot;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Acme Corporation&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2024-01-15&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">2499</span><span class="p">.</span><span class="mi">99</span><span class="p">),</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="p">(</span><span class="s1">&#39;Wireless Mouse&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Tech Solutions Ltd&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2024-01-16&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="mi">29</span><span class="p">.</span><span class="mi">99</span><span class="p">),</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="p">(</span><span class="s1">&#39;USB-C Hub&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Digital Dynamics&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2024-01-17&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">89</span><span class="p">.</span><span class="mi">99</span><span class="p">),</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="p">(</span><span class="s1">&#39;Monitor 4K 27&quot;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Creative Agency&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2024-01-18&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">599</span><span class="p">.</span><span class="mi">99</span><span class="p">),</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="p">(</span><span class="s1">&#39;Mechanical Keyboard&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;StartupXYZ&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2024-01-19&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w"> </span><span class="mi">149</span><span class="p">.</span><span class="mi">99</span><span class="p">),</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="p">(</span><span class="s1">&#39;Webcam HD&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Remote Workers Inc&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2024-01-20&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">79</span><span class="p">.</span><span class="mi">99</span><span class="p">),</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="p">(</span><span class="s1">&#39;Tablet Pro&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Design Studio&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2024-01-21&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">899</span><span class="p">.</span><span class="mi">99</span><span class="p">),</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="p">(</span><span class="s1">&#39;Smartphone&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Mobile Solutions&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2024-01-22&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="mi">799</span><span class="p">.</span><span class="mi">99</span><span class="p">),</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="p">(</span><span class="s1">&#39;Headphones Pro&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Audio Experts&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2024-01-23&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">299</span><span class="p">.</span><span class="mi">99</span><span class="p">),</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="p">(</span><span class="s1">&#39;Power Bank&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Travel Co&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2024-01-24&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">49</span><span class="p">.</span><span class="mi">99</span><span class="p">);</span>
+</span></code></pre></div>
 </div>
 <div class="tabbed-block">
 <p><div>
@@ -2075,7 +2075,8 @@ CREATE TABLE sale (
 </div>
 <h3 id="download-the-excel-file">Download the Excel File</h3>
 <p>The user can download the Excel report via:</p>
-<p><code>/t/example/sales_report/excel</code></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/t/example/sales_report/excel
+</span></code></pre></div>
 <p>The browser will download the formatted Excel file with proper styling and data formatting.</p>
 <hr />
 <h2 id="generate-excel-with-charts">Generate Excel with Charts</h2>
@@ -2274,7 +2275,8 @@ CREATE TABLE sale (
 </div>
 <h3 id="download-the-chart-excel-file">Download the Chart Excel File</h3>
 <p>The user can download the Excel file with embedded chart via:</p>
-<p><code>/t/example/sales_chart/excel</code></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/t/example/sales_chart/excel
+</span></code></pre></div>
 <hr />
 <h2 id="generate-excel-template">Generate Excel Template</h2>
 <p>Sometimes you need to generate Excel templates with predefined formatting that users can fill out.</p>
@@ -2492,7 +2494,8 @@ CREATE TABLE sale (
 </div>
 <h3 id="download-the-template">Download the Template</h3>
 <p>The user can download the Excel template via:</p>
-<p><code>/t/example/invoice_template/excel</code></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/t/example/invoice_template/excel
+</span></code></pre></div>
 <div class="admonition question">
 <p class="admonition-title">Do you know?</p>
 <ul>

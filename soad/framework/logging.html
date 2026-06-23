@@ -1839,21 +1839,20 @@
 <h2 id="using-logging-in-transactions">Using Logging in Transactions</h2>
 <p>Within your Jython Transactions, you can use the <code>Log</code> class to write log entries. Supported levels include <code>info</code>, <code>debug</code>, <code>warn</code>, and <code>error</code>. These methods integrate seamlessly with SLF4J and Log4j’s configuration.</p>
 <h3 id="example-using-logging-in-a-transaction">Example: Using Logging in a Transaction</h3>
-<p>```python
-from sufia.util import Log</p>
-<p>class Example(Layout):
-    def view(self, ctx):
-        Log.info(ctx, "Example view called.")
-        Log.debug(ctx, "Request parameters: %s" % ctx.getAllParameters())</p>
-<div class="codehilite"><pre><span></span><code>    try:
-        # Transaction logic
-        Log.info(ctx, &quot;Processing completed successfully.&quot;)
-    except Exception as e:
-        Log.error(ctx, &quot;Error occurred: %s&quot; % str(e))
-        raise e
-</code></pre></div>
-
-<p>```</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sufia.util</span><span class="w"> </span><span class="kn">import</span> <span class="n">Log</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">Example</span><span class="p">(</span><span class="n">Layout</span><span class="p">):</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        <span class="n">Log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;Example view called.&quot;</span><span class="p">)</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        <span class="n">Log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;Request parameters: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">ctx</span><span class="o">.</span><span class="n">getAllParameters</span><span class="p">())</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        <span class="k">try</span><span class="p">:</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>            <span class="c1"># Transaction logic</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>            <span class="n">Log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;Processing completed successfully.&quot;</span><span class="p">)</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>            <span class="n">Log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;Error occurred: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>            <span class="k">raise</span> <span class="n">e</span>
+</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1898,55 +1897,56 @@ from sufia.util import Log</p>
 <h2 id="using-slf4j-logger-directly">Using SLF4J <code>Logger</code> Directly</h2>
 <p>While SØAD provides the <code>Log</code> utility for simplicity, you can also create your own SLF4J <code>Logger</code> instances if you need class-specific loggers, advanced features, or consistent Java logging practices.</p>
 <h3 id="example-slf4j-logger-in-a-transaction">Example: SLF4J Logger in a Transaction</h3>
-<p>```python
-from org.slf4j import LoggerFactory</p>
-<p>class Orders(object):
-    # Create a class-specific logger instance
-    logger = LoggerFactory.getLogger("OrdersTransaction")</p>
-<div class="codehilite"><pre><span></span><code>def view(self, ctx):
-    request = ctx.getRequest()
-    Orders.logger.info(&quot;Orders view accessed.&quot;)
-    Orders.logger.debug(&quot;Request parameters: %s&quot; % request.getParameterMap())
-
-    try:
-        # Transaction logic here
-        Orders.logger.info(&quot;Order listing completed successfully.&quot;)
-    except Exception as e:
-        Orders.logger.error(&quot;Failed to process orders: %s&quot; % str(e))
-        raise e
-</code></pre></div>
-
-<p>```</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">org.slf4j</span><span class="w"> </span><span class="kn">import</span> <span class="n">LoggerFactory</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">Orders</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="c1"># Create a class-specific logger instance</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">logger</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;OrdersTransaction&quot;</span><span class="p">)</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="n">request</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">getRequest</span><span class="p">()</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="n">Orders</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Orders view accessed.&quot;</span><span class="p">)</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        <span class="n">Orders</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Request parameters: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">request</span><span class="o">.</span><span class="n">getParameterMap</span><span class="p">())</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        <span class="k">try</span><span class="p">:</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>            <span class="c1"># Transaction logic here</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>            <span class="n">Orders</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Order listing completed successfully.&quot;</span><span class="p">)</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>            <span class="n">Orders</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Failed to process orders: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>            <span class="k">raise</span> <span class="n">e</span>
+</span></code></pre></div>
 <p>This pattern is for developers familiar with enterprise Java, or when you need finer control over logging granularity.</p>
 <hr />
 <h2 id="default-log4j-configuration">Default Log4j Configuration</h2>
 <p>Below is the default <code>log4j2.properties</code> included with SØAD. This configuration outputs logs both to the console and to rolling log files saved under <code>${SUFIA_HOME}/logs/</code>.</p>
-<p>```properties</p>
-<h1 id="appenders">Appenders</h1>
-<p>appender.console.type = Console
-appender.console.name = STDOUT
-appender.console.layout.type = PatternLayout
-appender.console.layout.pattern = %d{yyyy-MM-dd HH<img alt="🇲🇲" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f1f2-1f1f2.svg" title=":mm:" />ss.SSS} [%T] %-5level %c{1} - %msg%n</p>
-<p>appender.rolling.type = RollingFile
-appender.rolling.name = LOGFILE
-appender.rolling.fileName = ${env:SUFIA_HOME}/logs/soad.log
-appender.rolling.filePattern = ${env:SUFIA_HOME}/logs/soad-%d{yyyy-MM-dd}.log
-appender.rolling.layout.type = PatternLayout
-appender.rolling.layout.pattern = %d{yyyy-MM-dd HH<img alt="🇲🇲" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f1f2-1f1f2.svg" title=":mm:" />ss.SSS} [%T] %-5level %c{1} - %msg%n
-appender.rolling.policies.type = Policies
-appender.rolling.policies.time.type = TimeBasedTriggeringPolicy
-appender.rolling.policies.time.interval = 1
-appender.rolling.policies.time.modulate = true
-appender.rolling.strategy.type = DefaultRolloverStrategy
-appender.rolling.strategy.max = 30</p>
-<h1 id="root-logger">Root Logger</h1>
-<p>rootLogger.level = INFO
-rootLogger.appenderRef.rolling.ref = LOGFILE
-rootLogger.appenderRef.console.ref = STDOUT</p>
-<h1 id="keep-activejdbc-logs-at-minimum">keep activejdbc logs at minimum</h1>
-<p>logger.activejdbc.name = org.javalite.activejdbc
-logger.activejdbc.level = WARN
-```</p>
+<div class="language-properties highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Appenders</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="na">appender.console.type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Console</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="na">appender.console.name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">STDOUT</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="na">appender.console.layout.type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">PatternLayout</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="na">appender.console.layout.pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">%d{yyyy-MM-dd HH:mm:ss.SSS} [%T] %-5level %c{1} - %msg%n</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="na">appender.rolling.type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">RollingFile</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="na">appender.rolling.name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">LOGFILE</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="na">appender.rolling.fileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">${env:SUFIA_HOME}/logs/soad.log</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="na">appender.rolling.filePattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">${env:SUFIA_HOME}/logs/soad-%d{yyyy-MM-dd}.log</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="na">appender.rolling.layout.type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">PatternLayout</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="na">appender.rolling.layout.pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">%d{yyyy-MM-dd HH:mm:ss.SSS} [%T] %-5level %c{1} - %msg%n</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="na">appender.rolling.policies.type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Policies</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="na">appender.rolling.policies.time.type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">TimeBasedTriggeringPolicy</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="na">appender.rolling.policies.time.interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="na">appender.rolling.policies.time.modulate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">true</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="na">appender.rolling.strategy.type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">DefaultRolloverStrategy</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="na">appender.rolling.strategy.max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">30</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="c1"># Root Logger</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="na">rootLogger.level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">INFO</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="na">rootLogger.appenderRef.rolling.ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">LOGFILE</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="na">rootLogger.appenderRef.console.ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">STDOUT</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="c1"># keep activejdbc logs at minimum</span>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="na">logger.activejdbc.name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">org.javalite.activejdbc</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="na">logger.activejdbc.level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">WARN</span>
+</span></code></pre></div>
 
 
 

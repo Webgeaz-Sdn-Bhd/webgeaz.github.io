@@ -1899,7 +1899,7 @@
 </span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34"></a><span class="w">        </span><span class="s2">&quot;processing&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 </span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35"></a><span class="w">        </span><span class="s2">&quot;serverSide&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 </span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36"></a><span class="w">        </span><span class="s2">&quot;lengthChange&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37"></a><span class="w">        </span><span class="s2">&quot;ajax&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;/t/example/employee_list/ajax&quot;</span><span class="p">,</span>
+</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37"></a><span class="w">        </span><span class="s2">&quot;ajax&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;/t/example/employee/ajax&quot;</span><span class="p">,</span>
 </span><span id="__span-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38"></a><span class="w">        </span><span class="s2">&quot;columns&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
 </span><span id="__span-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39"></a><span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;ID&quot;</span><span class="w"> </span><span class="p">},</span>
 </span><span id="__span-1-40"><a id="__codelineno-1-40" name="__codelineno-1-40"></a><span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Name&quot;</span><span class="w"> </span><span class="p">},</span>
@@ -1915,51 +1915,51 @@
 </span></code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
-<p>```sql
-CREATE TABLE employee ( 
-    id int NOT NULL AUTO_INCREMENT, 
-    name varchar(300), 
-    department varchar(300), 
-    email varchar(300), 
-    PRIMARY KEY (id) 
-);</p>
-<p>INSERT INTO employee (name, department, email) VALUES
-('Olivia Chen', 'Marketing', 'olivia.chen@example.com'),
-('Benjamin Carter', 'IT', 'benjamin.carter@example.com'),
-('Sophia Rodriguez', 'Sales', 'sophia.rodriguez@example.com'),
-('Liam Goldberg', 'Finance', 'liam.goldberg@example.com'),
-('Ava Nguyen', 'HR', 'ava.nguyen@example.com'),
-('Noah Patel', 'IT', 'noah.patel@example.com'),
-('Isabella Kim', 'Marketing', 'isabella.kim@example.com'),
-('Mason Williams', 'Sales', 'mason.williams@example.com'),
-('Mia Garcia', 'Finance', 'mia.garcia@example.com'),
-('James Johnson', 'IT', 'james.johnson@example.com'),
-('Charlotte Martinez', 'HR', 'charlotte.martinez@example.com'),
-('William Davis', 'Sales', 'william.davis@example.com'),
-('Amelia Lee', 'Marketing', 'amelia.lee@example.com'),
-('Elijah Hernandez', 'IT', 'elijah.hernandez@example.com'),
-('Harper Gonzalez', 'Finance', 'harper.gonzalez@example.com'),
-('Lucas Wilson', 'Sales', 'lucas.wilson@example.com'),
-('Evelyn Anderson', 'HR', 'evelyn.anderson@example.com'),
-('Alexander Thomas', 'IT', 'alexander.thomas@example.com'),
-('Abigail Moore', 'Marketing', 'abigail.moore@example.com'),
-('Henry Taylor', 'Finance', 'henry.taylor@example.com'),
-('Emily Jackson', 'Sales', 'emily.jackson@example.com'),
-('Michael White', 'IT', 'michael.white@example.com'),
-('Sofia Harris', 'HR', 'sofia.harris@example.com'),
-('Daniel Martin', 'Marketing', 'daniel.martin@example.com'),
-('Madison Thompson', 'Finance', 'madison.thompson@example.com'),
-('Jacob Clark', 'IT', 'jacob.clark@example.com'),
-('Ella Lewis', 'Sales', 'ella.lewis@example.com'),
-('Logan Walker', 'Marketing', 'logan.walker@example.com'),
-('Victoria Hall', 'HR', 'victoria.hall@example.com'),
-('David Allen', 'IT', 'david.allen@example.com');</p>
-<p>```</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="p">(</span><span class="w"> </span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span><span class="w"> </span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">300</span><span class="p">),</span><span class="w"> </span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="n">department</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">300</span><span class="p">),</span><span class="w"> </span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="n">email</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">300</span><span class="p">),</span><span class="w"> </span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">);</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">department</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">(</span><span class="s1">&#39;Olivia Chen&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Marketing&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;olivia.chen@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="p">(</span><span class="s1">&#39;Benjamin Carter&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;IT&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;benjamin.carter@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="p">(</span><span class="s1">&#39;Sophia Rodriguez&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Sales&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;sophia.rodriguez@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="p">(</span><span class="s1">&#39;Liam Goldberg&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Finance&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;liam.goldberg@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="p">(</span><span class="s1">&#39;Ava Nguyen&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;HR&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ava.nguyen@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="p">(</span><span class="s1">&#39;Noah Patel&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;IT&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;noah.patel@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="p">(</span><span class="s1">&#39;Isabella Kim&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Marketing&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;isabella.kim@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="p">(</span><span class="s1">&#39;Mason Williams&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Sales&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mason.williams@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="p">(</span><span class="s1">&#39;Mia Garcia&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Finance&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mia.garcia@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="p">(</span><span class="s1">&#39;James Johnson&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;IT&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;james.johnson@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="p">(</span><span class="s1">&#39;Charlotte Martinez&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;HR&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;charlotte.martinez@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="p">(</span><span class="s1">&#39;William Davis&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Sales&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;william.davis@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="p">(</span><span class="s1">&#39;Amelia Lee&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Marketing&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;amelia.lee@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="p">(</span><span class="s1">&#39;Elijah Hernandez&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;IT&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;elijah.hernandez@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="p">(</span><span class="s1">&#39;Harper Gonzalez&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Finance&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;harper.gonzalez@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="p">(</span><span class="s1">&#39;Lucas Wilson&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Sales&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;lucas.wilson@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="p">(</span><span class="s1">&#39;Evelyn Anderson&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;HR&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;evelyn.anderson@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="p">(</span><span class="s1">&#39;Alexander Thomas&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;IT&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;alexander.thomas@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="p">(</span><span class="s1">&#39;Abigail Moore&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Marketing&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;abigail.moore@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="p">(</span><span class="s1">&#39;Henry Taylor&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Finance&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;henry.taylor@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="p">(</span><span class="s1">&#39;Emily Jackson&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Sales&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;emily.jackson@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="p">(</span><span class="s1">&#39;Michael White&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;IT&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;michael.white@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="p">(</span><span class="s1">&#39;Sofia Harris&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;HR&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;sofia.harris@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="p">(</span><span class="s1">&#39;Daniel Martin&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Marketing&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;daniel.martin@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a><span class="p">(</span><span class="s1">&#39;Madison Thompson&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Finance&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;madison.thompson@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a><span class="p">(</span><span class="s1">&#39;Jacob Clark&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;IT&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;jacob.clark@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a><span class="p">(</span><span class="s1">&#39;Ella Lewis&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Sales&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ella.lewis@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-37"><a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a><span class="p">(</span><span class="s1">&#39;Logan Walker&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Marketing&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;logan.walker@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-38"><a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a><span class="p">(</span><span class="s1">&#39;Victoria Hall&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;HR&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;victoria.hall@example.com&#39;</span><span class="p">),</span>
+</span><span id="__span-2-39"><a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a><span class="p">(</span><span class="s1">&#39;David Allen&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;IT&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;david.allen@example.com&#39;</span><span class="p">);</span>
+</span></code></pre></div>
 </div>
 <div class="tabbed-block">
 <p><div>
     <div style="position:relative;padding-top:56.25%;">
-        <iframe src="https://playground.sufia.online/t/example/database" frameborder="0" allowfullscreen
+        <iframe src="https://playground.soad.app/t/example/employee" frameborder="0" allowfullscreen
         style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
     </div>
 </div></p>
