@@ -1952,8 +1952,6 @@
 
 
 
-  <h1>Runtime API</h1>
-
 <h2 id="ctx-the-webcontext-object"><code>ctx</code> — The WebContext Object</h2>
 <p>In SØAD, every transaction method receives a single parameter named <code>ctx</code>, which stands for <strong>WebContext</strong>. This object encapsulates all information and utility methods relevant to the current request lifecycle.</p>
 <p>The <code>ctx</code> object gives developers access to:</p>
@@ -2012,38 +2010,41 @@
 </tbody>
 </table>
 <h3 id="example-usage">Example Usage</h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">request</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">getRequest</span><span class="p">()</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">user_id</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">getParameter</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">findById</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;profile&quot;</span><span class="p">)</span>
-</span></code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">request</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">getRequest</span><span class="p">()</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">getParameter</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">)</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">password</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">getParameter</span><span class="p">(</span><span class="s2">&quot;password&quot;</span><span class="p">)</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="k">if</span> <span class="n">Auth</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="n">session</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">getRequest</span><span class="p">()</span><span class="o">.</span><span class="n">getSession</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="n">session</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="n">username</span><span class="p">)</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/t/dashboard/home&quot;</span> <span class="o">%</span> <span class="n">ctx</span><span class="o">.</span><span class="n">ctxPath</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="k">else</span><span class="p">:</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Invalid credentials&quot;</span>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        <span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;login&quot;</span><span class="p">)</span>
-</span></code></pre></div>
+<p><code>python
+def view(self, ctx):
+    request = ctx.getRequest()
+    user_id = request.getParameter("id")
+    ctx.output["user"] = User.findById(user_id)
+    ctx.go_to = render.as_view(ctx, "profile")</code></p>
+<p>```python
+def login(self, ctx):
+    request = ctx.getRequest()
+    username = request.getParameter("username")
+    password = request.getParameter("password")</p>
+<div class="codehilite"><pre><span></span><code>if Auth.validate(username, password):
+    session = ctx.getRequest().getSession(True)
+    session.setAttribute(&quot;user&quot;, username)
+    ctx.go_to = &quot;%s/t/dashboard/home&quot; % ctx.ctxPath
+else:
+    ctx.output[&quot;error&quot;] = &quot;Invalid credentials&quot;
+    ctx.go_to = render.as_view(ctx, &quot;login&quot;)
+</code></pre></div>
+
+<p>```</p>
 <h3 id="integration-with-view">Integration with View</h3>
 <p>The <code>ctx.output</code> map is what feeds data into the Handlebars views.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;user_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Borhan&quot;</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;welcome&quot;</span><span class="p">)</span>
-</span></code></pre></div>
+<p><code>python
+ctx.output["user_name"] = "Borhan"
+ctx.go_to = render.as_view(ctx, "welcome")</code></p>
 <p>In your HTML:</p>
-<div class="language-handlebars highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="x">&lt;h1&gt;Welcome, </span><span class="cp">{{</span><span class="nv">user_name</span><span class="cp">}}</span><span class="x">&lt;/h1&gt;</span>
-</span></code></pre></div>
+<p>```handlebars</p>
+<h1>Welcome, {{user_name}}</h1>
+<p>```</p>
 <h3 id="how-to-access-ctx-in-a-servlet-filter">How to Access ctx in a Servlet Filter</h3>
 <p>If you need to access the ctx object from within a component like a Servlet Filter, you can retrieve it directly from the request attribute.</p>
 <p>Use the following method to get the ctx object:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">ctx</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s2">&quot;soadContext&quot;</span><span class="p">)</span>
-</span></code></pre></div>
+<p><code>python
+ctx = request.getAttribute("soadContext")</code></p>
 <hr />
 <h2 id="render-response-output-utilities"><code>render</code> — Response Output Utilities</h2>
 <p>The <code>render</code> module defines how a transaction responds to a request. These utilities help return HTML, JSON, string, files, or binary content from the server. Each render method should be assigned to <code>ctx.go_to</code>.</p>
@@ -2051,8 +2052,8 @@
 <p>Renders a Handlebars HTML template as the response. This is the most common way to return a page to the browser in SØAD.</p>
 <p>This function uses the view name to locate the appropriate <code>.html</code> file within the transaction's corresponding <code>_group</code> folder. If not specified, it defaults to the current transaction's group and code.</p>
 <p><strong>Function Signature:</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">combine_map</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span></code></pre></div></p>
+<code>python
+render.as_view(ctx, view, group=None, code=None, loc=None, file=None, combine_map=None)</code></p>
 <p><strong>Parameters:</strong></p>
 <ul>
 <li><code>ctx</code>: The transaction context object.</li>
@@ -2064,69 +2065,69 @@
 <li><code>combine_map</code> (Map, optional): Extra data to merge into the Handlebars context.</li>
 </ul>
 <p><strong>Basic usage:</strong></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Welcome&quot;</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;home&quot;</span><span class="p">)</span>
-</span></code></pre></div>
+<p><code>python
+ctx.output["title"] = "Welcome"
+ctx.go_to = render.as_view(ctx, "home")</code></p>
 <p>This will render <code>_home/home.html</code> and pass <code>title</code> as a Handlebars variable.</p>
 <p><strong>Render from another transaction group:</strong></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;register&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;auth&quot;</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="s2">&quot;signup&quot;</span><span class="p">)</span>
-</span></code></pre></div>
+<p><code>python
+ctx.go_to = render.as_view(ctx, "register", group="auth", code="signup")</code></p>
 <p>This will look for <code>_auth/signup/register.html</code>.</p>
 <h3 id="2-renderas_json">2. <code>render.as_json()</code></h3>
 <p>Returns a JSON-formatted response to the client. Useful for AJAX or API-style interactions.</p>
 <p><strong>Function Signature:</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">render</span><span class="o">.</span><span class="n">as_json</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span></code></pre></div></p>
+<code>python
+render.as_json(ctx, obj=None)</code></p>
 <p><strong>Parameters:</strong></p>
 <ul>
 <li><code>obj</code> (optional): a dictionary or serializable object to return as JSON. If not provided, <code>ctx.output</code> is used.</li>
 </ul>
 <p><strong>Basic usage:</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Operation successful&quot;</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_json</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
-</span></code></pre></div></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;success&quot;</span><span class="p">,</span> <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Borhan&quot;</span><span class="p">}}</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_json</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-</span></code></pre></div>
+<code>python
+ctx.output["message"] = "Operation successful"
+ctx.go_to = render.as_json(ctx)</code></p>
+<p><code>python
+data = {"status": "success", "user": {"id": 1, "name": "Borhan"}}
+ctx.go_to = render.as_json(ctx, data)</code></p>
 <p><strong>Example with ActiveJDBC model:</strong></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">users</span> <span class="o">=</span> <span class="n">Tb_user</span><span class="o">.</span><span class="n">findAll</span><span class="p">()</span><span class="o">.</span><span class="n">toMaps</span><span class="p">()</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_json</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">users</span><span class="p">)</span>
-</span></code></pre></div>
+<p><code>python
+users = Tb_user.findAll().toMaps()
+ctx.go_to = render.as_json(ctx, users)</code></p>
 <h3 id="3-renderas_html">3. <code>render.as_html()</code></h3>
 <p>Returns a raw HTML file directly from the filesystem, bypassing the Handlebars rendering engine. Ideal for serving pre-rendered static content.</p>
 <p><strong>Function Signature:</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">render</span><span class="o">.</span><span class="n">as_html</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span></code></pre></div>
+<code>python
+render.as_html(ctx, code=None, loc=None)</code>
 <strong>Parameters:</strong></p>
 <ul>
 <li><code>code</code> (str, optional): The code of the HTML file to render. If not provided, it defaults to the current transaction code.</li>
 <li><code>loc</code> (str, optional): Alternative path location override.</li>
 </ul>
 <p><strong>Basic usage:</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_html</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;dashboard&quot;</span><span class="p">)</span>
-</span></code></pre></div></p>
+<code>python
+ctx.go_to = render.as_html(ctx, "dashboard")</code></p>
 <p><strong>Render from a custom folder:</strong></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_html</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="s2">&quot;faq&quot;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;/web/static/pages&quot;</span><span class="p">)</span>
-</span></code></pre></div>
+<p><code>python
+ctx.go_to = render.as_html(ctx, code="faq", loc="/web/static/pages")</code></p>
 <p>This will look for <code>/web/static/pages/&lt;app_name&gt;/&lt;group&gt;/faq.html</code></p>
 <h3 id="4-renderas_string">4. <code>render.as_string()</code></h3>
 <p>Returns raw string content (HTML or plain text) directly to the browser. Bypasses any view engine or file lookup.</p>
 <p><strong>Use case:</strong> Error messages, short inline content, quick HTML feedback.</p>
 <p><strong>Function Signature:</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">render</span><span class="o">.</span><span class="n">as_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
-</span></code></pre></div></p>
+<code>python
+render.as_string(ctx, text)</code></p>
 <p><strong>Parameters:</strong></p>
 <ul>
 <li><code>text</code>: The string content to return. This can be HTML or plain text.</li>
 </ul>
 <p><strong>Example:</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;Access Denied&quot;</span><span class="p">)</span>
-</span></code></pre></div></p>
+<code>python
+ctx.go_to = render.as_string(ctx, "Access Denied")</code></p>
 <h3 id="5-renderas_file">5. <code>render.as_file()</code></h3>
 <p>Sends a file to the client for download or inline viewing.</p>
 <p><strong>Function Signature:</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">render</span><span class="o">.</span><span class="n">as_file</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">content_type</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">attachment</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span></code></pre></div></p>
+<code>python
+render.as_file(ctx, file, content_type, filename=None, attachment=True)</code></p>
 <p><strong>Parameters:</strong></p>
 <ul>
 <li><code>file</code>: a Java <code>File</code> object or file path (string)</li>
@@ -2135,17 +2136,17 @@
 <li><code>attachment</code> (bool): if <code>True</code>, forces download; if <code>False</code>, displays inline. Default is <code>True</code>.</li>
 </ul>
 <p><strong>Example:</strong></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_file</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">reportFile</span><span class="p">,</span> <span class="s2">&quot;application/pdf&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;report.pdf&quot;</span><span class="p">,</span> <span class="n">attachment</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span></code></pre></div>
+<p><code>python
+ctx.go_to = render.as_file(ctx, reportFile, "application/pdf", filename="report.pdf", attachment=True)</code></p>
 <p><strong>Display an image:</strong></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_file</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;/path/to/image.png&quot;</span><span class="p">,</span> <span class="s2">&quot;image/png&quot;</span><span class="p">)</span>
-</span></code></pre></div>
+<p><code>python
+ctx.go_to = render.as_file(ctx, "/path/to/image.png", "image/png")</code></p>
 <h3 id="6-renderas_blob">6. <code>render.as_blob()</code></h3>
 <p>Returns raw binary content such as images, audio, or PDF streams.</p>
 <p><strong>Use case:</strong> Useful when file content is stored in memory (e.g., in a database blob).</p>
 <p><strong>Function Signature:</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">render</span><span class="o">.</span><span class="n">as_blob</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">content_type</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">attachment</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span></code></pre></div></p>
+<code>python
+render.as_blob(ctx, data, content_type, filename=None, attachment=True)</code></p>
 <p><strong>Parameters:</strong></p>
 <ul>
 <li><code>data</code>: binary data (bytes) to return</li>
@@ -2154,15 +2155,15 @@
 <li><code>attachment</code> (bool): if <code>True</code>, forces download; if <code>False</code>, displays inline. Default is <code>True</code>.</li>
 </ul>
 <p><strong>Example:</strong></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">attachment</span> <span class="o">=</span> <span class="n">Attachment</span><span class="o">.</span><span class="n">findById</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
-</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="n">file_content</span> <span class="o">=</span> <span class="n">attachment</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">)</span>  <span class="c1"># Assuming content is stored as blob</span>
-</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_blob</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">file_content</span><span class="p">,</span> <span class="s2">&quot;application/pdf&quot;</span><span class="p">,</span> <span class="s2">&quot;preview.pdf&quot;</span><span class="p">,</span> <span class="n">attachment</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span></code></pre></div>
+<p><code>python
+attachment = Attachment.findById(123)
+file_content = attachment.get("content")  # Assuming content is stored as blob
+ctx.go_to = render.as_blob(ctx, file_content, "application/pdf", "preview.pdf", attachment=False)</code></p>
 <h3 id="7-renderas_pdf">7. <code>render.as_pdf()</code></h3>
 <p>Renders a Handlebars-based HTML template into a PDF document. Can be served inline or as a download. The PDF generation is handled by the Flying Saucer library, which converts well-formed XML (or XHTML) to PDF format.</p>
 <p><strong>Function Signature:</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">render</span><span class="o">.</span><span class="n">as_pdf</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">combine_map</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">attachment</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span></code></pre></div></p>
+<code>python
+render.as_pdf(ctx, view, group=None, code=None, filename=None, combine_map=None, attachment=False)</code></p>
 <p><strong>Parameters:</strong></p>
 <ul>
 <li><code>view</code>: the Handlebars view name (required)</li>

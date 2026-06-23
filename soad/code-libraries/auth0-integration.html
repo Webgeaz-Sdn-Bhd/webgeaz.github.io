@@ -1376,6 +1376,30 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-configure-via-environment-or-sufiaproperties-preferred-" class="md-nav__link">
+    <span class="md-ellipsis">
+      ---- Configure via environment or sufia.properties (preferred) ----
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      --------------------------------------------------------------------
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="--------------------------------------------------------------------">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
   <a href="#views" class="md-nav__link">
     <span class="md-ellipsis">
@@ -1755,6 +1779,30 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-configure-via-environment-or-sufiaproperties-preferred-" class="md-nav__link">
+    <span class="md-ellipsis">
+      ---- Configure via environment or sufia.properties (preferred) ----
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      --------------------------------------------------------------------
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="--------------------------------------------------------------------">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
   <a href="#views" class="md-nav__link">
     <span class="md-ellipsis">
@@ -1794,8 +1842,6 @@
 
 
 
-  <h1>Auth Integration</h1>
-
 <p>Below is a <strong>reference‑style</strong> recipe you can drop into the Cookbook for <strong>Auth integration using Auth0</strong>. It mirrors the Gmail OAuth recipe: <strong>Authorization Code + PKCE</strong>, Jetty <strong>HttpClient</strong> via a <strong>thread‑safe singleton</strong>, session storage for tokens, and a sample call to <strong>/userinfo</strong> (or any API with an Audience).</p>
 <hr />
 <h2 id="recipe-auth0-oauth-20-authorization-code-pkce">🔐 Recipe: Auth0 OAuth 2.0 (Authorization Code + PKCE)</h2>
@@ -1819,216 +1865,221 @@
 </ul>
 <hr />
 <h3 id="utility-shared-http_client_providerpy-singleton">🛠 Utility (shared): <code>http_client_provider.py</code> (singleton)</h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">org.eclipse.jetty.client</span><span class="w"> </span><span class="kn">import</span> <span class="n">HttpClient</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">org.eclipse.jetty.util.ssl</span><span class="w"> </span><span class="kn">import</span> <span class="n">SslContextFactory</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">java.util.concurrent.locks</span><span class="w"> </span><span class="kn">import</span> <span class="n">ReentrantLock</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">class</span><span class="w"> </span><span class="nc">HttpClientProvider</span><span class="p">:</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">_client</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">_lock</span> <span class="o">=</span> <span class="n">ReentrantLock</span><span class="p">()</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="nd">@classmethod</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_client</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_client</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>            <span class="bp">cls</span><span class="o">.</span><span class="n">_lock</span><span class="o">.</span><span class="n">lock</span><span class="p">()</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>            <span class="k">try</span><span class="p">:</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>                <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_client</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>                    <span class="n">ssl</span> <span class="o">=</span> <span class="n">SslContextFactory</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>                    <span class="n">client</span> <span class="o">=</span> <span class="n">HttpClient</span><span class="p">(</span><span class="n">ssl</span><span class="p">)</span>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>                    <span class="n">client</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>                    <span class="bp">cls</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">client</span>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>            <span class="k">finally</span><span class="p">:</span>
-</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>                <span class="bp">cls</span><span class="o">.</span><span class="n">_lock</span><span class="o">.</span><span class="n">unlock</span><span class="p">()</span>
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_client</span>
-</span></code></pre></div>
+<p>```python
+from org.eclipse.jetty.client import HttpClient
+from org.eclipse.jetty.util.ssl import SslContextFactory
+from java.util.concurrent.locks import ReentrantLock</p>
+<p>class HttpClientProvider:
+    _client = None
+    _lock = ReentrantLock()</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">@classmethod</span>
+<span class="n">def</span><span class="w"> </span><span class="n">get_client</span><span class="p">(</span><span class="n">cls</span><span class="p">)</span><span class="err">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">cls</span><span class="p">.</span><span class="n">_client</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">None</span><span class="err">:</span>
+<span class="w">        </span><span class="n">cls</span><span class="p">.</span><span class="n">_lock</span><span class="p">.</span><span class="n">lock</span><span class="p">()</span>
+<span class="w">        </span><span class="k">try</span><span class="err">:</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">cls</span><span class="p">.</span><span class="n">_client</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">None</span><span class="err">:</span>
+<span class="w">                </span><span class="n">ssl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SslContextFactory</span><span class="p">.</span><span class="n">Client</span><span class="p">()</span>
+<span class="w">                </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HttpClient</span><span class="p">(</span><span class="n">ssl</span><span class="p">)</span>
+<span class="w">                </span><span class="n">client</span><span class="p">.</span><span class="k">start</span><span class="p">()</span>
+<span class="w">                </span><span class="n">cls</span><span class="p">.</span><span class="n">_client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span>
+<span class="w">        </span><span class="nl">finally</span><span class="p">:</span>
+<span class="w">            </span><span class="n">cls</span><span class="p">.</span><span class="n">_lock</span><span class="p">.</span><span class="n">unlock</span><span class="p">()</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">cls</span><span class="p">.</span><span class="n">_client</span>
+</code></pre></div>
+
+<p>```</p>
 <hr />
 <h3 id="transaction-auth0py">🧩 Transaction: <code>auth0.py</code></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">Log</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">http_client_provider</span><span class="w"> </span><span class="kn">import</span> <span class="n">HttpClientProvider</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">java.util</span><span class="w"> </span><span class="kn">import</span> <span class="n">Base64</span><span class="p">,</span> <span class="n">UUID</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">java.net</span><span class="w"> </span><span class="kn">import</span> <span class="n">URLEncoder</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">java.nio.charset</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardCharsets</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">java.security</span><span class="w"> </span><span class="kn">import</span> <span class="n">SecureRandom</span><span class="p">,</span> <span class="n">MessageDigest</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="kn">from</span><span class="w"> </span><span class="nn">org.eclipse.jetty.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">HttpHeader</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="kn">from</span><span class="w"> </span><span class="nn">org.eclipse.jetty.client.util</span><span class="w"> </span><span class="kn">import</span> <span class="n">StringContentProvider</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="kn">from</span><span class="w"> </span><span class="nn">java.lang</span><span class="w"> </span><span class="kn">import</span> <span class="n">System</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="c1"># ---- Configure via environment or sufia.properties (preferred) ----</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="n">AUTH0_DOMAIN</span>  <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;AUTH0_DOMAIN&quot;</span><span class="p">)</span>  <span class="ow">or</span> <span class="s2">&quot;your-tenant.eu.auth0.com&quot;</span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="n">CLIENT_ID</span>     <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;AUTH0_CLIENT_ID&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;YOUR_CLIENT_ID&quot;</span>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="n">AUDIENCE</span>      <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;AUTH0_AUDIENCE&quot;</span><span class="p">)</span>  <span class="c1"># e.g., &quot;https://api.yourapp.com&quot; (optional)</span>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="n">SCOPES</span>        <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;AUTH0_SCOPES&quot;</span><span class="p">)</span>    <span class="ow">or</span> <span class="s2">&quot;openid profile email&quot;</span>
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="c1"># --------------------------------------------------------------------</span>
-</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>
-</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="n">AUTH_URL</span>  <span class="o">=</span> <span class="s2">&quot;https://</span><span class="si">%s</span><span class="s2">/authorize&quot;</span>   <span class="o">%</span> <span class="n">AUTH0_DOMAIN</span>
-</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="n">TOKEN_URL</span> <span class="o">=</span> <span class="s2">&quot;https://</span><span class="si">%s</span><span class="s2">/oauth/token&quot;</span> <span class="o">%</span> <span class="n">AUTH0_DOMAIN</span>
-</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="n">USERINFO</span>  <span class="o">=</span> <span class="s2">&quot;https://</span><span class="si">%s</span><span class="s2">/userinfo&quot;</span>    <span class="o">%</span> <span class="n">AUTH0_DOMAIN</span>
-</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>
-</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="k">class</span><span class="w"> </span><span class="nc">Auth0</span><span class="p">(</span><span class="n">Layout</span><span class="p">):</span>
-</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>
-</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>    <span class="c1"># ----- Helpers (PKCE, url encoding) -----</span>
-</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_base64url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bts</span><span class="p">):</span>
-</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>        <span class="k">return</span> <span class="n">Base64</span><span class="o">.</span><span class="n">getUrlEncoder</span><span class="p">()</span><span class="o">.</span><span class="n">withoutPadding</span><span class="p">()</span><span class="o">.</span><span class="n">encodeToString</span><span class="p">(</span><span class="n">bts</span><span class="p">)</span>
-</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>
-</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_random_bytes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">32</span><span class="p">):</span>
-</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>        <span class="n">rnd</span> <span class="o">=</span> <span class="n">SecureRandom</span><span class="p">()</span>
-</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>        <span class="n">buf</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>        <span class="n">rnd</span><span class="o">.</span><span class="n">nextBytes</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
-</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>        <span class="k">return</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
-</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>
-</span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_code_verifier</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base64url</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_random_bytes</span><span class="p">(</span><span class="mi">64</span><span class="p">))</span>
-</span><span id="__span-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>
-</span><span id="__span-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_code_challenge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verifier</span><span class="p">):</span>
-</span><span id="__span-1-40"><a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a>        <span class="n">digest</span> <span class="o">=</span> <span class="n">MessageDigest</span><span class="o">.</span><span class="n">getInstance</span><span class="p">(</span><span class="s2">&quot;SHA-256&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">digest</span><span class="p">(</span><span class="n">verifier</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;UTF-8&quot;</span><span class="p">))</span>
-</span><span id="__span-1-41"><a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base64url</span><span class="p">(</span><span class="n">digest</span><span class="p">)</span>
-</span><span id="__span-1-42"><a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a>
-</span><span id="__span-1-43"><a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_q</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
-</span><span id="__span-1-44"><a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a>        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">URLEncoder</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">StandardCharsets</span><span class="o">.</span><span class="n">UTF_8</span><span class="o">.</span><span class="n">name</span><span class="p">()))</span>
-</span><span id="__span-1-45"><a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a>
-</span><span id="__span-1-46"><a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a>    <span class="c1"># ----- Step 1: Redirect to Auth0 with PKCE -----</span>
-</span><span id="__span-1-47"><a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
-</span><span id="__span-1-48"><a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a>        <span class="n">session</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">getSession</span><span class="p">()</span>
-</span><span id="__span-1-49"><a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a>        <span class="n">verifier</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_code_verifier</span><span class="p">()</span>
-</span><span id="__span-1-50"><a id="__codelineno-1-50" name="__codelineno-1-50" href="#__codelineno-1-50"></a>        <span class="n">challenge</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_code_challenge</span><span class="p">(</span><span class="n">verifier</span><span class="p">)</span>
-</span><span id="__span-1-51"><a id="__codelineno-1-51" name="__codelineno-1-51" href="#__codelineno-1-51"></a>        <span class="n">state</span>     <span class="o">=</span> <span class="n">UUID</span><span class="o">.</span><span class="n">randomUUID</span><span class="p">()</span><span class="o">.</span><span class="n">toString</span><span class="p">()</span>
-</span><span id="__span-1-52"><a id="__codelineno-1-52" name="__codelineno-1-52" href="#__codelineno-1-52"></a>
-</span><span id="__span-1-53"><a id="__codelineno-1-53" name="__codelineno-1-53" href="#__codelineno-1-53"></a>        <span class="n">session</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s2">&quot;auth0_pkce_verifier&quot;</span><span class="p">,</span> <span class="n">verifier</span><span class="p">)</span>
-</span><span id="__span-1-54"><a id="__codelineno-1-54" name="__codelineno-1-54" href="#__codelineno-1-54"></a>        <span class="n">session</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s2">&quot;auth0_oauth_state&quot;</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
-</span><span id="__span-1-55"><a id="__codelineno-1-55" name="__codelineno-1-55" href="#__codelineno-1-55"></a>
-</span><span id="__span-1-56"><a id="__codelineno-1-56" name="__codelineno-1-56" href="#__codelineno-1-56"></a>        <span class="n">redirect_uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/t/auth/auth0/callback&quot;</span> <span class="o">%</span> <span class="n">ctx</span><span class="o">.</span><span class="n">ctxPath</span>
-</span><span id="__span-1-57"><a id="__codelineno-1-57" name="__codelineno-1-57" href="#__codelineno-1-57"></a>
-</span><span id="__span-1-58"><a id="__codelineno-1-58" name="__codelineno-1-58" href="#__codelineno-1-58"></a>        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="__span-1-59"><a id="__codelineno-1-59" name="__codelineno-1-59" href="#__codelineno-1-59"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;client_id&quot;</span><span class="p">,</span> <span class="n">CLIENT_ID</span><span class="p">),</span>
-</span><span id="__span-1-60"><a id="__codelineno-1-60" name="__codelineno-1-60" href="#__codelineno-1-60"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;redirect_uri&quot;</span><span class="p">,</span> <span class="n">redirect_uri</span><span class="p">),</span>
-</span><span id="__span-1-61"><a id="__codelineno-1-61" name="__codelineno-1-61" href="#__codelineno-1-61"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;response_type&quot;</span><span class="p">,</span> <span class="s2">&quot;code&quot;</span><span class="p">),</span>
-</span><span id="__span-1-62"><a id="__codelineno-1-62" name="__codelineno-1-62" href="#__codelineno-1-62"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;scope&quot;</span><span class="p">,</span> <span class="n">SCOPES</span><span class="p">),</span>
-</span><span id="__span-1-63"><a id="__codelineno-1-63" name="__codelineno-1-63" href="#__codelineno-1-63"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;state&quot;</span><span class="p">,</span> <span class="n">state</span><span class="p">),</span>
-</span><span id="__span-1-64"><a id="__codelineno-1-64" name="__codelineno-1-64" href="#__codelineno-1-64"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;code_challenge&quot;</span><span class="p">,</span> <span class="n">challenge</span><span class="p">),</span>
-</span><span id="__span-1-65"><a id="__codelineno-1-65" name="__codelineno-1-65" href="#__codelineno-1-65"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;code_challenge_method&quot;</span><span class="p">,</span> <span class="s2">&quot;S256&quot;</span><span class="p">)</span>
-</span><span id="__span-1-66"><a id="__codelineno-1-66" name="__codelineno-1-66" href="#__codelineno-1-66"></a>        <span class="p">]</span>
-</span><span id="__span-1-67"><a id="__codelineno-1-67" name="__codelineno-1-67" href="#__codelineno-1-67"></a>        <span class="k">if</span> <span class="n">AUDIENCE</span><span class="p">:</span>
-</span><span id="__span-1-68"><a id="__codelineno-1-68" name="__codelineno-1-68" href="#__codelineno-1-68"></a>            <span class="n">params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;audience&quot;</span><span class="p">,</span> <span class="n">AUDIENCE</span><span class="p">))</span>
-</span><span id="__span-1-69"><a id="__codelineno-1-69" name="__codelineno-1-69" href="#__codelineno-1-69"></a>
-</span><span id="__span-1-70"><a id="__codelineno-1-70" name="__codelineno-1-70" href="#__codelineno-1-70"></a>        <span class="n">auth_url</span> <span class="o">=</span> <span class="n">AUTH_URL</span> <span class="o">+</span> <span class="s2">&quot;?&quot;</span> <span class="o">+</span> <span class="s2">&quot;&amp;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
-</span><span id="__span-1-71"><a id="__codelineno-1-71" name="__codelineno-1-71" href="#__codelineno-1-71"></a>        <span class="n">ctx</span><span class="o">.</span><span class="n">redirect</span><span class="p">(</span><span class="n">auth_url</span><span class="p">)</span>
-</span><span id="__span-1-72"><a id="__codelineno-1-72" name="__codelineno-1-72" href="#__codelineno-1-72"></a>
-</span><span id="__span-1-73"><a id="__codelineno-1-73" name="__codelineno-1-73" href="#__codelineno-1-73"></a>    <span class="c1"># ----- Step 2: Callback &amp; code exchange -----</span>
-</span><span id="__span-1-74"><a id="__codelineno-1-74" name="__codelineno-1-74" href="#__codelineno-1-74"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
-</span><span id="__span-1-75"><a id="__codelineno-1-75" name="__codelineno-1-75" href="#__codelineno-1-75"></a>        <span class="n">req</span>     <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">getRequest</span><span class="p">()</span>
-</span><span id="__span-1-76"><a id="__codelineno-1-76" name="__codelineno-1-76" href="#__codelineno-1-76"></a>        <span class="n">session</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">getSession</span><span class="p">()</span>
-</span><span id="__span-1-77"><a id="__codelineno-1-77" name="__codelineno-1-77" href="#__codelineno-1-77"></a>
-</span><span id="__span-1-78"><a id="__codelineno-1-78" name="__codelineno-1-78" href="#__codelineno-1-78"></a>        <span class="n">code</span>  <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">getParameter</span><span class="p">(</span><span class="s2">&quot;code&quot;</span><span class="p">)</span>
-</span><span id="__span-1-79"><a id="__codelineno-1-79" name="__codelineno-1-79" href="#__codelineno-1-79"></a>        <span class="n">state</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">getParameter</span><span class="p">(</span><span class="s2">&quot;state&quot;</span><span class="p">)</span>
-</span><span id="__span-1-80"><a id="__codelineno-1-80" name="__codelineno-1-80" href="#__codelineno-1-80"></a>        <span class="n">err</span>   <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">getParameter</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">)</span>
-</span><span id="__span-1-81"><a id="__codelineno-1-81" name="__codelineno-1-81" href="#__codelineno-1-81"></a>
-</span><span id="__span-1-82"><a id="__codelineno-1-82" name="__codelineno-1-82" href="#__codelineno-1-82"></a>        <span class="k">if</span> <span class="n">err</span><span class="p">:</span>
-</span><span id="__span-1-83"><a id="__codelineno-1-83" name="__codelineno-1-83" href="#__codelineno-1-83"></a>            <span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Authorization error: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">err</span>
-</span><span id="__span-1-84"><a id="__codelineno-1-84" name="__codelineno-1-84" href="#__codelineno-1-84"></a>            <span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;auth_result&quot;</span><span class="p">)</span>
-</span><span id="__span-1-85"><a id="__codelineno-1-85" name="__codelineno-1-85" href="#__codelineno-1-85"></a>            <span class="k">return</span>
-</span><span id="__span-1-86"><a id="__codelineno-1-86" name="__codelineno-1-86" href="#__codelineno-1-86"></a>
-</span><span id="__span-1-87"><a id="__codelineno-1-87" name="__codelineno-1-87" href="#__codelineno-1-87"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">state</span> <span class="ow">or</span> <span class="n">state</span> <span class="o">!=</span> <span class="n">session</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s2">&quot;auth0_oauth_state&quot;</span><span class="p">):</span>
-</span><span id="__span-1-88"><a id="__codelineno-1-88" name="__codelineno-1-88" href="#__codelineno-1-88"></a>            <span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Invalid state&quot;</span>
-</span><span id="__span-1-89"><a id="__codelineno-1-89" name="__codelineno-1-89" href="#__codelineno-1-89"></a>            <span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;auth_result&quot;</span><span class="p">)</span>
-</span><span id="__span-1-90"><a id="__codelineno-1-90" name="__codelineno-1-90" href="#__codelineno-1-90"></a>            <span class="k">return</span>
-</span><span id="__span-1-91"><a id="__codelineno-1-91" name="__codelineno-1-91" href="#__codelineno-1-91"></a>
-</span><span id="__span-1-92"><a id="__codelineno-1-92" name="__codelineno-1-92" href="#__codelineno-1-92"></a>        <span class="n">verifier</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s2">&quot;auth0_pkce_verifier&quot;</span><span class="p">)</span>
-</span><span id="__span-1-93"><a id="__codelineno-1-93" name="__codelineno-1-93" href="#__codelineno-1-93"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">verifier</span><span class="p">:</span>
-</span><span id="__span-1-94"><a id="__codelineno-1-94" name="__codelineno-1-94" href="#__codelineno-1-94"></a>            <span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Missing PKCE verifier&quot;</span>
-</span><span id="__span-1-95"><a id="__codelineno-1-95" name="__codelineno-1-95" href="#__codelineno-1-95"></a>            <span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;auth_result&quot;</span><span class="p">)</span>
-</span><span id="__span-1-96"><a id="__codelineno-1-96" name="__codelineno-1-96" href="#__codelineno-1-96"></a>            <span class="k">return</span>
-</span><span id="__span-1-97"><a id="__codelineno-1-97" name="__codelineno-1-97" href="#__codelineno-1-97"></a>
-</span><span id="__span-1-98"><a id="__codelineno-1-98" name="__codelineno-1-98" href="#__codelineno-1-98"></a>        <span class="n">redirect_uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/t/auth/auth0/callback&quot;</span> <span class="o">%</span> <span class="n">ctx</span><span class="o">.</span><span class="n">ctxPath</span>
-</span><span id="__span-1-99"><a id="__codelineno-1-99" name="__codelineno-1-99" href="#__codelineno-1-99"></a>
-</span><span id="__span-1-100"><a id="__codelineno-1-100" name="__codelineno-1-100" href="#__codelineno-1-100"></a>        <span class="n">form</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="__span-1-101"><a id="__codelineno-1-101" name="__codelineno-1-101" href="#__codelineno-1-101"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;grant_type&quot;</span><span class="p">,</span> <span class="s2">&quot;authorization_code&quot;</span><span class="p">),</span>
-</span><span id="__span-1-102"><a id="__codelineno-1-102" name="__codelineno-1-102" href="#__codelineno-1-102"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;client_id&quot;</span><span class="p">,</span> <span class="n">CLIENT_ID</span><span class="p">),</span>
-</span><span id="__span-1-103"><a id="__codelineno-1-103" name="__codelineno-1-103" href="#__codelineno-1-103"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;code_verifier&quot;</span><span class="p">,</span> <span class="n">verifier</span><span class="p">),</span>
-</span><span id="__span-1-104"><a id="__codelineno-1-104" name="__codelineno-1-104" href="#__codelineno-1-104"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;code&quot;</span><span class="p">,</span> <span class="n">code</span><span class="p">),</span>
-</span><span id="__span-1-105"><a id="__codelineno-1-105" name="__codelineno-1-105" href="#__codelineno-1-105"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;redirect_uri&quot;</span><span class="p">,</span> <span class="n">redirect_uri</span><span class="p">)</span>
-</span><span id="__span-1-106"><a id="__codelineno-1-106" name="__codelineno-1-106" href="#__codelineno-1-106"></a>        <span class="p">]</span>
-</span><span id="__span-1-107"><a id="__codelineno-1-107" name="__codelineno-1-107" href="#__codelineno-1-107"></a>        <span class="n">body</span> <span class="o">=</span> <span class="s2">&quot;&amp;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
-</span><span id="__span-1-108"><a id="__codelineno-1-108" name="__codelineno-1-108" href="#__codelineno-1-108"></a>
-</span><span id="__span-1-109"><a id="__codelineno-1-109" name="__codelineno-1-109" href="#__codelineno-1-109"></a>        <span class="k">try</span><span class="p">:</span>
-</span><span id="__span-1-110"><a id="__codelineno-1-110" name="__codelineno-1-110" href="#__codelineno-1-110"></a>            <span class="n">client</span> <span class="o">=</span> <span class="n">HttpClientProvider</span><span class="o">.</span><span class="n">get_client</span><span class="p">()</span>
-</span><span id="__span-1-111"><a id="__codelineno-1-111" name="__codelineno-1-111" href="#__codelineno-1-111"></a>            <span class="n">reqx</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">POST</span><span class="p">(</span><span class="n">TOKEN_URL</span><span class="p">)</span>
-</span><span id="__span-1-112"><a id="__codelineno-1-112" name="__codelineno-1-112" href="#__codelineno-1-112"></a>            <span class="n">reqx</span><span class="o">.</span><span class="n">header</span><span class="p">(</span><span class="n">HttpHeader</span><span class="o">.</span><span class="n">CONTENT_TYPE</span><span class="p">,</span> <span class="s2">&quot;application/x-www-form-urlencoded&quot;</span><span class="p">)</span>
-</span><span id="__span-1-113"><a id="__codelineno-1-113" name="__codelineno-1-113" href="#__codelineno-1-113"></a>            <span class="n">reqx</span><span class="o">.</span><span class="n">content</span><span class="p">(</span><span class="n">StringContentProvider</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
-</span><span id="__span-1-114"><a id="__codelineno-1-114" name="__codelineno-1-114" href="#__codelineno-1-114"></a>
-</span><span id="__span-1-115"><a id="__codelineno-1-115" name="__codelineno-1-115" href="#__codelineno-1-115"></a>            <span class="n">res</span> <span class="o">=</span> <span class="n">reqx</span><span class="o">.</span><span class="n">send</span><span class="p">()</span>
-</span><span id="__span-1-116"><a id="__codelineno-1-116" name="__codelineno-1-116" href="#__codelineno-1-116"></a>            <span class="n">text</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">getContentAsString</span><span class="p">()</span>
-</span><span id="__span-1-117"><a id="__codelineno-1-117" name="__codelineno-1-117" href="#__codelineno-1-117"></a>
-</span><span id="__span-1-118"><a id="__codelineno-1-118" name="__codelineno-1-118" href="#__codelineno-1-118"></a>            <span class="n">tok</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-</span><span id="__span-1-119"><a id="__codelineno-1-119" name="__codelineno-1-119" href="#__codelineno-1-119"></a>            <span class="n">access_token</span>  <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;access_token&quot;</span><span class="p">)</span>
-</span><span id="__span-1-120"><a id="__codelineno-1-120" name="__codelineno-1-120" href="#__codelineno-1-120"></a>            <span class="n">refresh_token</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;refresh_token&quot;</span><span class="p">)</span>  <span class="c1"># returned only if enabled</span>
-</span><span id="__span-1-121"><a id="__codelineno-1-121" name="__codelineno-1-121" href="#__codelineno-1-121"></a>            <span class="n">id_token</span>      <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id_token&quot;</span><span class="p">)</span>
-</span><span id="__span-1-122"><a id="__codelineno-1-122" name="__codelineno-1-122" href="#__codelineno-1-122"></a>
-</span><span id="__span-1-123"><a id="__codelineno-1-123" name="__codelineno-1-123" href="#__codelineno-1-123"></a>            <span class="k">if</span> <span class="ow">not</span> <span class="n">access_token</span><span class="p">:</span>
-</span><span id="__span-1-124"><a id="__codelineno-1-124" name="__codelineno-1-124" href="#__codelineno-1-124"></a>                <span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Token exchange failed&quot;</span>
-</span><span id="__span-1-125"><a id="__codelineno-1-125" name="__codelineno-1-125" href="#__codelineno-1-125"></a>                <span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;response&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">text</span>
-</span><span id="__span-1-126"><a id="__codelineno-1-126" name="__codelineno-1-126" href="#__codelineno-1-126"></a>                <span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;auth_result&quot;</span><span class="p">)</span>
-</span><span id="__span-1-127"><a id="__codelineno-1-127" name="__codelineno-1-127" href="#__codelineno-1-127"></a>                <span class="k">return</span>
-</span><span id="__span-1-128"><a id="__codelineno-1-128" name="__codelineno-1-128" href="#__codelineno-1-128"></a>
-</span><span id="__span-1-129"><a id="__codelineno-1-129" name="__codelineno-1-129" href="#__codelineno-1-129"></a>            <span class="n">session</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s2">&quot;auth0_access_token&quot;</span><span class="p">,</span> <span class="n">access_token</span><span class="p">)</span>
-</span><span id="__span-1-130"><a id="__codelineno-1-130" name="__codelineno-1-130" href="#__codelineno-1-130"></a>            <span class="k">if</span> <span class="n">refresh_token</span><span class="p">:</span>
-</span><span id="__span-1-131"><a id="__codelineno-1-131" name="__codelineno-1-131" href="#__codelineno-1-131"></a>                <span class="n">session</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s2">&quot;auth0_refresh_token&quot;</span><span class="p">,</span> <span class="n">refresh_token</span><span class="p">)</span>
-</span><span id="__span-1-132"><a id="__codelineno-1-132" name="__codelineno-1-132" href="#__codelineno-1-132"></a>            <span class="k">if</span> <span class="n">id_token</span><span class="p">:</span>
-</span><span id="__span-1-133"><a id="__codelineno-1-133" name="__codelineno-1-133" href="#__codelineno-1-133"></a>                <span class="n">session</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s2">&quot;auth0_id_token&quot;</span><span class="p">,</span> <span class="n">id_token</span><span class="p">)</span>
-</span><span id="__span-1-134"><a id="__codelineno-1-134" name="__codelineno-1-134" href="#__codelineno-1-134"></a>
-</span><span id="__span-1-135"><a id="__codelineno-1-135" name="__codelineno-1-135" href="#__codelineno-1-135"></a>            <span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Auth0 login successful.&quot;</span>
-</span><span id="__span-1-136"><a id="__codelineno-1-136" name="__codelineno-1-136" href="#__codelineno-1-136"></a>            <span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;auth_result&quot;</span><span class="p">)</span>
-</span><span id="__span-1-137"><a id="__codelineno-1-137" name="__codelineno-1-137" href="#__codelineno-1-137"></a>
-</span><span id="__span-1-138"><a id="__codelineno-1-138" name="__codelineno-1-138" href="#__codelineno-1-138"></a>        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-</span><span id="__span-1-139"><a id="__codelineno-1-139" name="__codelineno-1-139" href="#__codelineno-1-139"></a>            <span class="n">Log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Auth0 token exchange error: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
-</span><span id="__span-1-140"><a id="__codelineno-1-140" name="__codelineno-1-140" href="#__codelineno-1-140"></a>            <span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Auth0 token exchange error.&quot;</span>
-</span><span id="__span-1-141"><a id="__codelineno-1-141" name="__codelineno-1-141" href="#__codelineno-1-141"></a>            <span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;auth_result&quot;</span><span class="p">)</span>
-</span><span id="__span-1-142"><a id="__codelineno-1-142" name="__codelineno-1-142" href="#__codelineno-1-142"></a>
-</span><span id="__span-1-143"><a id="__codelineno-1-143" name="__codelineno-1-143" href="#__codelineno-1-143"></a>    <span class="c1"># ----- Step 3: Call /userinfo (or your API) -----</span>
-</span><span id="__span-1-144"><a id="__codelineno-1-144" name="__codelineno-1-144" href="#__codelineno-1-144"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">userinfo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
-</span><span id="__span-1-145"><a id="__codelineno-1-145" name="__codelineno-1-145" href="#__codelineno-1-145"></a>        <span class="n">session</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">getSession</span><span class="p">()</span>
-</span><span id="__span-1-146"><a id="__codelineno-1-146" name="__codelineno-1-146" href="#__codelineno-1-146"></a>        <span class="n">token</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s2">&quot;auth0_access_token&quot;</span><span class="p">)</span>
-</span><span id="__span-1-147"><a id="__codelineno-1-147" name="__codelineno-1-147" href="#__codelineno-1-147"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span><span class="p">:</span>
-</span><span id="__span-1-148"><a id="__codelineno-1-148" name="__codelineno-1-148" href="#__codelineno-1-148"></a>            <span class="n">ctx</span><span class="o">.</span><span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/t/auth/auth0/login&quot;</span> <span class="o">%</span> <span class="n">ctx</span><span class="o">.</span><span class="n">ctxPath</span><span class="p">)</span>
-</span><span id="__span-1-149"><a id="__codelineno-1-149" name="__codelineno-1-149" href="#__codelineno-1-149"></a>            <span class="k">return</span>
-</span><span id="__span-1-150"><a id="__codelineno-1-150" name="__codelineno-1-150" href="#__codelineno-1-150"></a>
-</span><span id="__span-1-151"><a id="__codelineno-1-151" name="__codelineno-1-151" href="#__codelineno-1-151"></a>        <span class="k">try</span><span class="p">:</span>
-</span><span id="__span-1-152"><a id="__codelineno-1-152" name="__codelineno-1-152" href="#__codelineno-1-152"></a>            <span class="n">client</span> <span class="o">=</span> <span class="n">HttpClientProvider</span><span class="o">.</span><span class="n">get_client</span><span class="p">()</span>
-</span><span id="__span-1-153"><a id="__codelineno-1-153" name="__codelineno-1-153" href="#__codelineno-1-153"></a>            <span class="n">req</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">newRequest</span><span class="p">(</span><span class="n">USERINFO</span><span class="p">)</span>
-</span><span id="__span-1-154"><a id="__codelineno-1-154" name="__codelineno-1-154" href="#__codelineno-1-154"></a>            <span class="n">req</span><span class="o">.</span><span class="n">header</span><span class="p">(</span><span class="n">HttpHeader</span><span class="o">.</span><span class="n">AUTHORIZATION</span><span class="p">,</span> <span class="s2">&quot;Bearer </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">token</span><span class="p">)</span>
-</span><span id="__span-1-155"><a id="__codelineno-1-155" name="__codelineno-1-155" href="#__codelineno-1-155"></a>            <span class="n">res</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">send</span><span class="p">()</span>
-</span><span id="__span-1-156"><a id="__codelineno-1-156" name="__codelineno-1-156" href="#__codelineno-1-156"></a>
-</span><span id="__span-1-157"><a id="__codelineno-1-157" name="__codelineno-1-157" href="#__codelineno-1-157"></a>            <span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">getStatus</span><span class="p">()</span>
-</span><span id="__span-1-158"><a id="__codelineno-1-158" name="__codelineno-1-158" href="#__codelineno-1-158"></a>            <span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;result&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">getContentAsString</span><span class="p">()</span>
-</span><span id="__span-1-159"><a id="__codelineno-1-159" name="__codelineno-1-159" href="#__codelineno-1-159"></a>
-</span><span id="__span-1-160"><a id="__codelineno-1-160" name="__codelineno-1-160" href="#__codelineno-1-160"></a>        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-</span><span id="__span-1-161"><a id="__codelineno-1-161" name="__codelineno-1-161" href="#__codelineno-1-161"></a>            <span class="n">Log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Auth0 /userinfo call failed: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
-</span><span id="__span-1-162"><a id="__codelineno-1-162" name="__codelineno-1-162" href="#__codelineno-1-162"></a>            <span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Auth0 API call failed.&quot;</span>
-</span><span id="__span-1-163"><a id="__codelineno-1-163" name="__codelineno-1-163" href="#__codelineno-1-163"></a>
-</span><span id="__span-1-164"><a id="__codelineno-1-164" name="__codelineno-1-164" href="#__codelineno-1-164"></a>        <span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;auth0_result&quot;</span><span class="p">)</span>
-</span></code></pre></div>
+<p>```python
+from utils import render, Log
+from http_client_provider import HttpClientProvider</p>
+<p>from java.util import Base64, UUID
+from java.net import URLEncoder
+from java.nio.charset import StandardCharsets
+from java.security import SecureRandom, MessageDigest
+from org.eclipse.jetty.http import HttpHeader
+from org.eclipse.jetty.client.util import StringContentProvider
+from java.lang import System
+import json</p>
+<h1 id="-configure-via-environment-or-sufiaproperties-preferred-">---- Configure via environment or sufia.properties (preferred) ----</h1>
+<p>AUTH0_DOMAIN  = System.getenv("AUTH0_DOMAIN")  or "your-tenant.eu.auth0.com"
+CLIENT_ID     = System.getenv("AUTH0_CLIENT_ID") or "YOUR_CLIENT_ID"
+AUDIENCE      = System.getenv("AUTH0_AUDIENCE")  # e.g., "https://api.yourapp.com" (optional)
+SCOPES        = System.getenv("AUTH0_SCOPES")    or "openid profile email"</p>
+<h1 id="-">--------------------------------------------------------------------</h1>
+<p>AUTH_URL  = "https://%s/authorize"   % AUTH0_DOMAIN
+TOKEN_URL = "https://%s/oauth/token" % AUTH0_DOMAIN
+USERINFO  = "https://%s/userinfo"    % AUTH0_DOMAIN</p>
+<p>class Auth0(Layout):</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># ----- Helpers (PKCE, url encoding) -----</span>
+<span class="n">def</span><span class="w"> </span><span class="n">_base64url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">bts</span><span class="p">):</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Base64</span><span class="o">.</span><span class="n">getUrlEncoder</span><span class="p">()</span><span class="o">.</span><span class="n">withoutPadding</span><span class="p">()</span><span class="o">.</span><span class="n">encodeToString</span><span class="p">(</span><span class="n">bts</span><span class="p">)</span>
+
+<span class="n">def</span><span class="w"> </span><span class="n">_random_bytes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="o">=</span><span class="mi">32</span><span class="p">):</span>
+<span class="w">    </span><span class="n">rnd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SecureRandom</span><span class="p">()</span>
+<span class="w">    </span><span class="n">buf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bytearray</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="w">    </span><span class="n">rnd</span><span class="o">.</span><span class="n">nextBytes</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">bytes</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+
+<span class="n">def</span><span class="w"> </span><span class="n">_code_verifier</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">_base64url</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_random_bytes</span><span class="p">(</span><span class="mi">64</span><span class="p">))</span>
+
+<span class="n">def</span><span class="w"> </span><span class="n">_code_challenge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">verifier</span><span class="p">):</span>
+<span class="w">    </span><span class="n">digest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MessageDigest</span><span class="o">.</span><span class="n">getInstance</span><span class="p">(</span><span class="s2">&quot;SHA-256&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">digest</span><span class="p">(</span><span class="n">verifier</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;UTF-8&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">_base64url</span><span class="p">(</span><span class="n">digest</span><span class="p">)</span>
+
+<span class="n">def</span><span class="w"> </span><span class="n">_q</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">):</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">URLEncoder</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">StandardCharsets</span><span class="o">.</span><span class="n">UTF_8</span><span class="o">.</span><span class="n">name</span><span class="p">()))</span>
+
+<span class="c1"># ----- Step 1: Redirect to Auth0 with PKCE -----</span>
+<span class="n">def</span><span class="w"> </span><span class="n">login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">ctx</span><span class="p">):</span>
+<span class="w">    </span><span class="n">session</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">.</span><span class="n">getSession</span><span class="p">()</span>
+<span class="w">    </span><span class="n">verifier</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">_code_verifier</span><span class="p">()</span>
+<span class="w">    </span><span class="n">challenge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">_code_challenge</span><span class="p">(</span><span class="n">verifier</span><span class="p">)</span>
+<span class="w">    </span><span class="n">state</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">UUID</span><span class="o">.</span><span class="n">randomUUID</span><span class="p">()</span><span class="o">.</span><span class="n">toString</span><span class="p">()</span>
+
+<span class="w">    </span><span class="n">session</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s2">&quot;auth0_pkce_verifier&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">verifier</span><span class="p">)</span>
+<span class="w">    </span><span class="n">session</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s2">&quot;auth0_oauth_state&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">state</span><span class="p">)</span>
+
+<span class="w">    </span><span class="n">redirect_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/t/auth/auth0/callback&quot;</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">ctx</span><span class="o">.</span><span class="n">ctxPath</span>
+
+<span class="w">    </span><span class="n">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;client_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">CLIENT_ID</span><span class="p">),</span>
+<span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;redirect_uri&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">redirect_uri</span><span class="p">),</span>
+<span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;response_type&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;code&quot;</span><span class="p">),</span>
+<span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;scope&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">SCOPES</span><span class="p">),</span>
+<span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;state&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">state</span><span class="p">),</span>
+<span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;code_challenge&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">challenge</span><span class="p">),</span>
+<span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;code_challenge_method&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;S256&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">AUDIENCE</span><span class="p">:</span>
+<span class="w">        </span><span class="n">params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;audience&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">AUDIENCE</span><span class="p">))</span>
+
+<span class="w">    </span><span class="n">auth_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AUTH_URL</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;?&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;&amp;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+<span class="w">    </span><span class="n">ctx</span><span class="o">.</span><span class="n">redirect</span><span class="p">(</span><span class="n">auth_url</span><span class="p">)</span>
+
+<span class="c1"># ----- Step 2: Callback &amp; code exchange -----</span>
+<span class="n">def</span><span class="w"> </span><span class="n">callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">ctx</span><span class="p">):</span>
+<span class="w">    </span><span class="n">req</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">.</span><span class="n">getRequest</span><span class="p">()</span>
+<span class="w">    </span><span class="n">session</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">.</span><span class="n">getSession</span><span class="p">()</span>
+
+<span class="w">    </span><span class="n">code</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="o">.</span><span class="n">getParameter</span><span class="p">(</span><span class="s2">&quot;code&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="o">.</span><span class="n">getParameter</span><span class="p">(</span><span class="s2">&quot;state&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">err</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="o">.</span><span class="n">getParameter</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">)</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">err</span><span class="p">:</span>
+<span class="w">        </span><span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Authorization error: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">err</span>
+<span class="w">        </span><span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;auth_result&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">session</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s2">&quot;auth0_oauth_state&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Invalid state&quot;</span>
+<span class="w">        </span><span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;auth_result&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span>
+
+<span class="w">    </span><span class="n">verifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">session</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s2">&quot;auth0_pkce_verifier&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">verifier</span><span class="p">:</span>
+<span class="w">        </span><span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Missing PKCE verifier&quot;</span>
+<span class="w">        </span><span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;auth_result&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span>
+
+<span class="w">    </span><span class="n">redirect_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/t/auth/auth0/callback&quot;</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">ctx</span><span class="o">.</span><span class="n">ctxPath</span>
+
+<span class="w">    </span><span class="n">form</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;grant_type&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;authorization_code&quot;</span><span class="p">),</span>
+<span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;client_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">CLIENT_ID</span><span class="p">),</span>
+<span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;code_verifier&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">verifier</span><span class="p">),</span>
+<span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;code&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">code</span><span class="p">),</span>
+<span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">(</span><span class="s2">&quot;redirect_uri&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">redirect_uri</span><span class="p">)</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">    </span><span class="n">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&amp;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
+
+<span class="w">    </span><span class="n">try</span><span class="p">:</span>
+<span class="w">        </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HttpClientProvider</span><span class="o">.</span><span class="n">get_client</span><span class="p">()</span>
+<span class="w">        </span><span class="n">reqx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="o">.</span><span class="n">POST</span><span class="p">(</span><span class="n">TOKEN_URL</span><span class="p">)</span>
+<span class="w">        </span><span class="n">reqx</span><span class="o">.</span><span class="n">header</span><span class="p">(</span><span class="n">HttpHeader</span><span class="o">.</span><span class="n">CONTENT_TYPE</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;application/x-www-form-urlencoded&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">reqx</span><span class="o">.</span><span class="n">content</span><span class="p">(</span><span class="n">StringContentProvider</span><span class="p">(</span><span class="n">body</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+
+<span class="w">        </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reqx</span><span class="o">.</span><span class="n">send</span><span class="p">()</span>
+<span class="w">        </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res</span><span class="o">.</span><span class="n">getContentAsString</span><span class="p">()</span>
+
+<span class="w">        </span><span class="n">tok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="w">        </span><span class="n">access_token</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">tok</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;access_token&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">refresh_token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tok</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;refresh_token&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1"># returned only if enabled</span>
+<span class="w">        </span><span class="n">id_token</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="n">tok</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id_token&quot;</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">access_token</span><span class="p">:</span>
+<span class="w">            </span><span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Token exchange failed&quot;</span>
+<span class="w">            </span><span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;response&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">text</span>
+<span class="w">            </span><span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;auth_result&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="k">return</span>
+
+<span class="w">        </span><span class="n">session</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s2">&quot;auth0_access_token&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">access_token</span><span class="p">)</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">refresh_token</span><span class="p">:</span>
+<span class="w">            </span><span class="n">session</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s2">&quot;auth0_refresh_token&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">refresh_token</span><span class="p">)</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">id_token</span><span class="p">:</span>
+<span class="w">            </span><span class="n">session</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s2">&quot;auth0_id_token&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">id_token</span><span class="p">)</span>
+
+<span class="w">        </span><span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Auth0 login successful.&quot;</span>
+<span class="w">        </span><span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;auth_result&quot;</span><span class="p">)</span>
+
+<span class="w">    </span><span class="n">except</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">e</span><span class="p">:</span>
+<span class="w">        </span><span class="n">Log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Auth0 token exchange error: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+<span class="w">        </span><span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Auth0 token exchange error.&quot;</span>
+<span class="w">        </span><span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;auth_result&quot;</span><span class="p">)</span>
+
+<span class="c1"># ----- Step 3: Call /userinfo (or your API) -----</span>
+<span class="n">def</span><span class="w"> </span><span class="n">userinfo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">ctx</span><span class="p">):</span>
+<span class="w">    </span><span class="n">session</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">.</span><span class="n">getSession</span><span class="p">()</span>
+<span class="w">    </span><span class="n">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">session</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s2">&quot;auth0_access_token&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">token</span><span class="p">:</span>
+<span class="w">        </span><span class="n">ctx</span><span class="o">.</span><span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/t/auth/auth0/login&quot;</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">ctx</span><span class="o">.</span><span class="n">ctxPath</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span>
+
+<span class="w">    </span><span class="n">try</span><span class="p">:</span>
+<span class="w">        </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HttpClientProvider</span><span class="o">.</span><span class="n">get_client</span><span class="p">()</span>
+<span class="w">        </span><span class="n">req</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="o">.</span><span class="n">newRequest</span><span class="p">(</span><span class="n">USERINFO</span><span class="p">)</span>
+<span class="w">        </span><span class="n">req</span><span class="o">.</span><span class="n">header</span><span class="p">(</span><span class="n">HttpHeader</span><span class="o">.</span><span class="n">AUTHORIZATION</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Bearer </span><span class="si">%s</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">token</span><span class="p">)</span>
+<span class="w">        </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="o">.</span><span class="n">send</span><span class="p">()</span>
+
+<span class="w">        </span><span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res</span><span class="o">.</span><span class="n">getStatus</span><span class="p">()</span>
+<span class="w">        </span><span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;result&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res</span><span class="o">.</span><span class="n">getContentAsString</span><span class="p">()</span>
+
+<span class="w">    </span><span class="n">except</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">e</span><span class="p">:</span>
+<span class="w">        </span><span class="n">Log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Auth0 /userinfo call failed: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+<span class="w">        </span><span class="n">ctx</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Auth0 API call failed.&quot;</span>
+
+<span class="w">    </span><span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">render</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;auth0_result&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>```</p>
 <hr />
 <h3 id="views">📄 Views</h3>
 <p><strong><code>_auth0/auth_result.html</code></strong></p>
-<div class="language-html highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Auth0 Result<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>{{#if error}}
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;alert alert-danger&quot;</span><span class="p">&gt;</span>Error: {{error}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  {{#if response}}<span class="p">&lt;</span><span class="nt">pre</span><span class="p">&gt;</span>{{response}}<span class="p">&lt;/</span><span class="nt">pre</span><span class="p">&gt;</span>{{/if}}
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>{{else}}
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;alert alert-success&quot;</span><span class="p">&gt;</span>{{message}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ctxPath}}/t/auth/auth0/userinfo&quot;</span><span class="p">&gt;</span>View /userinfo<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>{{/if}}
-</span></code></pre></div>
+<p>```html</p>
+<h2>Auth0 Result</h2>
+<p>{{#if error}}
+<br />
+<div class="alert alert-danger">Error: {{error}}</div></p>
+<p>{{#if response}}<pre>{{response}}</pre>{{/if}}
+{{else}}
+<br />
+<div class="alert alert-success">{{message}}</div></p>
+<p><a href="{{ctxPath}}/t/auth/auth0/userinfo">View /userinfo</a></p>
+<p>{{/if}}
+```</p>
 <p><strong><code>_auth0/auth0_result.html</code></strong></p>
-<div class="language-html highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Auth0 /userinfo (Raw Response)<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>{{#if error}}
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;alert alert-danger&quot;</span><span class="p">&gt;</span>{{error}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>{{else}}
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;alert alert-success&quot;</span><span class="p">&gt;&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>Status:<span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span> {{status}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>  <span class="p">&lt;</span><span class="nt">pre</span><span class="p">&gt;</span>{{result}}<span class="p">&lt;/</span><span class="nt">pre</span><span class="p">&gt;</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>{{/if}}
-</span></code></pre></div>
+<p>```html</p>
+<h2>Auth0 /userinfo (Raw Response)</h2>
+<p>{{#if error}}
+<br />
+<div class="alert alert-danger">{{error}}</div></p>
+<p>{{else}}
+<br />
+<div class="alert alert-success"><strong>Status:</strong> {{status}}</div></p>
+<pre>{{result}}</pre>
+<p>{{/if}}
+```</p>
 <hr />
 <h3 id="notes-options">🔎 Notes &amp; Options</h3>
 <ul>

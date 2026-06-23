@@ -1715,24 +1715,26 @@
 <p>By default, when you use <code>render</code> to generate the response (e.g. <code>render.as_view()</code>, <code>render.as_json()</code>), the framework handles the HTTP response for you. It automatically sets status code <code>200</code>, assigns the correct content type (<code>text/html</code>, <code>application/json</code>, etc.), sets character encoding to UTF-8 and writes the output.</p>
 <p>However, if you need full control over the response—such as returning a different status code, setting custom headers, or streaming raw output—you can assign a function directly to <code>ctx.go_to</code>.</p>
 <h3 id="example-custom-header">Example: Custom Header</h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Export</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">image_viewer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        <span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;/path/to/image.jpg&quot;</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="k">def</span><span class="w"> </span><span class="nf">add_cache_header</span><span class="p">():</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>            <span class="n">response</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">getResponse</span><span class="p">()</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>            <span class="n">response</span><span class="o">.</span><span class="n">setStatus</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>  
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>            <span class="n">response</span><span class="o">.</span><span class="n">setContentType</span><span class="p">(</span><span class="s2">&quot;image/jpeg&quot;</span><span class="p">)</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>            <span class="c1"># set cache for 1 hour</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>            <span class="n">response</span><span class="o">.</span><span class="n">setHeader</span><span class="p">(</span><span class="s2">&quot;Cache-Control&quot;</span><span class="p">,</span> <span class="s2">&quot;public, max-age=3600&quot;</span><span class="p">)</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>            <span class="c1"># write the file to the response output stream</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>                <span class="n">output_stream</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">getOutputStream</span><span class="p">()</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>                <span class="n">output_stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>                <span class="n">output_stream</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>            <span class="k">return</span> <span class="kc">None</span>  <span class="c1"># No further processing needed</span>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        <span class="n">ctx</span><span class="o">.</span><span class="n">go_to</span> <span class="o">=</span> <span class="n">add_cache_header</span>
-</span></code></pre></div>
+<p>```python
+class Export(object):
+    def image_viewer(self, ctx):
+        file_path = "/path/to/image.jpg"
+        def add_cache_header():
+            response = ctx.getResponse()
+            response.setStatus(200)<br />
+            response.setContentType("image/jpeg")
+            # set cache for 1 hour
+            response.setHeader("Cache-Control", "public, max-age=3600")
+            # write the file to the response output stream
+            with open(file_path, "rb") as file:
+                output_stream = response.getOutputStream()
+                output_stream.write(file.read())
+                output_stream.flush()
+            return None  # No further processing needed</p>
+<div class="codehilite"><pre><span></span><code>    ctx.go_to = add_cache_header
+</code></pre></div>
+
+<p>```</p>
 <p>This method bypasses <code>render</code> and uses the raw <code>HttpServletResponse</code> object. You can stream files, return binary data, or generate server-push content by writing directly to the output stream.</p>
 
 

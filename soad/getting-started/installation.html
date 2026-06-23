@@ -1123,84 +1123,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#install-jvmjdk-11-for-windows" class="md-nav__link">
-    <span class="md-ellipsis">
-      Install JVM/JDK 11 for Windows
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#install-and-setup-mysql-for-windows" class="md-nav__link">
-    <span class="md-ellipsis">
-      Install and setup MySQL for Windows
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#setup-and-configure-sad-for-windows" class="md-nav__link">
-    <span class="md-ellipsis">
-      Setup and configure SØAD for Windows
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#setup-web-server-as-proxy-to-sad-server" class="md-nav__link">
-    <span class="md-ellipsis">
-      Setup web server as proxy to SØAD server
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#container" class="md-nav__link">
-    <span class="md-ellipsis">
-      Container
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Container">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pulling-the-sad-docker-image" class="md-nav__link">
-    <span class="md-ellipsis">
-      Pulling the SØAD Docker Image
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#running-sad-in-a-container" class="md-nav__link">
-    <span class="md-ellipsis">
-      Running SØAD in a Container
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#accessing-the-sad-application" class="md-nav__link">
-    <span class="md-ellipsis">
-      Accessing the SØAD Application
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1839,84 +1761,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#install-jvmjdk-11-for-windows" class="md-nav__link">
-    <span class="md-ellipsis">
-      Install JVM/JDK 11 for Windows
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#install-and-setup-mysql-for-windows" class="md-nav__link">
-    <span class="md-ellipsis">
-      Install and setup MySQL for Windows
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#setup-and-configure-sad-for-windows" class="md-nav__link">
-    <span class="md-ellipsis">
-      Setup and configure SØAD for Windows
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#setup-web-server-as-proxy-to-sad-server" class="md-nav__link">
-    <span class="md-ellipsis">
-      Setup web server as proxy to SØAD server
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#container" class="md-nav__link">
-    <span class="md-ellipsis">
-      Container
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Container">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pulling-the-sad-docker-image" class="md-nav__link">
-    <span class="md-ellipsis">
-      Pulling the SØAD Docker Image
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#running-sad-in-a-container" class="md-nav__link">
-    <span class="md-ellipsis">
-      Running SØAD in a Container
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#accessing-the-sad-application" class="md-nav__link">
-    <span class="md-ellipsis">
-      Accessing the SØAD Application
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1955,61 +1799,51 @@
 <ol>
 <li>
 <p>Update package index:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sudo apt update
-</span></code></pre></div>
+<p><code>sudo apt update</code></p>
 </li>
 <li>
 <p>Install JDK 11</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo apt install openjdk-11-jdk
-</span></code></pre></div>
+<p><code>sudo apt install openjdk-11-jdk</code></p>
 </li>
 <li>
 <p>Verify Installation:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>java -version
-</span></code></pre></div>
+<p><code>java -version</code></p>
 </li>
 </ol>
 <h4 id="install-and-setup-mysql">Install and setup MySQL</h4>
 <ol>
 <li>Get MySQL repository configuration package
-    <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>wget https://dev.mysql.com/get/mysql-apt-config_0.8.12-1_all.deb
-</span></code></pre></div></li>
+    <code>wget https://dev.mysql.com/get/mysql-apt-config_0.8.12-1_all.deb</code></li>
 <li>Install MySQL repository configuration package
-    <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sudo dpkg -i mysql-apt-config_0.8.12-1_all.deb
-</span></code></pre></div></li>
+    <code>sudo dpkg -i mysql-apt-config_0.8.12-1_all.deb</code></li>
 <li>Fetches a public GPG key
-    <div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B7B3B788A8D3785C
-</span></code></pre></div></li>
+    <code>sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B7B3B788A8D3785C</code></li>
 <li>Update package list
-    <div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sudo apt-get update
-</span></code></pre></div></li>
+    <code>sudo apt-get update</code></li>
 <li>Install MySQL
-    <div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>sudo apt install -f mysql-client=5.7* mysql-community-server=5.7* mysql-server=5.7*
-</span></code></pre></div></li>
+    <code>sudo apt install -f mysql-client=5.7* mysql-community-server=5.7* mysql-server=5.7*</code></li>
 <li>For setting MySQL run:
-    <div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>sudo mysql_secure_installation
-</span></code></pre></div></li>
+    <code>sudo mysql_secure_installation</code></li>
 <li>Verify MySQL is installed
-    <div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>mysql -u root -p
-</span></code></pre></div></li>
+    <code>mysql -u root -p</code></li>
 <li>Create database for SØAD IDE (soadmin) and default application:<ul>
 <li>Database <code>soadmin</code>:
-    <div class="language-mysql highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">soadmin</span><span class="w"> </span><span class="k">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">utf8mb4</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="n">utf8mb4_unicode_ci</span><span class="p">;</span>
-</span></code></pre></div></li>
+    <code>mysql
+    CREATE DATABASE soadmin CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;</code></li>
 <li>Database <code>app</code> (replace with the name of application):
-    <div class="language-mysql highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">app</span><span class="w"> </span><span class="k">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">utf8mb4</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="n">utf8mb4_unicode_ci</span><span class="p">;</span>
-</span></code></pre></div></li>
+    <code>mysql
+    CREATE DATABASE app CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;</code></li>
 </ul>
 </li>
 <li>
 <p>Create two users:</p>
 <ul>
 <li>User <code>soadmin_user</code>:
-    <div class="language-mysql highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;soadmin_user&#39;</span><span class="nv">@&#39;localhost&#39;</span><span class="w"> </span><span class="k">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;&lt;password&gt;&#39;</span><span class="p">;</span>
-</span></code></pre></div></li>
+    <code>mysql
+    CREATE USER 'soadmin_user'@'localhost' IDENTIFIED BY '&lt;password&gt;';</code></li>
 <li>User <code>app_user</code> (replace with the name of application):
-    <div class="language-mysql highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;app_user&#39;</span><span class="nv">@&#39;localhost&#39;</span><span class="w"> </span><span class="k">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;&lt;password&gt;&#39;</span><span class="p">;</span>
-</span></code></pre></div></li>
+    <code>mysql
+    CREATE USER 'app_user'@'localhost' IDENTIFIED BY '&lt;password&gt;';</code></li>
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -2028,45 +1862,47 @@ FLUSH PRIVILEGES;
 </li>
 <li>
 <p>Create the tables for database soadmin using script file provided.
-    <div class="language-sh highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>soadmin<span class="w"> </span>&lt;<span class="w"> </span>soadmin-db.sql
-</span></code></pre></div></p>
+    <code>sh
+    mysql -u root -p soadmin &lt; soadmin-db.sql</code></p>
 </li>
 </ol>
 <h4 id="setup-and-configure-sad">Setup and configure SØAD</h4>
 <ol>
 <li>Install zip utility if not already installed:
-    <div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>sudo apt install zip
-</span></code></pre></div></li>
+    <code>sudo apt install zip</code></li>
 <li>Unpack (unzip) SØAD standalone package in your preferred location. The location of SØAD package will need to be set as <code>SUFIA_HOME</code> later.:
-    <div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>unzip sufia.app.zip
-</span></code></pre></div></li>
-<li>Set database credential:<ol>
+    <code>unzip sufia.app.zip</code></li>
+<li>
+<p>Set database credential:</p>
+<ol>
 <li>Open <code>sufia.app\web\WEB-INF\classes\sufia.properties</code> file using editor.</li>
-<li>Change the username and password accordingly:
-    <div class="language-yaml highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="l l-Scalar l-Scalar-Plain">db.default.url = jdbc:mysql://127.0.0.1:3306/app?autoReconnect=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true</span>
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="l l-Scalar l-Scalar-Plain">db.default.driver_class = com.mysql.cj.jdbc.Driver</span>
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="hll"><span class="l l-Scalar l-Scalar-Plain">db.default.username = app_user</span>
-</span></span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="hll"><span class="l l-Scalar l-Scalar-Plain">db.default.password = &lt;password&gt;</span>
-</span></span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>
-</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="l l-Scalar l-Scalar-Plain">#this is for SØAD IDE</span>
-</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="l l-Scalar l-Scalar-Plain">db.s0adm.url = jdbc:mysql://127.0.0.1:3306/soadmin?autoReconnect=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true</span>
-</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="l l-Scalar l-Scalar-Plain">db.s0adm.driver_class = com.mysql.cj.jdbc.Driver</span>
-</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="hll"><span class="l l-Scalar l-Scalar-Plain">db.s0adm.username = soadmin_user</span>
-</span></span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="hll"><span class="l l-Scalar l-Scalar-Plain">db.s0adm.password = &lt;password&gt;</span>
-</span></span></code></pre></div></li>
+<li>
+<p>Change the username and password accordingly:
+    ```yaml hl_lines="3 4 9 10"
+    db.default.url = jdbc:mysql://127.0.0.1:3306/app?autoReconnect=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true
+    db.default.driver_class = com.mysql.cj.jdbc.Driver
+    db.default.username = app_user
+    db.default.password = <password></p>
+<h1 id="this-is-for-sad-ide">this is for SØAD IDE</h1>
+<p>db.s0adm.url = jdbc:mysql://127.0.0.1:3306/soadmin?autoReconnect=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true
+db.s0adm.driver_class = com.mysql.cj.jdbc.Driver
+db.s0adm.username = soadmin_user
+db.s0adm.password = <password>
+```</p>
+</li>
 </ol>
 </li>
-<li>Update <code>sufia.app\startup.sh</code> file for <code>SUFIA_HOME</code> location:
-    <div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>set SUFIA_HOME=/home/ubuntu/sufia.app
-</span></code></pre></div></li>
+<li>
+<p>Update <code>sufia.app\startup.sh</code> file for <code>SUFIA_HOME</code> location:
+    <code>set SUFIA_HOME=/home/ubuntu/sufia.app</code></p>
+</li>
 <li>
 <p>Test run SØAD:</p>
 <ul>
 <li>
 <p>Go to /home/ubuntu/sufia.app directory and run:
-    <div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>chmod +x *.sh
-</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>./startup.sh
-</span></code></pre></div>
+    <code>chmod +x *.sh
+    ./startup.sh</code>
     If everything goes well, you should see a console.log file created in the home folder. Check the log file and make sure the server is running successfully without any error.</p>
 <p>Now the server is running on default port (8080), go to your browser and open: http://localhost:8080. You should see the default SØAD home page</p>
 <p><figure markdown="span">
@@ -2079,18 +1915,14 @@ FLUSH PRIVILEGES;
 <li>
 <p>Install SØAD as a service</p>
 <p>Copy the <code>sufia.service</code> file to <code>/etc/systemd/system/</code> directory:
-<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>sudo cp sufia.service /etc/systemd/system/
-</span></code></pre></div>
+<code>sudo cp sufia.service /etc/systemd/system/</code>
 Then enable and start the service:
-<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>sudo systemctl enable sufia.service
-</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>sudo systemctl start sufia.service
-</span></code></pre></div>
+<code>sudo systemctl enable sufia.service
+sudo systemctl start sufia.service</code>
 You can check the status of the service using:
-<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>sudo systemctl status sufia.service
-</span></code></pre></div>
+<code>sudo systemctl status sufia.service</code>
 You can also view the logs for the service using:
-<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>journalctl -u sufia.service
-</span></code></pre></div></p>
+<code>journalctl -u sufia.service</code></p>
 </li>
 <li>
 <p>Update License Information</p>
@@ -2108,8 +1940,8 @@ You can also view the logs for the service using:
 <ol>
 <li>
 <p>Before installing JDK 11, check if JDK is already installed on your system by running the following command:</p>
-<div class="language-sh highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>java<span class="w"> </span>-version
-</span></code></pre></div>
+<p><code>sh
+java -version</code></p>
 <p>If the command outputs a version number, JDK is already installed, and you can skip JVM installation step.</p>
 </li>
 <li>
@@ -2125,11 +1957,11 @@ and run the installer to complete the installation process. </p>
 <p>Verify Installation:</p>
 <ul>
 <li>Open Command Prompt and run:
-<div class="language-sh highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>java<span class="w"> </span>-version
-</span></code></pre></div></li>
+<code>sh
+java -version</code></li>
 <li>Expected output:
-<div class="language-sh no-copy highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>java<span class="w"> </span>version<span class="w"> </span><span class="s2">&quot;11.0.x&quot;</span><span class="w"> </span>202x-xx-xx<span class="w"> </span>LTS
-</span></code></pre></div></li>
+<code>{ .sh .no-copy}
+java version "11.0.x" 202x-xx-xx LTS</code></li>
 </ul>
 </li>
 </ol>
@@ -2157,29 +1989,29 @@ and run the installer to complete the installation process. </p>
 <p>Verify Installation:</p>
 <ol>
 <li>Open Command Prompt and run:
-    <div class="language-sh highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
-</span></code></pre></div></li>
+    <code>sh
+    mysql -u root -p</code></li>
 <li>Enter the password to access MySQL.</li>
 </ol>
 </li>
 <li>Create database soadmin and application:<ul>
 <li>Database <code>soadmin</code>:
-    <div class="language-mysql highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">soadmin</span><span class="w"> </span><span class="k">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">utf8mb4</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="n">utf8mb4_unicode_ci</span><span class="p">;</span>
-</span></code></pre></div></li>
+    <code>mysql
+    CREATE DATABASE soadmin CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;</code></li>
 <li>Database <code>app</code> (replace with the name of application):
-    <div class="language-mysql highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">app</span><span class="w"> </span><span class="k">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">utf8mb4</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="n">utf8mb4_unicode_ci</span><span class="p">;</span>
-</span></code></pre></div></li>
+    <code>mysql
+    CREATE DATABASE app CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;</code></li>
 </ul>
 </li>
 <li>
 <p>Create two user soadmin and application:</p>
 <ul>
 <li>User <code>soadmin_user</code>:
-    <div class="language-mysql highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;soadmin_user&#39;</span><span class="nv">@&#39;localhost&#39;</span><span class="w"> </span><span class="k">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;&lt;password&gt;&#39;</span><span class="p">;</span>
-</span></code></pre></div></li>
+    <code>mysql
+    CREATE USER 'soadmin_user'@'localhost' IDENTIFIED BY '&lt;password&gt;';</code></li>
 <li>User <code>app_user</code> (replace with the name of application):
-    <div class="language-mysql highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;app_user&#39;</span><span class="nv">@&#39;localhost&#39;</span><span class="w"> </span><span class="k">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;&lt;password&gt;&#39;</span><span class="p">;</span>
-</span></code></pre></div></li>
+    <code>mysql
+    CREATE USER 'app_user'@'localhost' IDENTIFIED BY '&lt;password&gt;';</code></li>
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -2190,15 +2022,15 @@ and run the installer to complete the installation process. </p>
 <p>Grant privileges on a database:</p>
 <ol>
 <li>Grant privileges to these databases using previously created user.
-    <div class="language-mysql highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">soadmin</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;soadmin_user&#39;</span><span class="nv">@&#39;localhost&#39;</span><span class="p">;</span>
-</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">app</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;app_user&#39;</span><span class="nv">@&#39;localhost&#39;</span><span class="p">;</span>
-</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="k">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
-</span></code></pre></div></li>
+    <code>mysql
+    GRANT ALL PRIVILEGES ON soadmin.* TO 'soadmin_user'@'localhost';
+    GRANT ALL PRIVILEGES ON app.* TO 'app_user'@'localhost';
+    FLUSH PRIVILEGES;</code></li>
 </ol>
 </li>
 <li>Create the tables for database soadmin using script file provided.
-    <div class="language-sh highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>soadmin<span class="w"> </span>&lt;<span class="w"> </span>soadmin-db.sql
-</span></code></pre></div></li>
+    <code>sh
+    mysql -u root -p soadmin &lt; soadmin-db.sql</code></li>
 </ol>
 <h4 id="setup-and-configure-sad-for-windows">Setup and configure SØAD for Windows</h4>
 <ol>
@@ -2207,32 +2039,36 @@ and run the installer to complete the installation process. </p>
 <li>Right-click on the downloaded <code>sufia.app.zip</code> file and select "Extract Here" or "Extract to sufia.app\".</li>
 </ul>
 </li>
-<li>Set database credential for SØAD:<ol>
+<li>
+<p>Set database credential for SØAD:</p>
+<ol>
 <li>Open <code>sufia.app\web\WEB-INF\classes\sufia.properties</code> file using editor.</li>
-<li>Change the username and password accordingly:
-    <div class="language-yaml highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="l l-Scalar l-Scalar-Plain">db.default.url = jdbc:mysql://127.0.0.1:3306/app?autoReconnect=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true</span>
-</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="l l-Scalar l-Scalar-Plain">db.default.driver_class = com.mysql.cj.jdbc.Driver</span>
-</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="hll"><span class="l l-Scalar l-Scalar-Plain">db.default.username = app_user</span>
-</span></span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="hll"><span class="l l-Scalar l-Scalar-Plain">db.default.password = &lt;password&gt;</span>
-</span></span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>
-</span><span id="__span-35-6"><a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a><span class="l l-Scalar l-Scalar-Plain">#this is for SØAD IDE</span>
-</span><span id="__span-35-7"><a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a><span class="l l-Scalar l-Scalar-Plain">db.s0adm.url = jdbc:mysql://127.0.0.1:3306/soadmin?autoReconnect=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true</span>
-</span><span id="__span-35-8"><a id="__codelineno-35-8" name="__codelineno-35-8" href="#__codelineno-35-8"></a><span class="l l-Scalar l-Scalar-Plain">db.s0adm.driver_class = com.mysql.cj.jdbc.Driver</span>
-</span><span id="__span-35-9"><a id="__codelineno-35-9" name="__codelineno-35-9" href="#__codelineno-35-9"></a><span class="hll"><span class="l l-Scalar l-Scalar-Plain">db.s0adm.username = soadmin_user</span>
-</span></span><span id="__span-35-10"><a id="__codelineno-35-10" name="__codelineno-35-10" href="#__codelineno-35-10"></a><span class="hll"><span class="l l-Scalar l-Scalar-Plain">db.s0adm.password = &lt;password&gt;</span>
-</span></span></code></pre></div></li>
+<li>
+<p>Change the username and password accordingly:
+    ```yaml hl_lines="3 4 9 10"
+    db.default.url = jdbc:mysql://127.0.0.1:3306/app?autoReconnect=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true
+    db.default.driver_class = com.mysql.cj.jdbc.Driver
+    db.default.username = app_user
+    db.default.password = <password></p>
+<h1 id="this-is-for-sad-ide_1">this is for SØAD IDE</h1>
+<p>db.s0adm.url = jdbc:mysql://127.0.0.1:3306/soadmin?autoReconnect=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true
+db.s0adm.driver_class = com.mysql.cj.jdbc.Driver
+db.s0adm.username = soadmin_user
+db.s0adm.password = <password>
+```</p>
+</li>
 </ol>
 </li>
-<li>Update <code>sufia.app\startup.cmd</code> file for <code>SUFIA_HOME</code> location:
-    <div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>set SUFIA_HOME=D:\sufia.app
-</span></code></pre></div></li>
+<li>
+<p>Update <code>sufia.app\startup.cmd</code> file for <code>SUFIA_HOME</code> location:
+    <code>set SUFIA_HOME=D:\sufia.app</code></p>
+</li>
 <li>
 <p>Test run SØAD:</p>
 <ul>
 <li>
 <p>Launch Command Prompt in the D:\sufia.app directory and run:
-    <div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>.\startup.cmd
-</span></code></pre></div>
+    <code>.\startup.cmd</code>
     If everything goes well, you should see a console.log file created in the home folder. Check the log file and make sure the server is running successfully without any error.</p>
 <p>Now the server is running on default port (8080), go to your browser and open: http://localhost:8080. You should see the default SØAD home page</p>
 <p><figure markdown="span">
@@ -2278,31 +2114,31 @@ Refer to these excellent articles:</p>
 </ul>
 <h4 id="pulling-the-sad-docker-image">Pulling the SØAD Docker Image</h4>
 <p>To pull the SØAD Docker image, run the following command:</p>
-<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>registry.gitlab.com/pakcusoft/soad-cloud
-</span></code></pre></div>
+<p><code>bash
+docker pull registry.gitlab.com/pakcusoft/soad-cloud</code>
 This command will download the latest SØAD image from the GitLab registry.</p>
 <h4 id="running-sad-in-a-container">Running SØAD in a Container</h4>
 <p>Before running the container, ensure that you have a MySQL database set up and accessible. You will need to create a database named <code>soadmin</code> and another for your application (e.g., <code>app</code>), along with the necessary users and permissions as described in the standalone installation section.</p>
 <p>To setup the configuration for the SØAD container, you can create a <code>sufia.properties</code> file with the following content:</p>
-<div class="language-properties highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="na">db.default.url</span><span class="o">=</span><span class="s">jdbc:mysql://&lt;mysql_host&gt;:3306/app?autoReconnect=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true</span>
-</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="na">db.default.driver_class</span><span class="o">=</span><span class="s">com.mysql.cj.jdbc.Driver</span>
-</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="na">db.default.username</span><span class="o">=</span><span class="s">app_user</span>
-</span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="na">db.default.password</span><span class="o">=</span><span class="s">&lt;app_password&gt;</span>
-</span><span id="__span-39-5"><a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a>
-</span><span id="__span-39-6"><a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a><span class="na">db.s0adm.url</span><span class="o">=</span><span class="s">jdbc:mysql://&lt;mysql_host&gt;:3306/soadmin?autoReconnect=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true</span>
-</span><span id="__span-39-7"><a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a><span class="na">db.s0adm.driver_class</span><span class="o">=</span><span class="s">com.mysql.cj.jdbc.Driver</span>
-</span><span id="__span-39-8"><a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a><span class="na">db.s0adm.username</span><span class="o">=</span><span class="s">soadmin_user</span>
-</span><span id="__span-39-9"><a id="__codelineno-39-9" name="__codelineno-39-9" href="#__codelineno-39-9"></a><span class="na">db.s0adm.password</span><span class="o">=</span><span class="s">&lt;soadmin_password&gt;</span>
-</span></code></pre></div>
+<p>```properties
+db.default.url=jdbc:mysql://<mysql_host>:3306/app?autoReconnect=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true
+db.default.driver_class=com.mysql.cj.jdbc.Driver
+db.default.username=app_user
+db.default.password=<app_password></p>
+<p>db.s0adm.url=jdbc:mysql://<mysql_host>:3306/soadmin?autoReconnect=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true
+db.s0adm.driver_class=com.mysql.cj.jdbc.Driver
+db.s0adm.username=soadmin_user
+db.s0adm.password=<soadmin_password>
+```</p>
 <p>Replace <code>&lt;mysql_host&gt;</code>, <code>&lt;app_password&gt;</code>, and <code>&lt;soadmin_password&gt;</code> with your actual MySQL host and credentials.
 You can mount this configuration file into the container when you run it.
 To run the SØAD container with the configuration file, use the following command:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="w">    </span>--name<span class="w"> </span>sufia<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="w">    </span>-v<span class="w"> </span>/path/to/sufia.properties:/app/conf/sufia.properties<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="w">    </span>-v<span class="w"> </span>/path/to/local/webapp:/app/webapp<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-40-5"><a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="w">    </span>registry.gitlab.com/pakcusoft/soad-cloud
-</span></code></pre></div>
+<p><code>bash
+docker run -d -p 8080:8080 \
+    --name sufia \
+    -v /path/to/sufia.properties:/app/conf/sufia.properties \
+    -v /path/to/local/webapp:/app/webapp \
+    registry.gitlab.com/pakcusoft/soad-cloud</code></p>
 <p>Replace <code>/path/to/sufia.properties</code> with the actual path to your <code>sufia.properties</code> file and <code>/path/to/local/webapp</code> with the path to your local web application folder on your host machine. This command will run the SØAD container in detached mode, mapping port 8080 of the container to port 8080 on your host machine, mounting the configuration file, and mounting the local web application folder into the container.</p>
 <h4 id="accessing-the-sad-application">Accessing the SØAD Application</h4>
 <p>Once the container is running, you can access the SØAD application by navigating to <code>http://localhost:8080</code> in your web browser. You should see the SØAD IDE Login Page.</p>

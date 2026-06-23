@@ -2312,34 +2312,34 @@
 </span></code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
-<div class="language-sql highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="p">(</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="n">email</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">150</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="n">department</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="n">phone</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="n">created_at</span><span class="w"> </span><span class="k">timestamp</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="k">UNIQUE</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">email</span><span class="w"> </span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">);</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="n">department</span><span class="p">,</span><span class="w"> </span><span class="n">phone</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="p">(</span><span class="s1">&#39;Alice Johnson&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;alice.johnson@company.com&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Engineering&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;+1-555-0101&#39;</span><span class="p">),</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="p">(</span><span class="s1">&#39;Bob Smith&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;bob.smith@company.com&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Marketing&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;+1-555-0102&#39;</span><span class="p">),</span>
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="p">(</span><span class="s1">&#39;Carol Davis&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;carol.davis@company.com&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Engineering&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;+1-555-0103&#39;</span><span class="p">),</span>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="p">(</span><span class="s1">&#39;David Wilson&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;david.wilson@company.com&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Sales&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;+1-555-0104&#39;</span><span class="p">),</span>
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="p">(</span><span class="s1">&#39;Eva Brown&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;eva.brown@company.com&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;HR&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;+1-555-0105&#39;</span><span class="p">),</span>
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="p">(</span><span class="s1">&#39;Frank Miller&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;frank.miller@company.com&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Engineering&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;+1-555-0106&#39;</span><span class="p">),</span>
-</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="p">(</span><span class="s1">&#39;Grace Lee&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;grace.lee@company.com&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Finance&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;+1-555-0107&#39;</span><span class="p">),</span>
-</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="p">(</span><span class="s1">&#39;Henry Taylor&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;henry.taylor@company.com&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Marketing&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;+1-555-0108&#39;</span><span class="p">),</span>
-</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="p">(</span><span class="s1">&#39;Iris Chen&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;iris.chen@company.com&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Engineering&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;+1-555-0109&#39;</span><span class="p">),</span>
-</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="p">(</span><span class="s1">&#39;Jack Anderson&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;jack.anderson@company.com&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Sales&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;+1-555-0110&#39;</span><span class="p">);</span>
-</span></code></pre></div>
+<p>```sql
+CREATE TABLE user (
+    id int NOT NULL AUTO_INCREMENT,
+    name varchar(100) NOT NULL,
+    email varchar(150) NOT NULL,
+    department varchar(50),
+    phone varchar(20),
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    UNIQUE KEY email (email)
+);</p>
+<p>INSERT INTO user (name, email, department, phone) VALUES
+('Alice Johnson', 'alice.johnson@company.com', 'Engineering', '+1-555-0101'),
+('Bob Smith', 'bob.smith@company.com', 'Marketing', '+1-555-0102'),
+('Carol Davis', 'carol.davis@company.com', 'Engineering', '+1-555-0103'),
+('David Wilson', 'david.wilson@company.com', 'Sales', '+1-555-0104'),
+('Eva Brown', 'eva.brown@company.com', 'HR', '+1-555-0105'),
+('Frank Miller', 'frank.miller@company.com', 'Engineering', '+1-555-0106'),
+('Grace Lee', 'grace.lee@company.com', 'Finance', '+1-555-0107'),
+('Henry Taylor', 'henry.taylor@company.com', 'Marketing', '+1-555-0108'),
+('Iris Chen', 'iris.chen@company.com', 'Engineering', '+1-555-0109'),
+('Jack Anderson', 'jack.anderson@company.com', 'Sales', '+1-555-0110');
+```</p>
 </div>
 <div class="tabbed-block">
 <p><div>
     <div style="position:relative;padding-top:56.25%;">
-        <iframe src="https://playground.soad.app/t/example/user_search" frameborder="0" allowfullscreen
+        <iframe src="https://playground.sufia.online/t/example/user_search" frameborder="0" allowfullscreen
         style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
     </div>
 </div></p>
@@ -2906,24 +2906,24 @@
 </span></code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
-<div class="language-sql highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">contact</span><span class="w"> </span><span class="p">(</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="n">email</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">150</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="n">subject</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="n">message</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="n">status</span><span class="w"> </span><span class="n">enum</span><span class="p">(</span><span class="s1">&#39;new&#39;</span><span class="p">,</span><span class="s1">&#39;read&#39;</span><span class="p">,</span><span class="s1">&#39;replied&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;new&#39;</span><span class="p">,</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="n">created_at</span><span class="w"> </span><span class="k">timestamp</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="k">KEY</span><span class="w"> </span><span class="n">idx_email</span><span class="w"> </span><span class="p">(</span><span class="n">email</span><span class="p">),</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="k">KEY</span><span class="w"> </span><span class="n">idx_status</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="p">);</span>
-</span></code></pre></div>
+<p><code>sql
+CREATE TABLE contact (
+    id int NOT NULL AUTO_INCREMENT,
+    name varchar(100) NOT NULL,
+    email varchar(150) NOT NULL,
+    subject varchar(200) NOT NULL,
+    message text NOT NULL,
+    status enum('new','read','replied') DEFAULT 'new',
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    KEY idx_email (email),
+    KEY idx_status (status)
+);</code></p>
 </div>
 <div class="tabbed-block">
 <p><div>
     <div style="position:relative;padding-top:56.25%;">
-        <iframe src="https://playground.soad.app/t/example/contact_form" frameborder="0" allowfullscreen
+        <iframe src="https://playground.sufia.online/t/example/contact_form" frameborder="0" allowfullscreen
         style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
     </div>
 </div></p>
@@ -3870,32 +3870,32 @@
 </span></code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
-<div class="language-sql highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">task</span><span class="w"> </span><span class="p">(</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="n">title</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="n">description</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="n">status</span><span class="w"> </span><span class="n">enum</span><span class="p">(</span><span class="s1">&#39;pending&#39;</span><span class="p">,</span><span class="s1">&#39;in_progress&#39;</span><span class="p">,</span><span class="s1">&#39;completed&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;pending&#39;</span><span class="p">,</span>
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="n">priority</span><span class="w"> </span><span class="n">enum</span><span class="p">(</span><span class="s1">&#39;low&#39;</span><span class="p">,</span><span class="s1">&#39;medium&#39;</span><span class="p">,</span><span class="s1">&#39;high&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;medium&#39;</span><span class="p">,</span>
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">    </span><span class="n">due_date</span><span class="w"> </span><span class="nb">date</span><span class="p">,</span>
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="n">created_at</span><span class="w"> </span><span class="k">timestamp</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">    </span><span class="n">updated_at</span><span class="w"> </span><span class="k">timestamp</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
-</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">    </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
-</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">    </span><span class="k">KEY</span><span class="w"> </span><span class="n">idx_status</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="p">),</span>
-</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">    </span><span class="k">KEY</span><span class="w"> </span><span class="n">idx_priority</span><span class="w"> </span><span class="p">(</span><span class="n">priority</span><span class="p">)</span>
-</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="p">);</span>
-</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>
-</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">task</span><span class="w"> </span><span class="p">(</span><span class="n">title</span><span class="p">,</span><span class="w"> </span><span class="n">description</span><span class="p">,</span><span class="w"> </span><span class="n">priority</span><span class="p">,</span><span class="w"> </span><span class="n">due_date</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span>
-</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="p">(</span><span class="s1">&#39;Complete project proposal&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Write and submit the Q1 project proposal document&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;high&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2024-02-15&#39;</span><span class="p">),</span>
-</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="p">(</span><span class="s1">&#39;Code review session&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Review pull requests from team members&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;medium&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2024-02-10&#39;</span><span class="p">),</span>
-</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="p">(</span><span class="s1">&#39;Update documentation&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Update API documentation with new endpoints&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;low&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2024-02-20&#39;</span><span class="p">),</span>
-</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="p">(</span><span class="s1">&#39;Team meeting preparation&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Prepare slides for weekly team meeting&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;medium&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2024-02-08&#39;</span><span class="p">),</span>
-</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="p">(</span><span class="s1">&#39;Bug fixes&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Fix reported bugs in the user dashboard&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;high&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2024-02-12&#39;</span><span class="p">);</span>
-</span></code></pre></div>
+<p>```sql
+CREATE TABLE task (
+    id int NOT NULL AUTO_INCREMENT,
+    title varchar(200) NOT NULL,
+    description text,
+    status enum('pending','in_progress','completed') DEFAULT 'pending',
+    priority enum('low','medium','high') DEFAULT 'medium',
+    due_date date,
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    KEY idx_status (status),
+    KEY idx_priority (priority)
+);</p>
+<p>INSERT INTO task (title, description, priority, due_date) VALUES
+('Complete project proposal', 'Write and submit the Q1 project proposal document', 'high', '2024-02-15'),
+('Code review session', 'Review pull requests from team members', 'medium', '2024-02-10'),
+('Update documentation', 'Update API documentation with new endpoints', 'low', '2024-02-20'),
+('Team meeting preparation', 'Prepare slides for weekly team meeting', 'medium', '2024-02-08'),
+('Bug fixes', 'Fix reported bugs in the user dashboard', 'high', '2024-02-12');
+```</p>
 </div>
 <div class="tabbed-block">
 <p><div>
     <div style="position:relative;padding-top:56.25%;">
-        <iframe src="https://playground.soad.app/t/example/task_manager" frameborder="0" allowfullscreen
+        <iframe src="https://playground.sufia.online/t/example/task_manager" frameborder="0" allowfullscreen
         style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
     </div>
 </div></p>
