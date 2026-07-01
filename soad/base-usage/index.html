@@ -1,0 +1,662 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for Using SØAD framework">
+      
+      
+      
+      
+        <link rel="prev" href="logging.html">
+      
+      
+        <link rel="next" href="../components/overview.html">
+      
+      
+      <link rel="icon" href="../assets/img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
+    
+    
+      
+        <title>SØAD Base Usage - SØAD Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sad-base" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="SØAD Documentation" class="md-header__button md-logo" aria-label="SØAD Documentation" data-md-component="logo">
+      
+  <img src="../assets/img/s0ad-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SØAD Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SØAD Base
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+    
+  
+  Introduction
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="overview.html" class="md-tabs__link">
+          
+  
+  SØAD Framework
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../components/overview.html" class="md-tabs__link">
+          
+  
+  SØAD Online IDE
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../getting-started/installation.html" class="md-tabs__link">
+          
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../code-libraries/listing.html" class="md-tabs__link">
+          
+  
+  Cookbook
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../advanced-usage/custom-response.html" class="md-tabs__link">
+          
+  
+  Advanced Usage
+
+        </a>
+      </li>
+    
+  
+
+      
+    <li class="md-tabs__item md-tabs__item--active"><!--baseusage-tab-->
+      <a href="../base-usage/index.html" class="md-tabs__link">
+  Base Usage
+      </a>
+    </li>
+  </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+  <div class="md-sidebar__scrollwrap">
+    <div class="md-sidebar__inner">
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="SØAD Documentation" class="md-nav__button md-logo" aria-label="SØAD Documentation" data-md-component="logo">
+      <img src="../assets/img/s0ad-logo.svg" alt="logo">
+    </a>
+    SØAD Documentation
+  </label>
+  <ul class="md-nav__list" data-md-scrollfix>
+    <li class="md-nav__item md-nav__item--active">
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        <span class="md-ellipsis">Base Usage</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+    </div>
+  </div>
+</div>
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+  <div class="md-sidebar__scrollwrap">
+    <div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  <label class="md-nav__title" for="__toc"><span class="md-nav__icon md-icon"></span>Table of contents</label>
+  <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+    <li class="md-nav__item"><a href="#overview" class="md-nav__link"><span class="md-ellipsis">Overview &amp; integration model</span></a></li>
+    <li class="md-nav__item"><a href="#getting-started" class="md-nav__link"><span class="md-ellipsis">Getting started</span></a></li>
+    <li class="md-nav__item"><a href="#core-interface" class="md-nav__link"><span class="md-ellipsis">Core interface reference</span></a></li>
+    <li class="md-nav__item"><a href="#helpers-services" class="md-nav__link"><span class="md-ellipsis">Helpers &amp; services</span></a></li>
+    <li class="md-nav__item"><a href="#rbac-api" class="md-nav__link"><span class="md-ellipsis">RBAC &amp; the HTTP API</span></a></li>
+    <li class="md-nav__item"><a href="#example-patterns" class="md-nav__link"><span class="md-ellipsis">Example app patterns</span></a></li>
+    <li class="md-nav__item"><a href="#gotchas" class="md-nav__link"><span class="md-ellipsis">Gotchas &amp; known issues</span></a></li>
+  </ul>
+</nav>
+    </div>
+  </div>
+</div>
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+<h1 id="sad-base-usage">SØAD Base Usage</h1>
+<p><strong>SØAD Base</strong> ("soad base") is a ready-made foundation app that ships the features every web system needs — user management, authentication, role-based access control (RBAC), settings, notifications/inbox, a multi-app portal, email templates, and a document-management (DMS) example. You build your application <strong>on top of it</strong> and reuse those features instead of rebuilding them. This page explains how an application integrates with and uses soad base.</p>
+
+<h2 id="overview">Overview &amp; integration model</h2>
+<p>soad base is deployed as its own SØAD application under the group namespace <code>base</code> (routes look like <code>/base/t/{group}/{code}/{action}</code>). Your extension is <strong>its own SØAD application</strong> (its own namespace, e.g. <code>default</code>) deployed alongside it, and it <strong>imports base's modules across the app boundary</strong>:</p>
+<pre><code>from base.core import users, access          # user + RBAC services
+from base.helper import system_helper         # shared utilities
+from base.config import info                  # cached settings
+from base.web import login                    # the login flow
+from models import Base_user, Base_role       # shared base tables</code></pre>
+<p>Key consequences:</p>
+<ul>
+<li><strong>You share one database</strong> with base. Base owns the <code>base_*</code> tables (users, roles, RBAC, settings, inbox); your app owns its own business tables.</li>
+<li><strong>Authentication, users, roles, settings, and files are provided by base</strong> — you call them, you don't reimplement them.</li>
+<li><strong>You own your business logic, navigation, and screens.</strong> You define your own groups, transactions, views, and (typically) your own page layout.</li>
+</ul>
+<p><strong>The golden rule:</strong> go through <code>core</code> (and the <code>helper</code>/<code>services</code> facades) rather than writing <code>base_*</code> tables directly. <code>core</code> is the internal interface to base — it keeps password hashing, RBAC, and session behaviour consistent across every app that shares the base.</p>
+
+<h2 id="getting-started">Getting started — build your first screen</h2>
+<p>Add a feature to your app that reuses soad base. We use a small "Reports" admin screen as the example.</p>
+<h3 id="gs-1">1. Create your table (IDE SQL editor)</h3>
+<p>Every table needs a primary key named <code>id</code>. Prefix tables by module. After creating it, run <strong>Introspect</strong> so the model class <code>Rpt_report</code> is generated.</p>
+<pre><code>CREATE TABLE rpt_report (
+    id         VARCHAR(32) NOT NULL PRIMARY KEY,
+    title      VARCHAR(200) NOT NULL,
+    body       TEXT,
+    status_id  INT DEFAULT 1,
+    created_on DATETIME, created_by VARCHAR(32),
+    updated_on DATETIME, updated_by VARCHAR(32)
+);</code></pre>
+<h3 id="gs-2">2. Write the transaction</h3>
+<p>Routes are convention-based: a file <code>reports/report.py</code> with class <code>Report</code> and method <code>view</code> is reachable at <code>.../t/reports/report</code>.</p>
+<pre><code>from utils import render
+from base.helper import system_helper
+from models import Rpt_report
+from java.time import LocalDateTime
+import uuid
+
+class Report(object):
+    def view(self, ctx):                       # GET (default action)
+        ctx.output["page_title"] = "Reports"
+        ctx.go_to = render.as_view(ctx, "report", loc="")
+
+    def save(self, ctx):                       # POST (docstring marks POST)
+        """POST"""
+        r = ctx.getRequest()
+        uid = system_helper.get_user_id(ctx)   # base helper
+        rid = r.getParameter("id")
+        report = Rpt_report.findById(rid) if rid else Rpt_report()
+        if not rid:
+            report.set("id", uuid.uuid4().hex)
+            report.set("created_on", LocalDateTime.now())
+            report.set("created_by", uid)
+        report.set("title", r.getParameter("title"))
+        report.set("updated_on", LocalDateTime.now())
+        report.set("updated_by", uid)
+        report.saveIt() if rid else report.insert()
+        ctx.go_to = "/t/reports/report"        # PRG redirect</code></pre>
+<p><strong>Jython, not CPython:</strong> no f-strings (use <code>"%s" % x</code>); import Java directly; a <code>.py</code> with non-ASCII needs <code># -*- coding: utf-8 -*-</code> on line 1.</p>
+<h3 id="gs-3">3. Add the views</h3>
+<p>Views live in a <code>_{code}/</code> folder as Handlebars HTML: <code>reports/_report/report.html</code>. Use <code>{{ctxPath}}</code> for links; drive search/pagination with HTMX. Listings render as partials with <code>ctx.page_layout = False</code>.</p>
+<h3 id="gs-4">4. Register access</h3>
+<p>Base gates every request; a new endpoint is unreachable until it's registered and (for role-gated ones) granted to a role. Use the base <code>core.access</code> service — don't write the tables by hand:</p>
+<pre><code>from base.core import access
+from base.core.role import Roles
+A = access.Access
+
+ep   = A.register_endpoint("/t/reports/report", A.AUTHORIZED, created_by=uid)
+role = A.create_role("RPTVIEW", "Report Viewer", created_by=uid) or Roles.get_by_code("RPTVIEW")
+A.grant_access(role.get("id"), ep.get("id"), created_by=uid)
+A.assign_role_to_user(target_user_id, role_code="RPTVIEW", created_by=uid)
+A.refresh_session(ctx, target_user_id)   # if that user is logged in</code></pre>
+<p>Access levels: <code>whitelist</code> (public), <code>authenticated</code> (any logged-in user), <code>authorized</code> (role-gated). Matching is by containment, so registering <code>/t/reports/report</code> also covers <code>/t/reports/report/save</code>.</p>
+
+<h2 id="core-interface">Core interface reference</h2>
+<p><code>core</code> is the internal interface to soad base. Import the submodule you need. <strong>Return conventions:</strong> creators return the created model/wrapper or <code>None</code> on validation failure (so the request transaction is not rolled back); destructive RBAC ops return <code>(ok, reason)</code>; checks return <code>bool</code>/<code>list</code>; reads return model objects or <code>None</code>.</p>
+<h3 id="ci-auth">core.auth.Auth — login session</h3>
+<p>Constructed with <code>ctx</code>. <code>Auth(ctx).generate_user_session(user_id, last_login, appid=None)</code> builds the session (sets <code>SESSION_USER_ID</code>, <code>SESSION_ALLOWED_URL</code>, <code>SESSION_ALLOWED_MENU</code>, <code>SESSION_APPID</code>, <code>LAST_LOGIN</code>, <code>OAUTH_USER_OBJECT</code>) <em>after</em> identity is verified. Credential verification, lockout, and 2FA live in <code>base.web.login</code>.</p>
+<h3 id="ci-users">core.users — account creation</h3>
+<table>
+<thead><tr><th>Method</th><th>Returns</th></tr></thead>
+<tbody>
+<tr><td><code>Users().create_account(roles_code, username=None, password=None, full_name=None, email=None, login_provider=None, created_by=None, expiry=None, is_active=False)</code></td><td><code>UserObject</code> or <code>None</code> on validation failure. <code>expiry</code> is in minutes (default +1 day). OAuth users (email+login_provider) are auto-activated.</td></tr>
+<tr><td><code>UserObject(base_user=obj | id=... | login_id=...)</code></td><td>wrapper: <code>.get/.set/.saveIt/.delete</code>, <code>.get_user_details()</code>, <code>.assign_role(codes=[])</code></td></tr>
+</tbody>
+</table>
+<h3 id="ci-lifecycle">core.user_lifecycle.UserLifecycle — beyond create</h3>
+<table>
+<thead><tr><th>Method</th><th>Returns</th></tr></thead>
+<tbody>
+<tr><td><code>update_profile(user_id, full_name=None, mobile_no=None, updated_by=None)</code></td><td>details row / <code>None</code></td></tr>
+<tr><td><code>change_password(user_id, new_password, updated_by=None)</code></td><td><code>(ok, reason)</code> — enforces policy + records history</td></tr>
+<tr><td><code>generate_password_reset(user_id, expiry_minutes=30)</code> / <code>reset_password(user_id, token, new_password, updated_by=None)</code></td><td>token / <code>(ok, reason)</code></td></tr>
+<tr><td><code>activate(user_id, code=None)</code></td><td><code>(ok, reason)</code> — validates code + expiry; idempotent</td></tr>
+<tr><td><code>enable / disable / soft_delete / set_status(user_id, status_id, updated_by=None)</code></td><td>user row / <code>None</code></td></tr>
+</tbody>
+</table>
+<h3 id="ci-role">core.role.Roles — reads &amp; checks (read-only)</h3>
+<p><code>Roles.get_all()</code>, <code>get_by_code(code)</code>, <code>get_by_id(id)</code>, <code>exists(code)</code>, <code>has_role(user_id, role_code)</code> → <code>bool</code>, <code>get_user_role_codes(user_id)</code> → <code>list[str]</code>. Role <em>writes</em> are in <code>core.access</code>.</p>
+<h3 id="ci-companies">core.companies / core.dms</h3>
+<p><code>CompanyObject(id=... | get_first=True)</code> wraps the company record (get/set/saveIt/delete). <code>dms.create_folder(...)</code>, <code>dms.Folder(...)</code>, <code>dms.Document(...)</code> handle folders/documents; richer document operations live in <code>helper/dms_helper.py</code>.</p>
+
+<h2 id="helpers-services">Helpers &amp; services</h2>
+<h3 id="hs-sys">base.helper.system_helper — the toolbox</h3>
+<table>
+<thead><tr><th>Call</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>get_user_id(ctx)</code> / <code>get_appid(ctx)</code></td><td>current user / app id from session</td></tr>
+<tr><td><code>is_role_match(code, user_id)</code></td><td>role check (bool)</td></tr>
+<tr><td><code>hash_password(password, salt)</code> / <code>validate_password_compliance(password, existing_user_id=None)</code></td><td>hashing / policy check</td></tr>
+<tr><td><code>push_inbox(ctx, code, variables, user_ids=None)</code></td><td>in-app notification (targeted list or broadcast)</td></tr>
+<tr><td><code>store_file(bytes, fn, path)</code> / <code>get_file(path)</code></td><td>local file store / fetch</td></tr>
+<tr><td><code>format_datetime(dt, "dd/MM/yyyy")</code></td><td>date format (also "time_ago")</td></tr>
+<tr><td><code>println(ctx, ...)</code> / <code>record_ai_usage(...)</code></td><td>logging / LLM usage log</td></tr>
+<tr><td><code>page_status_successful/unsuccessful/not_found/restricted(ctx, ...)</code></td><td>standard result screens</td></tr>
+</tbody>
+</table>
+<h3 id="hs-info">base.config.info — cached settings</h3>
+<p><code>get_app_details()</code>, <code>get_system_setting()</code>, <code>get_setting_extra(scope, key)</code>, <code>get_whitelist(scope=None)</code>, <code>get_additional_url()</code>. These are cached in module globals — after writing settings, call the matching <code>info.sync_*()</code>.</p>
+<h3 id="hs-mail">Email (utils.mailer + template/emails)</h3>
+<pre><code>from base.config import info
+from utils import render, mailer
+ctx.output["app_details"] = info.get_app_details()
+body = render.as_view(ctx, "account_activation", group="template", code="emails", loc="")()
+mailer.send(info.get_app_details().get("sender_email"), to_email, subject, body, html=True)</code></pre>
+<h3 id="hs-services">base.services</h3>
+<p><code>services.oauth</code> (Google/Microsoft/LinkedIn), <code>services.collabora</code> (online document editing), <code>services.s3</code> (object storage). <strong>Note:</strong> <code>services/s3.py</code> is currently a stub — keep <code>dms_storage_type = "local"</code> until the AWS SDK is wired up.</p>
+
+<h2 id="rbac-api">RBAC &amp; the HTTP API</h2>
+<p>An endpoint's <code>access_level</code> in <code>base_url_filter</code> is <code>whitelist</code> (public), <code>authenticated</code> (any logged-in user), or <code>authorized</code> (role-gated). Users get roles via <code>base_user_role</code>; a role is granted <code>authorized</code> URLs via <code>base_url_access</code>. Effective access = all whitelist + all authenticated (if logged in) + the authorized URLs granted to any of the user's roles. Base caches this on the session at login, so a grant/revoke does not affect a logged-in user until <code>Access.refresh_session(ctx, user_id)</code> (or re-login).</p>
+<h3 id="ra-access">core.access.Access — programmatic RBAC</h3>
+<table>
+<thead><tr><th>Area</th><th>Methods</th></tr></thead>
+<tbody>
+<tr><td>Endpoints</td><td><code>register_endpoint</code>, <code>update_endpoint</code>, <code>set_endpoint_blocked</code>, <code>delete_endpoint</code> → <code>(ok,reason)</code>, <code>get_endpoint</code>, <code>list_endpoints</code></td></tr>
+<tr><td>Roles</td><td><code>create_role</code>, <code>update_role</code>, <code>set_role_status</code>, <code>delete_role</code> → <code>(ok,reason)</code></td></tr>
+<tr><td>User↔role</td><td><code>assign_role_to_user</code> (idempotent), <code>revoke_role_from_user</code>, <code>get_user_roles</code>, <code>has_role</code></td></tr>
+<tr><td>Role↔url</td><td><code>grant_access</code> (idempotent), <code>revoke_access</code>, <code>set_role_access</code>, <code>get_role_endpoints</code></td></tr>
+<tr><td>Checks</td><td><code>can_access(user_id, url, scope=None)</code> → <code>bool</code>, <code>get_allowed_urls(user_id, scope=None)</code>, <code>refresh_session(ctx, user_id)</code></td></tr>
+</tbody>
+</table>
+<h3 id="ra-http">The api/ group — RBAC over HTTP</h3>
+<p>For provisioning from outside a request, base exposes an HTTP API backed by <code>core.access</code>, authenticated with username + token (<code>X-Username</code> / <code>X-Token</code> headers, or <code>username</code>/<code>token</code> params).</p>
+<pre><code># create a role
+curl -X POST ".../base/t/api/role/create" \
+  -H "X-Username: soadadmin" -H "X-Token: &lt;token&gt;" \
+  -H "Content-Type: application/json" \
+  -d '[{"code":"RPTVIEW","name":"Report Viewer"}]'
+
+# check access
+curl ".../base/t/api/access/can_access?user_id=&lt;uid&gt;&amp;url=/t/reports/report" \
+  -H "X-Username: soadadmin" -H "X-Token: &lt;token&gt;"</code></pre>
+<p>Endpoints include <code>/base/t/api/url/register</code>, <code>/base/t/api/role/{create,update,delete,list}</code>, and <code>/base/t/api/access/{assign_role,revoke_role,user_roles,grant,revoke,set_role_access,role_endpoints,can_access,allowed_urls}</code>. Each <code>api</code> endpoint must itself be a <code>whitelist</code> URL (the username+token check happens inside the code).</p>
+
+<h2 id="example-patterns">Example app patterns</h2>
+<p>Patterns observed in a real application built on soad base (an audit / certification system):</p>
+<ul>
+<li><strong>Your app is its own SØAD app</strong> (namespace <code>default</code>) with its own groups (<code>admin/ app/ web/ audit/ customer/ client/ api/</code>), importing base via <code>from base.*</code> and sharing base's database.</li>
+<li><strong>It owns its page layout</strong> — defines its own <code>Layout</code> class (does not inherit <code>base.admin.layout.Layout</code>), reusing base only for settings/helpers.</li>
+<li><strong>App-owned navigation</strong> — keeps a hardcoded menu list filtered by the session's <code>SESSION_ALLOWED_URL</code> (populated by base at login from the user's role grants).</li>
+<li><strong>Provisions portal users through <code>core.users.create_account</code></strong> (roles + activation) rather than writing <code>base_user</code> directly.</li>
+<li><strong>Reuses <code>base.web.login</code></strong> for its portals' authentication, and <strong><code>core.dms</code></strong> for file/document storage.</li>
+<li><strong>Reads base models directly</strong> (<code>Base_user</code>, <code>Base_user_role</code>, <code>Base_role</code>, <code>Base_setting_extra</code>) where <code>core</code> has no reader.</li>
+<li>Follows the same <strong>Paginator + HTMX listing</strong>, offcanvas/modal form, and <code>response_message</code> toast rhythm as base.</li>
+</ul>
+<p><strong>Guidance for new apps:</strong> prefer <code>core</code> / <code>helper</code> / the <code>api/</code> group for users, RBAC, settings, files, and email; fall back to direct model access only where base doesn't yet provide an interface — and treat those as candidates to push into <code>core</code>.</p>
+
+<h2 id="gotchas">Gotchas &amp; known issues</h2>
+<ul>
+<li><code>services/s3.py</code> is stubbed — use <code>dms_storage_type = "local"</code>.</li>
+<li>Avoid <code>UserObject.send_email_activation()</code>, <code>core.dms.copy_document</code> (S3 branch), and <code>CompanyObject(base_company=...)</code> — known bugs; use the alternatives above.</li>
+<li><code>info.*</code> settings are cached — call <code>info.sync_*()</code> after writing settings.</li>
+<li>RBAC changes don't affect a logged-in user until <code>Access.refresh_session(...)</code> or re-login.</li>
+</ul>
+
+</article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Introduction">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Introduction
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../framework/base.html" class="md-footer__link md-footer__link--next" aria-label="Next: SØAD Base">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                SØAD Base
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © 2025 Webgeaz Sdn. Bhd. All rights reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "content.tabs.link", "content.code.annotate", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.footer", "navigation.instant", "navigation.instant.progress", "navigation.path"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
