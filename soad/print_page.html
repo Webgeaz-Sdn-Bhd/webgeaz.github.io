@@ -976,6 +976,28 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="components/ai-assistant.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AI Assistant
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1859,6 +1881,15 @@
   <a href="#components-cli" class="md-nav__link">
     <span class="md-ellipsis">
       3.6 SØAD CLI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#components-ai-assistant" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.7 AI Assistant
     </span>
   </a>
   
@@ -3960,7 +3991,314 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Occasionally, pushing a transaction might fail due to security restrictions such as those enforced by a Web Application Firewall (WAF). If this happens, try using the <code>--zip</code> option when pushing. This will compress the transaction into a zip file before uploading, which can help bypass WAF limitations. Using zip option might be faster sometimes, especially for larger transactions.</p>
-</div></section></section>
+</div></section><section class="print-page" id="components-ai-assistant" heading-number="3.7"><h1 id="components-ai-assistant-ai-assistant">AI Assistant</h1>
+<p>The SØAD IDE includes an <strong>AI assistant</strong> that builds and edits transactions for
+you from a plain-language description. You tell it what you want — <em>"create a
+contact CRUD"</em>, <em>"add an email field to the signup form"</em>, <em>"why is the invoice
+page throwing an error?"</em> — and it uses the same building blocks you do
+(transactions, views, the database schema) to do the work.</p>
+<p>Nothing it produces is written to your application until <strong>you review a diff and
+click Approve &amp; Execute</strong>. The assistant proposes; you decide.</p>
+<hr />
+<h2 id="components-ai-assistant-enabling-the-assistant">Enabling the assistant</h2>
+<p>The assistant talks to an <strong>OpenAI-compatible</strong> chat model that <em>you</em> provide
+(bring-your-own-key). It works with OpenAI, Azure OpenAI, OpenRouter, and local
+servers such as Ollama, vLLM and LM Studio — anything that exposes a
+<code>/chat/completions</code> endpoint.</p>
+<p>You configure three things:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Endpoint</strong></td>
+<td>The provider's base URL (<code>/chat/completions</code> is appended automatically)</td>
+<td><code>https://api.openai.com/v1</code></td>
+</tr>
+<tr>
+<td><strong>API key</strong></td>
+<td>Your provider key</td>
+<td><code>sk-…</code></td>
+</tr>
+<tr>
+<td><strong>Model</strong></td>
+<td>The model name to use</td>
+<td><code>gpt-4o-mini</code></td>
+</tr>
+</tbody>
+</table>
+<p>There are two ways to set them.</p>
+<h3 id="components-ai-assistant-from-the-ide-self-hosted">From the IDE (self-hosted)</h3>
+<p>Open the assistant panel, go to <strong>Provider settings</strong> (superadmin only), fill in
+the endpoint, API key and model, and save. This is the quickest way on a
+self-hosted instance.</p>
+<h3 id="components-ai-assistant-from-configuration-environment-managed">From configuration / environment (managed)</h3>
+<p>Set them in <code>sufia.properties</code> or as environment variables — the usual way to
+inject config in a container or Kubernetes deployment.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Environment variable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ai.provider</code></td>
+<td><code>ai_provider</code></td>
+</tr>
+<tr>
+<td><code>ai.endpoint</code></td>
+<td><code>ai_endpoint</code></td>
+</tr>
+<tr>
+<td><code>ai.api.key</code></td>
+<td><code>ai_api_key</code></td>
+</tr>
+<tr>
+<td><code>ai.model</code></td>
+<td><code>ai_model</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>ai.provider</code> is the default provider family (defaults to <code>openai</code>) and can be
+overridden by the environment or by the in-IDE setting. When the same value is set
+in more than one place, the order of precedence is:</p>
+<p><strong>in-IDE Provider settings → environment variable → <code>sufia.properties</code> → built-in default.</strong></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the assistant reports that it is <em>not configured</em>, no endpoint / key / model
+has been resolved from any of the sources above.</p>
+</div>
+<hr />
+<h2 id="components-ai-assistant-opening-the-assistant">Opening the assistant</h2>
+<p>Open a transaction in the editor and click the <strong>AI</strong> button in the toolbar to
+slide out the chat panel. You can also click <strong>Edit with AI</strong> in the editor footer
+to open the panel pre-focused on the transaction you're viewing.</p>
+<p>Type what you want and send (⌘/Ctrl + Enter). The assistant streams its thinking
+and shows each step it takes ("Reading schema for table <code>contact</code>", "Writing
+<code>contact.py</code>", and so on).</p>
+<hr />
+<h2 id="components-ai-assistant-the-approval-gate">The approval gate</h2>
+<p>The assistant never changes your application on its own. When it has prepared its
+work, the panel shows a <strong>review</strong> with a before/after <strong>diff</strong> for every file, and
+a single control:</p>
+<ul>
+<li><strong>Approve &amp; Execute</strong> — write the changes to the server (and, for a new
+  transaction, open it in the editor).</li>
+<li><strong>Discard</strong> — throw the staged work away.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">You are always in control</p>
+<p>Creating and editing transactions is <strong>staged</strong> — held in memory and shown as a
+diff — until you approve it. Approving is the only action that writes to your
+application. If you close the panel with an unapproved change, it's still there
+when you reopen it.</p>
+</div>
+<hr />
+<h2 id="components-ai-assistant-what-you-can-ask-it-to-do">What you can ask it to do</h2>
+<h3 id="components-ai-assistant-create-a-transaction">Create a transaction</h3>
+<p>Describe the transaction you want. If you don't say which <strong>group</strong> and <strong>code</strong> to
+use, the assistant asks first rather than guessing — so the URL and file layout are
+what you expect.</p>
+<blockquote>
+<p><em>"Create a CRUD for the <code>product</code> table in group <code>catalog</code>."</em></p>
+</blockquote>
+<h3 id="components-ai-assistant-build-a-whole-app">Build a whole app</h3>
+<p>Ask for several transactions at once and the assistant builds and wires them
+together in one go. For a multi-part request it chooses sensible group/code names
+itself.</p>
+<blockquote>
+<p><em>"Build a booking app: a room list, a booking form, and a room CRUD."</em></p>
+</blockquote>
+<p>The review shows each transaction as its own card; <strong>Approve &amp; Execute</strong> commits
+them together.</p>
+<h3 id="components-ai-assistant-edit-an-existing-transaction">Edit an existing transaction</h3>
+<p>Open a transaction (or use <strong>Edit with AI</strong>) and describe the change. The assistant
+reads the current files first and stages a focused edit.</p>
+<blockquote>
+<p><em>"Add an <code>email</code> column to the form and validate it."</em></p>
+</blockquote>
+<h3 id="components-ai-assistant-rename-or-move-a-transaction">Rename or move a transaction</h3>
+<p>Ask it to change a transaction's group and/or code. Because a rename also updates
+the controller class name and the default view, the assistant <strong>states the exact
+rename and asks you to confirm in chat first</strong> — and then applies it immediately.</p>
+<blockquote>
+<p><em>"Rename <code>orders/cart</code> to <code>shop/basket</code>."</em></p>
+</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A rename doesn't rewrite your own internal references (links, explicit view
+names). The assistant will remind you to check those.</p>
+</div>
+<h3 id="components-ai-assistant-roll-back-to-a-previous-version">Roll back to a previous version</h3>
+<p>Every save is versioned. If a change didn't work out, ask the assistant to restore
+an earlier version. It lists the saved versions, you pick one, and it <strong>stages that
+version as a change</strong> so you review the diff before approving. Approving snapshots
+the current state first, so a restore is itself reversible.</p>
+<blockquote>
+<p><em>"Show me the versions of <code>catalog/product</code> and restore yesterday's."</em></p>
+</blockquote>
+<h3 id="components-ai-assistant-diagnose-data-problems">Diagnose data problems</h3>
+<p>When something <em>looks</em> wrong (a missing record, an unexpected value), the assistant
+can run <strong>read-only</strong> queries to inspect the actual rows before suggesting a fix.</p>
+<blockquote>
+<p><em>"The dashboard total is wrong — can you check the <code>orders</code> data?"</em></p>
+</blockquote>
+<h3 id="components-ai-assistant-debug-runtime-errors">Debug runtime errors</h3>
+<p>If a page is throwing or misbehaving, reproduce it, then ask the assistant. It reads
+the <strong>server log</strong> to find the real error and stack trace, then proposes a fix based
+on what actually happened instead of guessing.</p>
+<blockquote>
+<p><em>"The invoice page returns a 500 — what's wrong?"</em></p>
+</blockquote>
+<hr />
+<h2 id="components-ai-assistant-schema-changes-and-sql">Schema changes and SQL</h2>
+<p>The assistant can <strong>read</strong> your database schema and <strong>suggest</strong> SQL, but it does not
+run schema or data changes itself. When a task needs one, it writes the statement as
+a SQL block in the chat with an <strong>Execute</strong> button:</p>
+<ul>
+<li>Review the SQL.</li>
+<li>Click <strong>Execute</strong> to run it against your application database.</li>
+<li>After a structural change the models are <strong>refreshed automatically</strong>, so new
+  columns and tables are immediately available.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You run the SQL, not the assistant. Read it before clicking <strong>Execute</strong> —
+destructive statements (for example <code>DROP</code>) are blocked, but you are still the
+one applying the change.</p>
+</div>
+<hr />
+<h2 id="components-ai-assistant-project-memory-agentsmd">Project memory (<code>AGENTS.md</code>)</h2>
+<p>The assistant already knows the SØAD framework, but it doesn't know <em>your</em> project's
+conventions. You can teach it by keeping notes in a file at
+<code>WEB-INF/AGENTS.md</code>. Anything in that file — design decisions, naming conventions,
+UI guidelines, domain rules — is treated as authoritative guidance on every request.</p>
+<p>Two ways to maintain it:</p>
+<ul>
+<li><strong>Edit it yourself</strong> in the File Manager (it's a normal Markdown file).</li>
+<li><strong>Ask the assistant to remember something</strong> — say <em>"remember this"</em> or <em>"save to
+  memory"</em> and it appends the note for you.</li>
+</ul>
+<blockquote>
+<p><em>"Remember: all money amounts are stored in cents, and we always soft-delete."</em></p>
+</blockquote>
+<p><code>AGENTS.md</code> is optional. When it's empty, the assistant just uses its built-in
+framework knowledge.</p>
+<hr />
+<h2 id="components-ai-assistant-designing-larger-apps-with-a-planner">Designing larger apps with a planner</h2>
+<p>The assistant is a <strong>builder</strong> — it's at its best turning a clear, focused request
+into transactions you approve. For a <strong>larger app</strong> — many screens, a real data
+model, cross-cutting conventions — it pays to <strong>design first, then build</strong>.</p>
+<p>A workflow that works well:</p>
+<ol>
+<li><strong>Plan with a capable "frontier" AI.</strong> Use a strong general-purpose model (the
+   kind you'd reach for to architect and design) to turn your idea into a concrete
+   plan: the data model, the list of transactions, how they link, and your
+   conventions.</li>
+<li><strong>Give the planner SØAD's context.</strong> So its plan uses SØAD conventions rather than
+   generic ones, provide it with SØAD's coding context (the framework documentation)
+   <strong>and</strong> the planning guide below — the guide tells it how to shape a plan the
+   assistant can build cleanly.</li>
+<li><strong>Split the result into two streams:</strong><ul>
+<li><strong>Durable conventions</strong> (naming, money handling, soft-delete, UI standards) go
+  into your project's <strong><code>AGENTS.md</code></strong> once — they then apply to every request.</li>
+<li><strong>The build plan</strong> (data model + transactions) goes into the <strong>chat</strong>, fed
+  <strong>phase by phase</strong>.</li>
+</ul>
+</li>
+<li><strong>Build in order:</strong> run the schema SQL first (Execute), then paste the
+   transactions a batch at a time, approving each before moving on.</li>
+</ol>
+<p>This split isn't arbitrary: <code>AGENTS.md</code> is always in the assistant's context, while
+chat history is finite and trims older turns. Put <em>"always true"</em> in <code>AGENTS.md</code> and
+<em>"what to build now"</em> in chat.</p>
+<div class="admonition tip">
+<p class="admonition-title">Planning guide</p>
+<p>Give this to your planning AI, alongside SØAD's coding context, so it produces
+plans shaped for the assistant to build:</p>
+<p><strong><a href="#downloads-soad-coding-context.md">Download the SØAD Coding Context →</a></strong></p>
+<p><strong><a href="#downloads-soad-planning-guide.md">Download the SØAD Planning Guide →</a></strong></p>
+</div>
+<hr />
+<h2 id="components-ai-assistant-conversations">Conversations</h2>
+<p>The panel keeps your chat <strong>history per transaction</strong>, so you can close it and come
+back later. Use <strong>New chat</strong> to start a fresh conversation (clearing the context),
+and <strong>All conversations</strong> to browse past chats.</p>
+<hr />
+<h2 id="components-ai-assistant-safety-and-scope">Safety and scope</h2>
+<p>The assistant is deliberately constrained:</p>
+<ul>
+<li><strong>It cannot delete, deploy, release, or roll back</strong>, and it cannot run
+  schema/data changes. Those tools simply aren't available to it — the limit is
+  built in, not just requested in a prompt.</li>
+<li><strong>It only writes to your application after you approve a diff</strong> (rename is the one
+  immediate action, and it asks for confirmation in chat first).</li>
+<li><strong>Its queries are read-only.</strong> Any data or schema change is a statement <em>you</em>
+  Execute.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">What is sent to the model</p>
+<p>To do its work, the assistant sends relevant context to your configured model
+provider — your request, the transaction files it's working on, schema details,
+and, when debugging, log excerpts. Choose a provider you trust with your project
+data, and be aware that anything present in the server log (which the log tool
+may read) can be included when you ask it to debug.</p>
+</div>
+<hr />
+<h2 id="components-ai-assistant-tips-for-good-results">Tips for good results</h2>
+<ul>
+<li><strong>Be specific about names.</strong> Give the group and code when you have a preference;
+  otherwise the assistant will ask.</li>
+<li><strong>Mention the tables and columns</strong> involved — the assistant reads the schema, but
+  naming them removes ambiguity.</li>
+<li><strong>Work in small steps</strong> and approve as you go; it's easier to review a focused
+  diff than a sweeping one.</li>
+<li><strong>Reproduce an error first, then ask</strong> — the assistant reads the log, so a fresh
+  error trail helps it find the cause.</li>
+<li><strong>Capture conventions in <code>AGENTS.md</code></strong> once, instead of repeating them in every
+  chat.</li>
+<li><strong>Plan big apps first.</strong> For anything large, design it with a planner and feed it
+  in phases — see <a href="#components-ai-assistant-designing-larger-apps-with-a-planner">Designing larger apps with a planner</a>.</li>
+</ul>
+<hr />
+<h2 id="components-ai-assistant-troubleshooting">Troubleshooting</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause / fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>"AI assistant is not configured"</em></td>
+<td>No endpoint / key / model resolved — set them in <strong>Provider settings</strong> or via the <code>ai.*</code> properties/environment variables.</td>
+</tr>
+<tr>
+<td>Requests fail with an auth error</td>
+<td>Wrong API key, or the model name isn't valid for your provider.</td>
+</tr>
+<tr>
+<td>Nothing happens / provider error</td>
+<td>Check the endpoint base URL and that the provider exposes <code>/chat/completions</code>.</td>
+</tr>
+<tr>
+<td>A change didn't take effect</td>
+<td>Confirm you clicked <strong>Approve &amp; Execute</strong> — staged changes aren't written until you do.</td>
+</tr>
+<tr>
+<td>The model doesn't see a new column/table</td>
+<td>Run the suggested SQL with <strong>Execute</strong> (which refreshes the models), or Introspect the datasource.</td>
+</tr>
+</tbody>
+</table></section></section>
                     <section class='print-page md-section' id='section-4' heading-number='4'>
                         <h1>Getting Started<a class='headerlink' href='#section-4' title='Permanent link'></a>
                         </h1>
@@ -16596,8 +16934,8 @@ To run the SØAD container with the configuration file, use the following comman
 </ul>
 <p>You can define multiple filters by adding more entries with different names and mappings.</p>
 <h3 id="advanced-usage-filter-filter-file-example-auth_filterpy">Filter File Example: <code>auth_filter.py</code></h3>
-<p>The filter class must implement the Java <code>javax.servlet.Filter</code> interface through Jython. This allows the filter to be managed by the servlet container and invoked automatically for each matching request.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#advanced-usage-filter-__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">javax.servlet</span><span class="w"> </span><span class="kn">import</span> <span class="n">Filter</span>
+<p>The filter class must implement the Java <code>jakarta.servlet.Filter</code> interface through Jython. This allows the filter to be managed by the servlet container and invoked automatically for each matching request.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#advanced-usage-filter-__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">jakarta.servlet</span><span class="w"> </span><span class="kn">import</span> <span class="n">Filter</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#advanced-usage-filter-__codelineno-1-2"></a>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#advanced-usage-filter-__codelineno-1-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">Auth_filter</span><span class="p">(</span><span class="n">Filter</span><span class="p">):</span>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#advanced-usage-filter-__codelineno-1-4"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">doFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">chain</span><span class="p">):</span>
@@ -17046,6 +17384,11 @@ To run the SØAD container with the configuration file, use the following comman
 
                 .print-site-enumerate-headings #components-cli h2:before { content: '3.6.' counter(counter-components-cli-2) ' ' }
                 .print-site-enumerate-headings #components-cli h2 {  counter-increment: counter-components-cli-2 }
+            
+.print-site-enumerate-headings #components-ai-assistant > h1:before { content: '3.7 ' }
+
+                .print-site-enumerate-headings #components-ai-assistant h2:before { content: '3.7.' counter(counter-components-ai-assistant-2) ' ' }
+                .print-site-enumerate-headings #components-ai-assistant h2 {  counter-increment: counter-components-ai-assistant-2 }
             
 .print-site-enumerate-headings #section-4 > h1:before { content: '4 ' }
 .print-site-enumerate-headings #getting-started-installation > h1:before { content: '4.1 ' }
