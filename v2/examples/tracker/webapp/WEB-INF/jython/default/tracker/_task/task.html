@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Tasks</title></head>
+<body>
+  <h1>{{project.name}} — tasks</h1>
+  <p><a href="{{ctxPath}}/t/tracker/task/edit?project_id={{project.id}}">Create task</a></p>
+  <form method="get" action="{{ctxPath}}/t/tracker/task" class="my-4 flex flex-wrap items-end gap-3">
+    <input type="hidden" name="project_id" value="{{project.id}}">
+    <label>Status
+      <select name="status">
+        <option value="">All</option>
+        <option value="todo" {{#eq status "todo"}}selected{{/eq}}>To do</option>
+        <option value="doing" {{#eq status "doing"}}selected{{/eq}}>Doing</option>
+        <option value="done" {{#eq status "done"}}selected{{/eq}}>Done</option>
+      </select>
+    </label>
+    <button type="submit">Filter</button>
+  </form>
+  <div class="overflow-x-auto">
+    <table>
+      <thead><tr><th>Task</th><th>Status</th><th>Actions</th></tr></thead>
+      <tbody>
+        {{#each tasks}}
+        <tr>
+          <td>{{title}}</td><td>{{status}}</td>
+          <td><a href="{{../ctxPath}}/t/tracker/task/edit?project_id={{project_id}}&amp;id={{id}}">Edit task</a></td>
+        </tr>
+        {{else}}<tr><td colspan="3">No matching tasks.</td></tr>{{/each}}
+      </tbody>
+    </table>
+  </div>
+  <nav class="my-4 flex gap-4" aria-label="Pagination">
+    {{#if previous_url}}<a href="{{previous_url}}">Previous</a>{{/if}}
+    <span>Page {{page}}</span>
+    {{#if next_url}}<a href="{{next_url}}">Next</a>{{/if}}
+  </nav>
+  <p><a href="{{ctxPath}}/t/tracker/project">Back to projects</a></p>
+</body>
+</html>

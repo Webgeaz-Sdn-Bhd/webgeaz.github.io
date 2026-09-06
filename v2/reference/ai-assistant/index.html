@@ -1,0 +1,1999 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Build complete web applications with SØAD">
+      
+      
+      
+      
+        <link rel="prev" href="../error-pages/">
+      
+      
+        <link rel="next" href="../ai-planning/">
+      
+      
+      <link rel="icon" href="../../assets/soad-logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>AI assistant workflows - SØAD Developer Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/soad-theme.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ai-assistant-workflows" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="SØAD Developer Guide" class="md-header__button md-logo" aria-label="SØAD Developer Guide" data-md-component="logo">
+      
+  <img src="../../assets/soad-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SØAD Developer Guide
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              AI assistant workflows
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="SØAD Developer Guide" class="md-nav__button md-logo" aria-label="SØAD Developer Guide" data-md-component="logo">
+      
+  <img src="../../assets/soad-logo.svg" alt="logo">
+
+    </a>
+    SØAD Developer Guide
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Welcome
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Learn and build
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Learn and build
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/01-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1. Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/02-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2. Getting started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/03-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3. Plan the application
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/04-database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4. Database and models
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/05-transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5. Transactions and routing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/06-views/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6. Views and frontend
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/07-building-the-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    7. Build the tracker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/08-authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    8. Authentication
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/09-integrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    9. Files and integrations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/10-filters-errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    10. Filters and errors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Development tools
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Development tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/11-s0adm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    11. S0ADM and AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/12-cli-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12. CLI and agents
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/13-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    13. Testing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Deliver
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Deliver
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/14-docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    14. Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/15-kubernetes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    15. Kubernetes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/16-publishing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    16. Publish documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Rendering and utilities
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../application-security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Application security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../auth-overrides/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Auth override contract
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transaction-filters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Transaction filters
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../error-pages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Error pages
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    AI assistant workflows
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    AI assistant workflows
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#enabling-the-assistant" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enabling the assistant
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enabling the assistant">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from-the-ide-self-hosted" class="md-nav__link">
+    <span class="md-ellipsis">
+      From the IDE (self-hosted)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-configuration-environment-managed" class="md-nav__link">
+    <span class="md-ellipsis">
+      From configuration / environment (managed)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opening-the-assistant" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opening the assistant
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-approval-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      The approval gate
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-can-ask-it-to-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you can ask it to do
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What you can ask it to do">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a transaction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-a-whole-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build a whole app
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Build a whole app">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security-for-generated-apps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security for generated apps
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edit-an-existing-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Edit an existing transaction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rename-or-move-a-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rename or move a transaction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roll-back-to-a-previous-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      Roll back to a previous version
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagnose-data-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagnose data problems
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debug-runtime-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debug runtime errors
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schema-changes-and-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Schema changes and SQL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-memory-agentsmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project memory (AGENTS.md)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#designing-larger-apps-with-a-planner" class="md-nav__link">
+    <span class="md-ellipsis">
+      Designing larger apps with a planner
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conversations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conversations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safety-and-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      Safety and scope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tips-for-good-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tips for good results
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Planning with AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Migrations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting and glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Example application
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#enabling-the-assistant" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enabling the assistant
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enabling the assistant">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from-the-ide-self-hosted" class="md-nav__link">
+    <span class="md-ellipsis">
+      From the IDE (self-hosted)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-configuration-environment-managed" class="md-nav__link">
+    <span class="md-ellipsis">
+      From configuration / environment (managed)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opening-the-assistant" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opening the assistant
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-approval-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      The approval gate
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-can-ask-it-to-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you can ask it to do
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What you can ask it to do">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a transaction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-a-whole-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build a whole app
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Build a whole app">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security-for-generated-apps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security for generated apps
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edit-an-existing-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Edit an existing transaction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rename-or-move-a-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rename or move a transaction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roll-back-to-a-previous-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      Roll back to a previous version
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagnose-data-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagnose data problems
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debug-runtime-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debug runtime errors
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schema-changes-and-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Schema changes and SQL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-memory-agentsmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project memory (AGENTS.md)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#designing-larger-apps-with-a-planner" class="md-nav__link">
+    <span class="md-ellipsis">
+      Designing larger apps with a planner
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conversations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conversations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safety-and-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      Safety and scope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tips-for-good-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tips for good results
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ai-assistant-workflows">AI assistant workflows<a class="headerlink" href="#ai-assistant-workflows" title="Permanent link">&para;</a></h1>
+<p>The SØAD IDE includes an <strong>AI assistant</strong> that builds and edits transactions for
+you from a plain-language description. You tell it what you want — <em>"create a
+contact CRUD"</em>, <em>"add an email field to the signup form"</em>, <em>"why is the invoice
+page throwing an error?"</em> — and it uses the same building blocks you do
+(transactions, views, the database schema) to do the work.</p>
+<p>Ordinary transaction-editor source changes are staged for review. The IDE also
+supports optional auto-accept and a separate whole-app generation workflow that
+can execute SQL and install provisional source. Read
+<a href="../../chapters/11-s0adm/#understand-the-two-ai-workflows">S0ADM and AI</a> before using
+these modes against valuable data.</p>
+<hr />
+<h2 id="enabling-the-assistant">Enabling the assistant<a class="headerlink" href="#enabling-the-assistant" title="Permanent link">&para;</a></h2>
+<p>The assistant talks to a model that <em>you</em> provide (bring-your-own-key), through
+one of three provider families:</p>
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Wire protocol</th>
+<th>Use it for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OpenAI compatible</strong></td>
+<td><code>/chat/completions</code></td>
+<td>OpenAI, Azure OpenAI, OpenRouter, DeepSeek, and local servers such as Ollama, vLLM and LM Studio</td>
+</tr>
+<tr>
+<td><strong>OpenAI Responses</strong></td>
+<td><code>/responses</code></td>
+<td>OpenAI's Responses API</td>
+</tr>
+<tr>
+<td><strong>Anthropic</strong></td>
+<td><code>/messages</code></td>
+<td>Claude models</td>
+</tr>
+</tbody>
+</table>
+<p>Whichever you pick, you configure the same four things:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AI features</strong></td>
+<td>Master switch. When disabled, the <strong>AI</strong> button, the <strong>Edit with AI</strong> link and the dashboard prompt are all hidden</td>
+<td><code>Enabled</code></td>
+</tr>
+<tr>
+<td><strong>Endpoint</strong></td>
+<td>The provider's base URL (the request path is appended automatically)</td>
+<td><code>https://api.anthropic.com/v1</code></td>
+</tr>
+<tr>
+<td><strong>API key</strong></td>
+<td>Your provider key</td>
+<td><code>sk-ant-…</code></td>
+</tr>
+<tr>
+<td><strong>Model</strong></td>
+<td>The model name to use</td>
+<td><code>claude-sonnet-4-5</code></td>
+</tr>
+</tbody>
+</table>
+<p>Leaving the endpoint blank is fine for the OpenAI Responses and Anthropic
+families — they default to <code>https://api.openai.com/v1</code> and
+<code>https://api.anthropic.com/v1</code>. An OpenAI-compatible provider always needs an
+explicit endpoint, since the endpoint <em>is</em> the choice of gateway.</p>
+<p>There are two ways to set them.</p>
+<h3 id="from-the-ide-self-hosted">From the IDE (self-hosted)<a class="headerlink" href="#from-the-ide-self-hosted" title="Permanent link">&para;</a></h3>
+<p>Go to <strong>System Settings → Applications → &lt;your application&gt; → AI assistant</strong>
+(superadmin only), pick the provider, fill in the endpoint, API key and model, and
+save. This is the quickest way on a self-hosted instance. The settings are
+platform-wide: one provider serves every application, whichever application's page
+you open them from.</p>
+<h3 id="from-configuration-environment-managed">From configuration / environment (managed)<a class="headerlink" href="#from-configuration-environment-managed" title="Permanent link">&para;</a></h3>
+<p>Set them in <code>sufia.properties</code> or as environment variables — the usual way to
+inject config in a container or Kubernetes deployment.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Environment variable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ai.enabled</code></td>
+<td><code>ai_enabled</code></td>
+</tr>
+<tr>
+<td><code>ai.provider</code></td>
+<td><code>ai_provider</code></td>
+</tr>
+<tr>
+<td><code>ai.endpoint</code></td>
+<td><code>ai_endpoint</code></td>
+</tr>
+<tr>
+<td><code>ai.api.key</code></td>
+<td><code>ai_api_key</code></td>
+</tr>
+<tr>
+<td><code>ai.model</code></td>
+<td><code>ai_model</code></td>
+</tr>
+<tr>
+<td><code>ai.auto.accept</code></td>
+<td><code>ai_auto_accept</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>ai.provider</code> accepts <code>openai</code>, <code>openai-responses</code> or <code>anthropic</code>; any other value
+(a gateway brand name such as <code>deepseek</code>) is treated as OpenAI-compatible.
+<code>ai.enabled</code> defaults to <code>true</code> — set it to <code>false</code> to ship an instance with no AI
+entry points at all.</p>
+<p>When the same value is set in more than one place, the order of precedence is,
+per field:</p>
+<p><strong>in-IDE AI assistant settings → environment variable → <code>sufia.properties</code> → built-in default.</strong></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the assistant reports that it is <em>not configured</em>, no endpoint / key / model
+has been resolved from any of the sources above.</p>
+</div>
+<hr />
+<h2 id="opening-the-assistant">Opening the assistant<a class="headerlink" href="#opening-the-assistant" title="Permanent link">&para;</a></h2>
+<p>Open a transaction in the editor and click the <strong>AI</strong> button in the toolbar to
+slide out the chat panel. You can also click <strong>Edit with AI</strong> in the editor footer
+to open the panel pre-focused on the transaction you're viewing.</p>
+<p>Type what you want and send (⌘/Ctrl + Enter). The assistant streams its thinking
+and shows each step it takes ("Reading schema for table <code>contact</code>", "Writing
+<code>contact.py</code>", and so on).</p>
+<hr />
+<h2 id="the-approval-gate">The approval gate<a class="headerlink" href="#the-approval-gate" title="Permanent link">&para;</a></h2>
+<p>In ordinary editor chat with auto-accept disabled, prepared source changes appear
+in a <strong>review</strong> with a before/after <strong>diff</strong> for every file:</p>
+<ul>
+<li><strong>Approve &amp; Execute</strong> — write the changes to the server (and, for a new
+  transaction, open it in the editor).</li>
+<li><strong>Discard</strong> — throw the staged work away.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Workflow differences</p>
+<p>Auto-accept defaults off; enabling it can automate eligible approval actions.
+Whole-app generation can mutate the schema and provisional source before
+final publication. Rename/move and project-memory operations have their own
+behavior and are not ordinary staged source edits.</p>
+</div>
+<hr />
+<h2 id="what-you-can-ask-it-to-do">What you can ask it to do<a class="headerlink" href="#what-you-can-ask-it-to-do" title="Permanent link">&para;</a></h2>
+<h3 id="create-a-transaction">Create a transaction<a class="headerlink" href="#create-a-transaction" title="Permanent link">&para;</a></h3>
+<p>Describe the transaction you want. If you don't say which <strong>group</strong> and <strong>code</strong> to
+use, the assistant asks first rather than guessing — so the URL and file layout are
+what you expect.</p>
+<blockquote>
+<p><em>"Create a CRUD for the <code>product</code> table in group <code>catalog</code>."</em></p>
+</blockquote>
+<h3 id="build-a-whole-app">Build a whole app<a class="headerlink" href="#build-a-whole-app" title="Permanent link">&para;</a></h3>
+<p>Ask for several transactions at once and the assistant builds and wires them
+together in one go. For a multi-part request it chooses sensible group/code names
+itself.</p>
+<blockquote>
+<p><em>"Build a booking app: a room list, a booking form, and a room CRUD."</em></p>
+</blockquote>
+<p>The review shows each transaction as its own card; <strong>Approve &amp; Execute</strong> commits
+them together.</p>
+<h4 id="security-for-generated-apps">Security for generated apps<a class="headerlink" href="#security-for-generated-apps" title="Permanent link">&para;</a></h4>
+<p>For a whole-app request, the assistant classifies the app as <code>public</code>,
+<code>authenticated</code>, or <code>mixed</code>, then includes explicit action policies, roles,
+permissions, login/logout behavior, and CSRF protection in the plan. Internal
+business apps default to application-local identity; landing pages and other
+intentionally public apps do not receive unnecessary user management.</p>
+<p>Administrators can later keep the action policies and replace local identity
+with a custom application provider. See
+<a href="../application-security/">Application Security and Authentication Providers</a>
+for the inference rules, provider contract, switching procedure, rollback, and
+troubleshooting.</p>
+<h3 id="edit-an-existing-transaction">Edit an existing transaction<a class="headerlink" href="#edit-an-existing-transaction" title="Permanent link">&para;</a></h3>
+<p>Open a transaction (or use <strong>Edit with AI</strong>) and describe the change. The assistant
+reads the current files first and stages a focused edit.</p>
+<blockquote>
+<p><em>"Add an <code>email</code> column to the form and validate it."</em></p>
+</blockquote>
+<h3 id="rename-or-move-a-transaction">Rename or move a transaction<a class="headerlink" href="#rename-or-move-a-transaction" title="Permanent link">&para;</a></h3>
+<p>Ask it to change a transaction's group and/or code. Because a rename also updates
+the controller class name and the default view, the assistant <strong>states the exact
+rename and asks you to confirm in chat first</strong> — and then applies it immediately.</p>
+<blockquote>
+<p><em>"Rename <code>orders/cart</code> to <code>shop/basket</code>."</em></p>
+</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A rename doesn't rewrite your own internal references (links, explicit view
+names). The assistant will remind you to check those.</p>
+</div>
+<h3 id="roll-back-to-a-previous-version">Roll back to a previous version<a class="headerlink" href="#roll-back-to-a-previous-version" title="Permanent link">&para;</a></h3>
+<p>Every save is versioned. If a change didn't work out, ask the assistant to restore
+an earlier version. It lists the saved versions, you pick one, and it <strong>stages that
+version as a change</strong> so you review the diff before approving. Approving snapshots
+the current state first, so a restore is itself reversible.</p>
+<blockquote>
+<p><em>"Show me the versions of <code>catalog/product</code> and restore yesterday's."</em></p>
+</blockquote>
+<h3 id="diagnose-data-problems">Diagnose data problems<a class="headerlink" href="#diagnose-data-problems" title="Permanent link">&para;</a></h3>
+<p>When something <em>looks</em> wrong (a missing record, an unexpected value), the assistant
+can run <strong>read-only</strong> queries to inspect the actual rows before suggesting a fix.</p>
+<blockquote>
+<p><em>"The dashboard total is wrong — can you check the <code>orders</code> data?"</em></p>
+</blockquote>
+<h3 id="debug-runtime-errors">Debug runtime errors<a class="headerlink" href="#debug-runtime-errors" title="Permanent link">&para;</a></h3>
+<p>If a page is throwing or misbehaving, reproduce it, then ask the assistant. It reads
+the <strong>server log</strong> to find the real error and stack trace, then proposes a fix based
+on what actually happened instead of guessing.</p>
+<blockquote>
+<p><em>"The invoice page returns a 500 — what's wrong?"</em></p>
+</blockquote>
+<hr />
+<h2 id="schema-changes-and-sql">Schema changes and SQL<a class="headerlink" href="#schema-changes-and-sql" title="Permanent link">&para;</a></h2>
+<p>In ordinary editor chat the assistant can read schema and suggest SQL for the
+developer's <strong>Execute</strong> button. Authorized whole-app generation additionally has
+a direct SQL execution path. For a normal editor SQL block:</p>
+<ul>
+<li>Review the SQL.</li>
+<li>Click <strong>Execute</strong> to run it against your application database.</li>
+<li>After a structural change the models are <strong>refreshed automatically</strong>, so new
+  columns and tables are immediately available.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>For this editor workflow, read SQL before clicking <strong>Execute</strong> —
+destructive statements (for example <code>DROP</code>) are blocked, but you are still the
+one applying the change.</p>
+</div>
+<hr />
+<h2 id="project-memory-agentsmd">Project memory (<code>AGENTS.md</code>)<a class="headerlink" href="#project-memory-agentsmd" title="Permanent link">&para;</a></h2>
+<p>The assistant already knows the SØAD framework, but it doesn't know <em>your</em> project's
+conventions. You can teach it by keeping notes in a file at
+<code>WEB-INF/AGENTS.md</code>. Anything in that file — design decisions, naming conventions,
+UI guidelines, domain rules — is treated as authoritative guidance on every request.</p>
+<p>Two ways to maintain it:</p>
+<ul>
+<li><strong>Edit it yourself</strong> in the File Manager (it's a normal Markdown file).</li>
+<li><strong>Ask the assistant to remember something</strong> — say <em>"remember this"</em> or <em>"save to
+  memory"</em> and it appends the note for you.</li>
+</ul>
+<blockquote>
+<p><em>"Remember: all money amounts are stored in cents, and we always soft-delete."</em></p>
+</blockquote>
+<p><code>AGENTS.md</code> is optional. When it's empty, the assistant just uses its built-in
+framework knowledge.</p>
+<hr />
+<h2 id="designing-larger-apps-with-a-planner">Designing larger apps with a planner<a class="headerlink" href="#designing-larger-apps-with-a-planner" title="Permanent link">&para;</a></h2>
+<p>The assistant is a <strong>builder</strong> — it's at its best turning a clear, focused request
+into transactions you approve. For a <strong>larger app</strong> — many screens, a real data
+model, cross-cutting conventions — it pays to <strong>design first, then build</strong>.</p>
+<p>A workflow that works well:</p>
+<ol>
+<li><strong>Plan with a capable "frontier" AI.</strong> Use a strong general-purpose model (the
+   kind you'd reach for to architect and design) to turn your idea into a concrete
+   plan: the data model, the list of transactions, how they link, and your
+   conventions.</li>
+<li><strong>Give the planner SØAD's context.</strong> So its plan uses SØAD conventions rather than
+   generic ones, provide it with SØAD's coding context (the framework documentation)
+   <strong>and</strong> the planning guide below — the guide tells it how to shape a plan the
+   assistant can build cleanly.</li>
+<li><strong>Split the result into two streams:</strong><ul>
+<li><strong>Durable conventions</strong> (naming, money handling, soft-delete, UI standards) go
+  into your project's <strong><code>AGENTS.md</code></strong> once — they then apply to every request.</li>
+<li><strong>The build plan</strong> (data model + transactions) goes into the <strong>chat</strong>, fed
+  <strong>phase by phase</strong>.</li>
+</ul>
+</li>
+<li><strong>Build in order:</strong> run the schema SQL first (Execute), then paste the
+   transactions a batch at a time, approving each before moving on.</li>
+</ol>
+<p>This split isn't arbitrary: <code>AGENTS.md</code> is always in the assistant's context, while
+chat history is finite and trims older turns. Put <em>"always true"</em> in <code>AGENTS.md</code> and
+<em>"what to build now"</em> in chat.</p>
+<div class="admonition tip">
+<p class="admonition-title">Planning guide</p>
+<p>Give this to your planning AI, alongside SØAD's coding context, so it produces
+plans shaped for the assistant to build:</p>
+<p><strong><a href="../ai-planning/">Read the SØAD Planning Guide</a></strong></p>
+</div>
+<hr />
+<h2 id="conversations">Conversations<a class="headerlink" href="#conversations" title="Permanent link">&para;</a></h2>
+<p>The panel keeps your chat <strong>history per transaction</strong>, so you can close it and come
+back later. Use <strong>New chat</strong> to start a fresh conversation (clearing the context),
+and <strong>All conversations</strong> to browse past chats.</p>
+<hr />
+<h2 id="safety-and-scope">Safety and scope<a class="headerlink" href="#safety-and-scope" title="Permanent link">&para;</a></h2>
+<p>The assistant is deliberately constrained:</p>
+<ul>
+<li>Ordinary editor file changes use staged review; optional auto-accept changes
+  the interaction. Rename/move and project-memory updates are separate operations.</li>
+<li>Ordinary editor SQL is developer-executed. Server-authorized empty-app
+  generation can execute SQL and install provisional transactions.</li>
+<li>Transaction version restoration stages source changes. It is not a database
+  restore or production release rollback. Use the release/deployment tools for
+  those separate operational workflows.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">What is sent to the model</p>
+<p>To do its work, the assistant sends relevant context to your configured model
+provider — your request, the transaction files it's working on, schema details,
+and, when debugging, log excerpts. Choose a provider you trust with your project
+data, and be aware that anything present in the server log (which the log tool
+may read) can be included when you ask it to debug.</p>
+</div>
+<hr />
+<h2 id="tips-for-good-results">Tips for good results<a class="headerlink" href="#tips-for-good-results" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Be specific about names.</strong> Give the group and code when you have a preference;
+  otherwise the assistant will ask.</li>
+<li><strong>Mention the tables and columns</strong> involved — the assistant reads the schema, but
+  naming them removes ambiguity.</li>
+<li><strong>Work in small steps</strong> and approve as you go; it's easier to review a focused
+  diff than a sweeping one.</li>
+<li><strong>Reproduce an error first, then ask</strong> — the assistant reads the log, so a fresh
+  error trail helps it find the cause.</li>
+<li><strong>Capture conventions in <code>AGENTS.md</code></strong> once, instead of repeating them in every
+  chat.</li>
+<li><strong>Plan big apps first.</strong> For anything large, design it with a planner and feed it
+  in phases — see <a href="#designing-larger-apps-with-a-planner">Designing larger apps with a planner</a>.</li>
+</ul>
+<hr />
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause / fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>"AI assistant is not configured"</em></td>
+<td>No endpoint / key / model resolved — set them in <strong>System Settings → Applications → AI assistant</strong> or via the <code>ai.*</code> properties/environment variables.</td>
+</tr>
+<tr>
+<td>No <strong>AI</strong> button, no dashboard prompt</td>
+<td>The feature is switched off — set <strong>AI features</strong> to <em>Enabled</em>, or <code>ai.enabled = true</code> / <code>ai_enabled=true</code>.</td>
+</tr>
+<tr>
+<td>Requests fail with an auth error</td>
+<td>Wrong API key, or the model name isn't valid for your provider.</td>
+</tr>
+<tr>
+<td>Nothing happens / provider error</td>
+<td>Check the endpoint base URL, and that the selected provider matches the API the endpoint actually speaks (<code>/chat/completions</code>, <code>/responses</code> or <code>/messages</code>).</td>
+</tr>
+<tr>
+<td>Claude replies are cut off mid-file</td>
+<td>Raise <code>ai.max.output.tokens</code> (Anthropic defaults to 8192 output tokens).</td>
+</tr>
+<tr>
+<td>A change didn't take effect</td>
+<td>Confirm you clicked <strong>Approve &amp; Execute</strong> — staged changes aren't written until you do.</td>
+</tr>
+<tr>
+<td>The model doesn't see a new column/table</td>
+<td>Run the suggested SQL with <strong>Execute</strong> (which refreshes the models), or Introspect the datasource.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../error-pages/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Error pages">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Error pages
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../ai-planning/" class="md-footer__link md-footer__link--next" aria-label="Next: Planning with AI">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Planning with AI
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.footer", "content.code.copy", "search.suggest"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

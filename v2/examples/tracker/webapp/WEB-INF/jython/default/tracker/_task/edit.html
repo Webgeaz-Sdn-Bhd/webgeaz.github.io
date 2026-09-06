@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Edit task</title><link rel="stylesheet" href="{{ctxPath}}/assets/tracker/tracker.css">
+</head>
+<body>
+  <section class="mx-auto max-w-2xl p-4">
+    <h1>{{#if task.id}}Edit task{{else}}Create task{{/if}}</h1>
+    {{#if error}}<p role="alert" class="text-red-700">{{error}}</p>{{/if}}
+    <form method="post" enctype="multipart/form-data" action="{{ctxPath}}/t/tracker/task/save">
+      <input type="hidden" name="csrf_token" value="{{csrf_token}}">
+      <input type="hidden" name="project_id" value="{{project.id}}">
+      <input type="hidden" name="id" value="{{task.id}}">
+      <label>Title <input name="title" value="{{task.title}}" maxlength="200" required></label>
+      <label>Status
+        <select name="status">
+          <option value="todo" {{#eq task.status "todo"}}selected{{/eq}}>To do</option>
+          <option value="doing" {{#eq task.status "doing"}}selected{{/eq}}>Doing</option>
+          <option value="done" {{#eq task.status "done"}}selected{{/eq}}>Done</option>
+        </select>
+      </label>
+      <label>Assignee
+        <select name="assignee_id">
+          <option value="">Unassigned</option>
+          {{#each people}}
+          <option value="{{id}}" {{#eq id ../task.assignee_id}}selected{{/eq}}>{{full_name}}</option>
+          {{/each}}
+        </select>
+      </label>
+      <p>Assignment does not grant access to this project.</p>
+      <label>Replace attachment (maximum 1 MiB) <input type="file" name="attachment"></label>
+      <label class="flex items-center gap-2">
+        <input class="w-auto" type="checkbox" name="remove_attachment" value="yes"> Remove existing attachment
+      </label>
+      <p>On validation failure, choose the attachment again. A new upload replaces a removed file.</p>
+      <button type="submit">Save task</button>
+    </form>
+    {{#if task.id}}
+    <p><a href="{{ctxPath}}/t/tracker/task/download?project_id={{project.id}}&amp;id={{task.id}}">Download attachment (404 if none)</a></p>
+    <details class="my-6">
+      <summary>Delete task</summary>
+      <p>The task and its attachment will be permanently removed.</p>
+      <form method="post" action="{{ctxPath}}/t/tracker/task/delete">
+        <input type="hidden" name="csrf_token" value="{{csrf_token}}">
+        <input type="hidden" name="project_id" value="{{project.id}}">
+        <input type="hidden" name="id" value="{{task.id}}">
+        <button type="submit">Permanently delete this task</button>
+      </form>
+    </details>
+    {{/if}}
+    <a href="{{ctxPath}}/t/tracker/task?project_id={{project.id}}">Back to tasks</a>
+  </section>
+</body>
+</html>

@@ -1,0 +1,1553 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Build complete web applications with SØAD">
+      
+      
+      
+      
+        <link rel="prev" href="../ai-assistant/">
+      
+      
+        <link rel="next" href="../migrations/">
+      
+      
+      <link rel="icon" href="../../assets/soad-logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Planning with AI - SØAD Developer Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/soad-theme.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#planning-applications-with-ai" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="SØAD Developer Guide" class="md-header__button md-logo" aria-label="SØAD Developer Guide" data-md-component="logo">
+      
+  <img src="../../assets/soad-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SØAD Developer Guide
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Planning with AI
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="SØAD Developer Guide" class="md-nav__button md-logo" aria-label="SØAD Developer Guide" data-md-component="logo">
+      
+  <img src="../../assets/soad-logo.svg" alt="logo">
+
+    </a>
+    SØAD Developer Guide
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Welcome
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Learn and build
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Learn and build
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/01-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1. Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/02-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2. Getting started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/03-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3. Plan the application
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/04-database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4. Database and models
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/05-transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5. Transactions and routing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/06-views/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6. Views and frontend
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/07-building-the-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    7. Build the tracker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/08-authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    8. Authentication
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/09-integrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    9. Files and integrations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/10-filters-errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    10. Filters and errors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Development tools
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Development tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/11-s0adm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    11. S0ADM and AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/12-cli-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12. CLI and agents
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/13-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    13. Testing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Deliver
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Deliver
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/14-docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    14. Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/15-kubernetes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    15. Kubernetes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/16-publishing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    16. Publish documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Rendering and utilities
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../application-security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Application security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../auth-overrides/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Auth override contract
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transaction-filters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Transaction filters
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../error-pages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Error pages
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai-assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AI assistant workflows
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Planning with AI
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Planning with AI
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-builder-works-plan-within-these-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      How the builder works (plan within these constraints)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-to-produce" class="md-nav__link">
+    <span class="md-ellipsis">
+      What to produce
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#style-rules-what-makes-a-plan-land-well" class="md-nav__link">
+    <span class="md-ellipsis">
+      Style rules (what makes a plan land well)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plan-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plan template
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transactions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transactions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      /
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      /
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phases-build-approval-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phases (build &amp; approval order)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-conventions-put-these-in-agentsmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project conventions (put these in AGENTS.md)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Migrations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting and glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Example application
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-builder-works-plan-within-these-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      How the builder works (plan within these constraints)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-to-produce" class="md-nav__link">
+    <span class="md-ellipsis">
+      What to produce
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#style-rules-what-makes-a-plan-land-well" class="md-nav__link">
+    <span class="md-ellipsis">
+      Style rules (what makes a plan land well)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plan-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plan template
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transactions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transactions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      /
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      /
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phases-build-approval-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phases (build &amp; approval order)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-conventions-put-these-in-agentsmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project conventions (put these in AGENTS.md)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="planning-applications-with-ai">Planning applications with AI<a class="headerlink" href="#planning-applications-with-ai" title="Permanent link">&para;</a></h1>
+<p><strong>Read this together with the <a href="../../">developer chapters</a>.</strong> They teach the
+SØAD framework (Jython transactions, Handlebars views, ActiveJDBC models, routing,
+hard rules). <em>This</em> file tells you how to turn a request into a <strong>build plan</strong> that a
+second AI — the <strong>SØAD IDE agent</strong> — will implement.</p>
+<p>You are the <em>architect</em>. You do not write the final code here; you produce a clear,
+staged plan. The agent is the <em>builder</em>: it reads your plan, generates the
+transactions. Specify the intended review points and generation mode in the plan.</p>
+<hr />
+<h2 id="how-the-builder-works-plan-within-these-constraints">How the builder works (plan within these constraints)<a class="headerlink" href="#how-the-builder-works-plan-within-these-constraints" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Decompose the app into transaction-sized units</strong>, each doing one job.
+  Ordinary editor source changes are staged; whole-app generation can coordinate
+  multiple transactions and install provisional source during validation.</li>
+<li><strong>Put schema SQL before dependent controllers.</strong> Editor-chat SQL uses the
+  developer Execute action; server-authorized whole-app generation can execute
+  DDL/DML. State which workflow and database the plan targets.</li>
+<li><strong>It asks for <code>group</code>/<code>code</code> if you don't specify them</strong> (for a single
+  transaction). So <strong>always name the group and code</strong> for every transaction.</li>
+<li><strong>It already knows SØAD idioms</strong> — routing, the POST/PRG pattern, model naming,
+  default-view resolution, the built-in helpers. <strong>Specify intent, not mechanics.</strong>
+  Don't re-teach the framework or hand-write boilerplate the agent will produce
+  correctly on its own.</li>
+<li><strong>Phase the plan</strong> into reviewable chunks. Account for the selected auto-accept
+  setting and whole-app workflow rather than promising a click before every write.</li>
+<li><strong>Its context is bounded.</strong> Keep the plan tight and concrete; for a big app, split
+  it so it can be fed and approved in stages rather than one huge block.</li>
+<li><strong>Separate development from release operations.</strong> A source restoration is not
+  a database rollback; deployment needs its own migration and verification plan.</li>
+</ul>
+<hr />
+<h2 id="what-to-produce">What to produce<a class="headerlink" href="#what-to-produce" title="Permanent link">&para;</a></h2>
+<p>Output a plan with these parts, in this order:</p>
+<ol>
+<li><strong>Data model</strong> — the tables, columns and relationships, <em>with the <code>CREATE TABLE</code>
+   SQL</em> when the tables don't already exist. This runs first (human clicks Execute).</li>
+<li><strong>Transactions</strong> — one block per transaction (see the template). This is the bulk
+   of the plan and maps 1:1 onto what the builder creates.</li>
+<li><strong>Phases</strong> — group the transactions into approval-sized batches, in build order
+   (schema → core entities → screens that depend on them → wiring).</li>
+<li><strong>Project conventions</strong> <em>(optional)</em> — durable rules the builder should always
+   follow (naming, money handling, soft-delete, UI conventions). These belong in the
+   project's <code>AGENTS.md</code>, not repeated in every request — call them out separately.</li>
+</ol>
+<hr />
+<h2 id="style-rules-what-makes-a-plan-land-well">Style rules (what makes a plan land well)<a class="headerlink" href="#style-rules-what-makes-a-plan-land-well" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Name <code>group/code</code> explicitly</strong> for every transaction — it becomes the URL
+  <code>/t/&lt;group&gt;/&lt;code&gt;</code> and the file layout. Never leave it to the builder to guess.</li>
+<li><strong>Name tables and columns.</strong> The builder reads the schema, but naming them removes
+  ambiguity and prevents wrong assumptions.</li>
+<li><strong>Schema first.</strong> If tables don't exist, give the DDL up front so the build targets
+  real columns.</li>
+<li><strong>One responsibility per transaction.</strong> Prefer <code>catalog/room</code> (CRUD) + <code>booking/new</code>
+  (a form) over one mega-transaction.</li>
+<li><strong>Specify behaviour, not framework code.</strong> Say "list with a link to the form,
+  soft-delete on the row" — not how to wire <code>render.as_view</code> or the PRG redirect.</li>
+<li><strong>Describe the actions</strong> each transaction needs (e.g. <code>view</code>, <code>list</code>, <code>save</code>,
+  <code>delete</code>) and any per-action method (a save is a POST).</li>
+<li><strong>State the fields and validation</strong> (required, type, unique) — these drive both the
+  form and the controller.</li>
+<li><strong>Wire the screens together.</strong> Say which list links to which form/detail, so the
+  built transactions form one app rather than isolated pages.</li>
+<li><strong>Phase to approval batches.</strong> "These 3 transactions" is one reviewable diff; a
+  20-transaction dump is not.</li>
+<li><strong>Flag anything that needs SQL</strong> (schema change, seed data) as a fenced <code>sql</code>
+  block for a human to Execute — never assume the builder ran it.</li>
+</ul>
+<hr />
+<h2 id="plan-template">Plan template<a class="headerlink" href="#plan-template" title="Permanent link">&para;</a></h2>
+<p>Produce your plan in this shape (fill in / repeat the transaction block per screen):</p>
+<div class="highlight"><pre><span></span><code># &lt;App name&gt; — build plan
+
+## Data model
+- table `&lt;name&gt;` (&lt;col&gt; &lt;type&gt; [pk|required|unique|-&gt; other_table], ...)
+  ...
+### Schema SQL (run first, via Execute)
+```sql
+CREATE TABLE ...;
+</code></pre></div>
+<h2 id="transactions">Transactions<a class="headerlink" href="#transactions" title="Permanent link">&para;</a></h2>
+<h3 id="_1"><group>/<code><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>Purpose: <one sentence>.
+Actions: <view | list | save (POST) | delete (DELETE) | ...>.
+Fields: <field (required/type/validation), ...>.
+Views: <what the screen shows and its layout, plainly>.
+Links: <which other transactions it navigates to / from>.
+Notes: <anything unusual; leave framework mechanics to the builder>.</p>
+<h3 id="_2"><group>/<code><a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>...</p>
+<h2 id="phases-build-approval-order">Phases (build &amp; approval order)<a class="headerlink" href="#phases-build-approval-order" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Schema SQL (Execute).</li>
+<li><transactions in this batch> — approve.</li>
+<li><next batch> — approve.
+...</li>
+</ol>
+<h2 id="project-conventions-put-these-in-agentsmd">Project conventions (put these in AGENTS.md)<a class="headerlink" href="#project-conventions-put-these-in-agentsmd" title="Permanent link">&para;</a></h2>
+<ul>
+<li><durable rule the builder should always follow></li>
+<li>...
+<div class="highlight"><pre><span></span><code>---
+
+## Worked example (short)
+</code></pre></div></li>
+</ul>
+<h1 id="room-booking-build-plan">Room booking — build plan<a class="headerlink" href="#room-booking-build-plan" title="Permanent link">&para;</a></h1>
+<h2 id="data-model">Data model<a class="headerlink" href="#data-model" title="Permanent link">&para;</a></h2>
+<ul>
+<li>table <code>room</code> (id pk, name required, capacity int, active bool)</li>
+<li>table <code>booking</code> (id pk, room_id -&gt; room, guest_name required, start_date, end_date)</li>
+</ul>
+<h3 id="schema-sql-run-first-via-execute">Schema SQL (run first, via Execute)<a class="headerlink" href="#schema-sql-run-first-via-execute" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">room</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">  </span><span class="n">name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">  </span><span class="n">capacity</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<span class="w">  </span><span class="n">active</span><span class="w"> </span><span class="nb">BOOLEAN</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">TRUE</span>
+<span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">booking</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">  </span><span class="n">room_id</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<span class="w">  </span><span class="n">guest_name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">120</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">  </span><span class="n">start_date</span><span class="w"> </span><span class="nb">DATE</span><span class="p">,</span>
+<span class="w">  </span><span class="n">end_date</span><span class="w"> </span><span class="nb">DATE</span><span class="p">,</span>
+<span class="w">  </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">room_id</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">room</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+<h2 id="transactions_1">Transactions<a class="headerlink" href="#transactions_1" title="Permanent link">&para;</a></h2>
+<h3 id="catalogroom">catalog/room<a class="headerlink" href="#catalogroom" title="Permanent link">&para;</a></h3>
+<p>Purpose: manage rooms (CRUD).
+Actions: list, view, save (POST), delete (DELETE).
+Fields: name (required), capacity (int), active (bool).
+Views: a table of rooms, each row linking to the edit form; a simple add/edit form.
+Links: list is the entry point; form returns to the list after save.</p>
+<h3 id="bookingnew">booking/new<a class="headerlink" href="#bookingnew" title="Permanent link">&para;</a></h3>
+<p>Purpose: create a booking for a room.
+Actions: view, save (POST).
+Fields: room (select from <code>room</code> where active), guest_name (required),
+        start_date, end_date (end after start).
+Views: a form; on save, redirect back to the room list with a success message.
+Links: reached from the catalog/room list ("Book" action).</p>
+<h2 id="phases">Phases<a class="headerlink" href="#phases" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Schema SQL (Execute).</li>
+<li>catalog/room — approve.</li>
+<li>booking/new — approve.</li>
+</ol>
+<h2 id="project-conventions-put-these-in-agentsmd_1">Project conventions (put these in AGENTS.md)<a class="headerlink" href="#project-conventions-put-these-in-agentsmd_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Dates are stored as DATE; display as YYYY-MM-DD.</li>
+<li>Lists use the standard table layout; forms use a single-column card.
+```</li>
+</ul>
+<hr />
+<h2 id="hand-off-checklist">Hand-off checklist<a class="headerlink" href="#hand-off-checklist" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] Every transaction has an explicit <code>group/code</code>.</li>
+<li>[ ] Tables/columns are named; DDL is included if they don't exist yet.</li>
+<li>[ ] Schema SQL comes first and is marked "Execute".</li>
+<li>[ ] Transactions are single-purpose and wired together.</li>
+<li>[ ] The plan is phased into approval-sized batches.</li>
+<li>[ ] Durable rules are separated out for <code>AGENTS.md</code>.</li>
+<li>[ ] No step assumes the builder can delete, deploy, or run SQL itself.</li>
+</ul>
+<p><strong>Feeding the plan to the builder:</strong> paste the durable <em>conventions</em> into the
+project's <code>AGENTS.md</code> once; paste the <em>data model + transactions</em> into the agent
+chat phase by phase, approving each batch before moving on.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../ai-assistant/" class="md-footer__link md-footer__link--prev" aria-label="Previous: AI assistant workflows">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                AI assistant workflows
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../migrations/" class="md-footer__link md-footer__link--next" aria-label="Next: Migrations">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Migrations
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.footer", "content.code.copy", "search.suggest"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,36 @@
+# Run from this directory after preparing ./release and building tracker:1.0.
+services:
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: tracker
+      MYSQL_USER: tracker
+      MYSQL_PASSWORD: ${TRACKER_DB_PASSWORD:?Set TRACKER_DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${TRACKER_DB_ROOT_PASSWORD:?Set TRACKER_DB_ROOT_PASSWORD}
+    volumes:
+      - tracker-db:/var/lib/mysql
+      - ./release/webapp/WEB-INF/deploy:/install:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+  tracker:
+    image: tracker:1.0
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8081:8080"
+    environment:
+      db_default_url: jdbc:mysql://db:3306/tracker?useSSL=false&allowPublicKeyRetrieval=true
+      db_default_driver_class: com.mysql.cj.jdbc.Driver
+      db_default_username: tracker
+      db_default_password: ${TRACKER_DB_PASSWORD:?Set TRACKER_DB_PASSWORD}
+      sufia_app_name: Project Tracker
+      sufia_hostname: http://localhost:8081
+      session_cookie_secure: "false"
+      session_cookie_samesite: LAX
+    restart: unless-stopped
+volumes:
+  tracker-db:

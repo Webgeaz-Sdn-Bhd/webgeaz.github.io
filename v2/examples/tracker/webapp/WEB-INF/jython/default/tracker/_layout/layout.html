@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{title}} · Tracker</title>
+  <link rel="stylesheet" href="{{ctxPath}}/assets/tracker/tracker.css">
+  {{head}}
+</head>
+<body class="bg-slate-50 text-slate-900">
+  <a class="sr-only focus:not-sr-only" href="#main">Skip to content</a>
+  <header class="bg-slate-900 text-white">
+    <nav class="mx-auto flex max-w-5xl flex-wrap items-center gap-4 p-4" aria-label="Main">
+      <a href="{{ctxPath}}/t/tracker/project">Tracker</a>
+      <span class="grow">{{current_user.full_name}}</span>
+      <a href="{{ctxPath}}/_soad/auth/profile">Profile</a>
+      <a href="{{logout_url}}">Sign out</a>
+    </nav>
+  </header>
+  <main id="main" class="mx-auto max-w-5xl p-4 sm:p-8">{{body}}</main>
+</body>
+</html>

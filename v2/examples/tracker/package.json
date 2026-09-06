@@ -1,0 +1,11 @@
+{
+  "name": "soad-tracker-example",
+  "private": true,
+  "scripts": {
+    "build:css": "tailwindcss -i styles/tracker.css -o webapp/assets/tracker/tracker.css --minify"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "4.3.3",
+    "tailwindcss": "4.3.3"
+  }
+}

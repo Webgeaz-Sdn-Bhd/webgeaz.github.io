@@ -1,0 +1,126 @@
+# Replace image, origin, database host and secret before applying.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tracker-config
+data:
+  db_default_url: jdbc:mysql://mysql.example.internal:3306/tracker?sslMode=VERIFY_IDENTITY
+  db_default_driver_class: com.mysql.cj.jdbc.Driver
+  db_default_username: tracker
+  sufia_app_name: Project Tracker
+  sufia_hostname: https://tracker.example.com
+  session_cookie_secure: "true"
+  session_cookie_samesite: LAX
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tracker-sessions
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tracker
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: tracker
+  template:
+    metadata:
+      labels:
+        app: tracker
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: tracker
+          image: registry.example.com/tracker:1.0
+          ports:
+            - name: http
+              containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: tracker-config
+          env:
+            - name: db_default_password
+              valueFrom:
+                secretKeyRef:
+                  name: tracker-db
+                  key: password
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: "2"
+              memory: 2Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          startupProbe:
+            tcpSocket:
+              port: http
+            periodSeconds: 5
+            failureThreshold: 60
+          readinessProbe:
+            httpGet:
+              path: /_soad/auth/health
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: http
+            periodSeconds: 20
+            timeoutSeconds: 5
+          volumeMounts:
+            - name: sessions
+              mountPath: /tmp/s0-session-store
+      volumes:
+        - name: sessions
+          persistentVolumeClaim:
+            claimName: tracker-sessions
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tracker
+spec:
+  selector:
+    app: tracker
+  ports:
+    - port: 80
+      targetPort: http
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tracker
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts: [tracker.example.com]
+      secretName: tracker-tls
+  rules:
+    - host: tracker.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: tracker
+                port:
+                  number: 80

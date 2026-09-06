@@ -1,0 +1,15 @@
+@import "tailwindcss" source(none);
+@source "../webapp/WEB-INF/jython/default/tracker";
+
+@layer base {
+  body { @apply bg-slate-50 text-slate-900; }
+  h1 { @apply mb-5 text-3xl font-bold; }
+  a { @apply underline underline-offset-4; }
+  label { @apply my-3 block font-medium; }
+  input, select { @apply mt-1 block w-full rounded border border-slate-400 bg-white px-3 py-2; }
+  button { @apply my-3 rounded bg-slate-900 px-4 py-2 font-medium text-white; }
+  table { @apply w-full border-collapse bg-white; }
+  th, td { @apply border-b border-slate-200 p-3 text-left; }
+  p { @apply my-3; }
+  :focus-visible { @apply outline-2 outline-offset-4 outline-blue-600; }
+}

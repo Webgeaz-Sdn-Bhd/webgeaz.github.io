@@ -1,0 +1,96 @@
+/* SØAD palette: ink, plum, and a warm coral accent. */
+:root {
+  --md-primary-fg-color: #30213f;
+  --md-primary-fg-color--light: #4a3561;
+  --md-primary-fg-color--dark: #21172d;
+  --md-accent-fg-color: #e76f51;
+  --soad-teal: #2a9d8f;
+  --soad-gold: #e9c46a;
+}
+
+.md-header {
+  background: linear-gradient(105deg, #30213f 0%, #4b2e5f 58%, #7d466d 100%);
+  box-shadow: 0 3px 14px rgba(48, 33, 63, .22);
+}
+
+.md-tabs {
+  background: #30213f;
+}
+
+.md-header__title {
+  font-weight: 700;
+  letter-spacing: .01em;
+}
+
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg {
+  height: 2rem;
+  width: auto;
+}
+
+.md-sidebar--primary .md-nav__title {
+  color: #30213f;
+  font-weight: 800;
+}
+
+.md-nav__item--section > .md-nav__link {
+  color: #7d466d;
+  font-weight: 800;
+}
+
+.md-content h1 {
+  color: #30213f;
+  font-weight: 800;
+}
+
+.md-content h2 {
+  color: #4b2e5f;
+  border-bottom: 2px solid rgba(233, 196, 106, .55);
+  padding-bottom: .22rem;
+}
+
+.md-content h3 {
+  color: #287f76;
+}
+
+.md-content table:not(.highlighttable) th {
+  background: #f4e9f1;
+  color: #30213f;
+}
+
+.md-content table:not(.highlighttable) tr:hover {
+  background: #fff8ec;
+}
+
+.md-typeset a {
+  color: #b84f3b;
+}
+
+.md-typeset a:hover {
+  color: #287f76;
+}
+
+.md-typeset code {
+  background: #f4e9f1;
+  color: #4b2e5f;
+}
+
+.md-typeset .admonition,
+.md-typeset details {
+  border-color: var(--soad-teal);
+}
+
+.md-typeset .admonition-title {
+  background: rgba(42, 157, 143, .10);
+}
+
+.md-footer {
+  background: #21172d;
+}
+
+@media screen and (max-width: 76.1875em) {
+  .md-header__button.md-logo img,
+  .md-header__button.md-logo svg {
+    height: 1.75rem;
+  }
+}

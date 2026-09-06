@@ -1,0 +1,2488 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Build complete web applications with SØAD">
+      
+      
+      
+      
+        <link rel="prev" href="../application-security/">
+      
+      
+        <link rel="next" href="../transaction-filters/">
+      
+      
+      <link rel="icon" href="../../assets/soad-logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Auth override contract - SØAD Developer Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/soad-theme.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#authentication-override-contract" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="SØAD Developer Guide" class="md-header__button md-logo" aria-label="SØAD Developer Guide" data-md-component="logo">
+      
+  <img src="../../assets/soad-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SØAD Developer Guide
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Auth override contract
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="SØAD Developer Guide" class="md-nav__button md-logo" aria-label="SØAD Developer Guide" data-md-component="logo">
+      
+  <img src="../../assets/soad-logo.svg" alt="logo">
+
+    </a>
+    SØAD Developer Guide
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Welcome
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Learn and build
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Learn and build
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/01-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1. Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/02-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2. Getting started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/03-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3. Plan the application
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/04-database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4. Database and models
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/05-transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5. Transactions and routing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/06-views/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6. Views and frontend
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/07-building-the-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    7. Build the tracker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/08-authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    8. Authentication
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/09-integrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    9. Files and integrations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/10-filters-errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    10. Filters and errors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Development tools
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Development tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/11-s0adm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    11. S0ADM and AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/12-cli-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12. CLI and agents
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/13-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    13. Testing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Deliver
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Deliver
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/14-docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    14. Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/15-kubernetes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    15. Kubernetes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/16-publishing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    16. Publish documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Rendering and utilities
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../application-security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Application security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Auth override contract
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Auth override contract
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-output-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Output layout
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-failure-behavior-what-no-error-upon-run-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Failure behavior — what "no error upon run" means
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-hard-rules-any-one-of-these-rejects-the-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Hard rules — any one of these rejects the file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-page-shell-required-and-easy-to-get-wrong" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Page shell — required, and easy to get wrong
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-template-language-the-available-subset" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Template language — the available subset
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-per-screen-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Per-screen contract
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Per-screen contract">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-context-present-on-every-screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common context — present on every screen
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-two-structural-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      The two structural requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loginhtml-post-action_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      login.html — POST {{action_url}}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-totphtml-post-action_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      verify-totp.html — POST {{action_url}}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registerhtml-post-action_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      register.html — POST {{action_url}}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bootstraphtml-post-action_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      bootstrap.html — POST {{action_url}}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forgothtml-post-action_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      forgot.html — POST {{action_url}}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resethtml-post-action_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      reset.html — POST {{action_url}}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invitehtml-post-action_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      invite.html — POST {{action_url}}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#profilehtml-two-forms" class="md-nav__link">
+    <span class="md-ellipsis">
+      profile.html — two forms
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sessionshtml-post-revoke_action_url-per-row" class="md-nav__link">
+    <span class="md-ellipsis">
+      sessions.html — POST {{revoke_action_url}} per row
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#totp-setuphtml-two-mutually-exclusive-states" class="md-nav__link">
+    <span class="md-ellipsis">
+      totp-setup.html — two mutually exclusive states
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#admin-usershtml-four-post-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      admin-users.html — four POST targets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errorhtml-no-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      error.html — no form
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-authcss" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. auth.css
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-marksvg-optional-logo" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. mark.svg (optional logo)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-generator-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Generator checklist
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Scope
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transaction-filters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Transaction filters
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../error-pages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Error pages
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai-assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AI assistant workflows
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Planning with AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Migrations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting and glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Example application
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-output-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Output layout
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-failure-behavior-what-no-error-upon-run-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Failure behavior — what "no error upon run" means
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-hard-rules-any-one-of-these-rejects-the-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Hard rules — any one of these rejects the file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-page-shell-required-and-easy-to-get-wrong" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Page shell — required, and easy to get wrong
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-template-language-the-available-subset" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Template language — the available subset
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-per-screen-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Per-screen contract
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Per-screen contract">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-context-present-on-every-screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common context — present on every screen
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-two-structural-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      The two structural requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loginhtml-post-action_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      login.html — POST {{action_url}}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-totphtml-post-action_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      verify-totp.html — POST {{action_url}}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registerhtml-post-action_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      register.html — POST {{action_url}}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bootstraphtml-post-action_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      bootstrap.html — POST {{action_url}}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forgothtml-post-action_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      forgot.html — POST {{action_url}}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resethtml-post-action_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      reset.html — POST {{action_url}}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invitehtml-post-action_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      invite.html — POST {{action_url}}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#profilehtml-two-forms" class="md-nav__link">
+    <span class="md-ellipsis">
+      profile.html — two forms
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sessionshtml-post-revoke_action_url-per-row" class="md-nav__link">
+    <span class="md-ellipsis">
+      sessions.html — POST {{revoke_action_url}} per row
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#totp-setuphtml-two-mutually-exclusive-states" class="md-nav__link">
+    <span class="md-ellipsis">
+      totp-setup.html — two mutually exclusive states
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#admin-usershtml-four-post-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      admin-users.html — four POST targets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errorhtml-no-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      error.html — no form
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-authcss" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. auth.css
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-marksvg-optional-logo" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. mark.svg (optional logo)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-generator-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Generator checklist
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Scope
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="authentication-override-contract">Authentication override contract<a class="headerlink" href="#authentication-override-contract" title="Permanent link">&para;</a></h1>
+<p>Everything required to produce a drop-in replacement for the built-in
+authentication UI. A generator that follows this document can emit a folder that
+is copied into a deployed application and works without a restart.</p>
+<p>This document is <strong>structure only</strong> — it defines filenames, required markup,
+available data, and the validator rules. All visual design (layout, palette,
+typography, spacing, component styling) is left to the generator.</p>
+<p>Source of truth: <code>app/server/auth/overrides.py</code> (validator) and
+<code>app/server/AuthServlet.py</code> (context builder). See also
+<a href="../application-security/#customizing-built-in-authentication-pages">application security</a>.</p>
+<hr />
+<h2 id="1-output-layout">1. Output layout<a class="headerlink" href="#1-output-layout" title="Permanent link">&para;</a></h2>
+<p>⚠️ <strong>Not every file goes into <code>WEB-INF/auth-overrides/</code>.</strong> The stylesheet must be
+web-reachable, so it lives under <code>webapp/assets/</code>. Emitting <code>auth.css</code> into
+<code>WEB-INF/auth-overrides/</code> results in a silently unstyled page — the file is never
+read and never served.</p>
+<p>Generate this tree, rooted at the application's <code>webapp/</code> directory:</p>
+<div class="highlight"><pre><span></span><code>webapp/
+├── WEB-INF/
+│   └── auth-overrides/
+│       ├── login.html
+│       ├── verify-totp.html
+│       ├── register.html
+│       ├── bootstrap.html
+│       ├── forgot.html
+│       ├── reset.html
+│       ├── invite.html
+│       ├── profile.html
+│       ├── sessions.html
+│       ├── totp-setup.html
+│       ├── admin-users.html
+│       ├── error.html
+│       └── mark.svg          (optional logo; NOT a template — see §8)
+└── assets/
+    └── auth-overrides/
+        └── auth.css          (optional stylesheet — MUST be here, not WEB-INF)
+</code></pre></div>
+<p>Rules:</p>
+<ul>
+<li><strong>Every file is independently optional.</strong> A screen with no override file falls
+  back to the framework page. A partial set is valid.</li>
+<li><strong>No other filenames are recognized.</strong> Extra files in the folder are ignored —
+  there is no way to add a page, a second stylesheet, an image, or a font file.
+  Everything a page needs must be in its own <code>.html</code> or in <code>auth.css</code>.</li>
+<li><strong>Files are read per request, not cached.</strong> Adding, editing, or deleting a file
+  takes effect on the next page load. No restart, no rebuild. (Contrast with
+  ActiveJDBC models, which do require a restart.)</li>
+<li><strong>UTF-8 only.</strong> Files are read as UTF-8; any other encoding makes the screen
+  fall back.</li>
+<li>Deleting a file restores the framework default.</li>
+<li>Overrides apply only when the application's auth mode is <code>local</code>. <code>public</code> mode
+  has no login UI; a <code>custom</code> provider owns its own flow.</li>
+</ul>
+<p>Size limits (exceeding = rejected):</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>any <code>.html</code></td>
+<td>128 KiB</td>
+</tr>
+<tr>
+<td><code>auth.css</code></td>
+<td>256 KiB</td>
+</tr>
+<tr>
+<td><code>mark.svg</code></td>
+<td>24 KiB</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-failure-behavior-what-no-error-upon-run-means">2. Failure behavior — what "no error upon run" means<a class="headerlink" href="#2-failure-behavior-what-no-error-upon-run-means" title="Permanent link">&para;</a></h2>
+<p>An invalid override <strong>never</strong> produces a 500 or a broken page. The framework:</p>
+<ol>
+<li>calls the validator on <strong>every render</strong> (not just at install time),</li>
+<li>on any failure, logs <code>WARNING: Invalid authentication override &lt;screen&gt;</code>,</li>
+<li>renders its own built-in page instead.</li>
+</ol>
+<p>So the failure mode is <em>silent reversion to the default look</em>. If a generated
+page "does nothing", the file is being rejected — check the server log for the
+warning, which names the screen and the exact reason.</p>
+<p>Because validation runs per request, keep pages lean; multi-hundred-KiB pages pay
+a regex + Handlebars compile on every hit.</p>
+<hr />
+<h2 id="3-hard-rules-any-one-of-these-rejects-the-file">3. Hard rules — any one of these rejects the file<a class="headerlink" href="#3-hard-rules-any-one-of-these-rejects-the-file" title="Permanent link">&para;</a></h2>
+<p>The screens fall into two groups, and the script rules differ between them:</p>
+<ul>
+<li><strong>Pre-sign-in screens</strong> — <code>login</code>, <code>verify-totp</code>, <code>register</code>, <code>bootstrap</code>,
+  <code>forgot</code>, <code>reset</code>, <code>invite</code>, <code>error</code>. Shown to an anonymous visitor, carrying
+  the password field and the CSRF token. No JavaScript of any kind.</li>
+<li><strong>Signed-in management screens</strong> — <code>profile</code>, <code>sessions</code>, <code>totp-setup</code>,
+  <code>admin-users</code>. Reached only after authentication (<code>admin-users</code> additionally
+  requires the <code>auth.users.manage</code> permission). Inline JavaScript is allowed.</li>
+</ul>
+<p><strong>Rejected on every screen:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Rejected</th>
+<th>Use instead</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;script src="…"&gt;</code> — any external script, incl. a CDN tag</td>
+<td>inline <code>&lt;script&gt;</code> on a management screen; <code>auth.css</code> for styling</td>
+</tr>
+<tr>
+<td><code>&lt;script type="module"&gt;</code> — its <code>import</code> can fetch remote code with no <code>src</code></td>
+<td>a classic inline <code>&lt;script&gt;</code></td>
+</tr>
+<tr>
+<td><code>&lt;iframe&gt;</code>, <code>&lt;frame&gt;</code>, <code>&lt;frameset&gt;</code>, <code>&lt;object&gt;</code>, <code>&lt;embed&gt;</code>, <code>&lt;applet&gt;</code></td>
+<td>plain HTML elements</td>
+</tr>
+<tr>
+<td><code>href</code>/<code>xlink:href</code>/<code>src</code>/<code>action</code>/<code>formaction</code> starting <code>javascript:</code>, <code>vbscript:</code>, <code>data:text/html</code></td>
+<td>a normal path</td>
+</tr>
+<tr>
+<td>The same attributes starting <code>https://</code>, <code>http://</code>, or <code>//host</code> — a CDN stylesheet, a remote image, a font host, an off-site form target, an outbound <code>&lt;a&gt;</code></td>
+<td>a path on this application; embed an image or font as a <code>data:</code> URI</td>
+</tr>
+<tr>
+<td><code>&lt;base&gt;</code> — it silently re-points every relative URL, including the form carrying the password</td>
+<td>nothing; the URLs you need are in the page context</td>
+</tr>
+<tr>
+<td><code>&lt;meta http-equiv="refresh"&gt;</code></td>
+<td>let the server redirect</td>
+</tr>
+<tr>
+<td><code>{{{value}}}</code> or <code>{{&amp;value}}</code> (unescaped output)</td>
+<td><code>{{value}}</code> — always escaped</td>
+</tr>
+</tbody>
+</table>
+<p>A <code>data:</code> URI of an image or font type is fine, and so are <code>mailto:</code> and <code>tel:</code>
+— none of them fetches from another origin. <code>{{stylesheet_url}}</code>,
+<code>{{context_path}}/…</code>, <code>#fragment</code>, and any relative path are unaffected.</p>
+<p><strong>Rejected on the pre-sign-in screens only:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Rejected</th>
+<th>Use instead</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;script&gt;</code> in any form, including inline</td>
+<td><code>auth.css</code> — it is linked into every page</td>
+</tr>
+<tr>
+<td>Inline event handlers — any attribute matching <code>on…=</code> (<code>onclick</code>, <code>onsubmit</code>, <code>onload</code>, …)</td>
+<td>nothing; the forms are plain HTML POSTs and work without JS</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>auth.css</code>:</strong> no <code>expression(</code>, <code>javascript:</code>, <code>vbscript:</code>,
+<code>url(data:text/html…)</code>, and no <code>@import</code> or <code>url()</code> pointing at another origin.</p>
+<p>Three implementation details that trip generators:</p>
+<ul>
+<li><strong>The check runs on HTML-unescaped text.</strong> Writing <code>&amp;lt;script&amp;gt;</code> as visible
+  page text still trips the script rule. Do not put these constructs in prose.</li>
+<li><strong>On a pre-sign-in screen the event-handler pattern is <code>on&lt;word&gt;=</code>, matched
+  anywhere</strong>, including in text content. A sentence such as <code>run once = twice</code>
+  matches and rejects the file. Avoid a word beginning with "on" followed
+  directly by <code>=</code>. (This trap does not apply to the four management screens.)</li>
+<li><strong>Attribute values must be quoted.</strong> The required-input check matches
+  <code>name="email"</code> or <code>name='email'</code>; unquoted <code>name=email</code> fails.</li>
+</ul>
+<p><strong>On the pre-sign-in screens, no JavaScript at all</strong> is the single biggest
+constraint. Every interaction must be a plain form submit or a link. Client-side
+validation, password-strength meters, show/hide-password toggles, and AJAX are
+impossible there. CSS-only interaction (<code>:focus-within</code>, <code>:checked</code>, <code>:has()</code>)
+is permitted and is the supported way to get interactive behavior.</p>
+<p>On the four management screens, write the script inline in the page — a modal, a
+disclosure panel, a confirm-before-revoke, a client-side filter over the user
+list are all fine. Those routes also send a <code>Content-Security-Policy</code>
+(<code>script-src 'self' 'unsafe-inline'</code>, <code>connect-src 'self'</code>, <code>object-src 'none'</code>,
+<code>frame-ancestors 'none'</code>, <code>img-src 'self' data:</code>), so a remote <code>import()</code> or a
+<code>fetch()</code> to a third-party origin is blocked by the browser even though no regex
+inspects the script body. Keep the page working if the script does not run:
+these are the screens a user manages their own credentials from.</p>
+<hr />
+<h2 id="4-page-shell-required-and-easy-to-get-wrong">4. Page shell — required, and easy to get wrong<a class="headerlink" href="#4-page-shell-required-and-easy-to-get-wrong" title="Permanent link">&para;</a></h2>
+<p>An HTML override <strong>replaces the entire document</strong>. The framework's layout is not
+applied around it. Consequences the generator must handle:</p>
+<ul>
+<li>It must emit a complete document: <code>&lt;!doctype html&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>,
+  <code>&lt;body&gt;</code>. Nothing is added.</li>
+<li><strong>No stylesheet is linked for you.</strong> Emit the links yourself.</li>
+<li><strong><code>mark.svg</code> is not injected into an overridden page.</strong> The logo override only
+  applies to screens still using the framework page. An override that wants a
+  logo must inline its own SVG (subject to §3's rules) or draw it in CSS.</li>
+<li><strong><code>{{message}}</code> and <code>{{error}}</code> are not rendered for you.</strong> If the page does
+  not output them, the user never sees "Invitation accepted", "Too many
+  attempts", or "Passwords do not match". Render both on every screen.</li>
+</ul>
+<p>Two stylesheet URLs are in the context of every screen:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Points at</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{{default_stylesheet_url}}</code></td>
+<td>the framework's <code>auth.css</code></td>
+<td>link it first to inherit framework styling, or omit it entirely to start from a blank slate</td>
+</tr>
+<tr>
+<td><code>{{stylesheet_url}}</code></td>
+<td>your <code>webapp/assets/auth-overrides/auth.css</code></td>
+<td>link it last</td>
+</tr>
+</tbody>
+</table>
+<p>Required shell (structure only — design is the generator's):</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;!doctype html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">"en"</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">"utf-8"</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">"viewport"</span> <span class="na">content</span><span class="o">=</span><span class="s">"width=device-width,initial-scale=1"</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">"robots"</span> <span class="na">content</span><span class="o">=</span><span class="s">"noindex,nofollow"</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>{{title}}<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">"stylesheet"</span> <span class="na">href</span><span class="o">=</span><span class="s">"{{stylesheet_url}}"</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+  {{#if error}}<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"notice error"</span><span class="p">&gt;</span>{{error}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>{{/if}}
+  {{#if message}}<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"notice success"</span><span class="p">&gt;</span>{{message}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>{{/if}}
+  <span class="cm">&lt;!-- screen body, per §6 --&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><code>noindex,nofollow</code> is on the framework pages and should be kept.</p>
+<p>If <code>auth.css</code> is not generated, drop the <code>{{stylesheet_url}}</code> link — otherwise
+every page load logs a 404 for a file that does not exist.</p>
+<hr />
+<h2 id="5-template-language-the-available-subset">5. Template language — the available subset<a class="headerlink" href="#5-template-language-the-available-subset" title="Permanent link">&para;</a></h2>
+<p>Handlebars (Java, jknack). Available helpers <strong>and nothing else</strong>:</p>
+<ul>
+<li>Built-ins: <code>if</code>, <code>unless</code>, <code>each</code>, <code>with</code>, <code>lookup</code>, <code>log</code></li>
+<li>Comparison: <code>eq</code>, <code>neq</code>, <code>gt</code>, <code>gte</code>, <code>lt</code>, <code>lte</code>, <code>and</code>, <code>or</code>, <code>not</code></li>
+</ul>
+<p>The app-view helpers from <code>server/utils/render.py</code> — <code>select</code>, <code>option</code>,
+<code>ref_lookup</code>, <code>dateFmt</code>, <code>in</code>, <code>html</code>, <code>session</code>, <code>i18n</code>, <code>get</code> — are
+<strong>deliberately unavailable here</strong>. Using one is a compile failure, and the screen
+falls back.</p>
+<div class="highlight"><pre><span></span><code><span class="cp">{{</span><span class="m m-Attribute">#if</span> <span class="nv">registration_open</span><span class="cp">}}</span><span class="x">&lt;a href="</span><span class="cp">{{</span><span class="nv">register_url</span><span class="cp">}}</span><span class="x">"&gt;Create an account&lt;/a&gt;</span><span class="cp">{{</span><span class="m m-Attribute">/if</span><span class="cp">}}</span>
+<span class="cp">{{</span><span class="m m-Attribute">#each</span> <span class="nv">users</span><span class="cp">}}</span><span class="x">&lt;li&gt;</span><span class="cp">{{</span><span class="nv">full_name</span><span class="cp">}}</span><span class="x"> — </span><span class="cp">{{</span><span class="nv">email</span><span class="cp">}}</span><span class="x">&lt;/li&gt;</span><span class="cp">{{</span><span class="m m-Attribute">/each</span><span class="cp">}}</span>
+<span class="cp">{{</span><span class="m m-Attribute">#if</span> <span class="nv">(eq</span> <span class="nv">status</span> <span class="s2">"active"</span><span class="nv">)</span><span class="cp">}}</span><span class="x">…</span><span class="cp">{{</span><span class="m m-Attribute">/if</span><span class="cp">}}</span>
+</code></pre></div>
+<p>All output is HTML-escaped. There is no way to emit raw HTML from a value.</p>
+<hr />
+<h2 id="6-per-screen-contract">6. Per-screen contract<a class="headerlink" href="#6-per-screen-contract" title="Permanent link">&para;</a></h2>
+<h3 id="common-context-present-on-every-screen">Common context — present on every screen<a class="headerlink" href="#common-context-present-on-every-screen" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title</code></td>
+<td>string</td>
+<td>the framework's title for the screen</td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td>string</td>
+<td>success notice; <code>""</code> when none</td>
+</tr>
+<tr>
+<td><code>error</code></td>
+<td>string</td>
+<td>error notice; <code>""</code> when none</td>
+</tr>
+<tr>
+<td><code>csrf_token</code></td>
+<td>string</td>
+<td>see below</td>
+</tr>
+<tr>
+<td><code>context_path</code></td>
+<td>string</td>
+<td>servlet context path; <code>""</code> at root</td>
+</tr>
+<tr>
+<td><code>default_stylesheet_url</code></td>
+<td>string</td>
+<td>framework <code>auth.css</code></td>
+</tr>
+<tr>
+<td><code>stylesheet_url</code></td>
+<td>string</td>
+<td>your <code>auth.css</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-two-structural-requirements">The two structural requirements<a class="headerlink" href="#the-two-structural-requirements" title="Permanent link">&para;</a></h3>
+<p>For every screen that has inputs (all except <code>error</code>):</p>
+<ol>
+<li><strong>A <code>&lt;form&gt;</code> with an <code>action</code> attribute</strong> must appear in the file. Matched as
+   <code>&lt;form … action=…&gt;</code> within one tag.</li>
+<li><strong>Every listed input name must appear</strong> as <code>name="…"</code>, and the literal
+   <code>{{csrf_token}}</code> placeholder must be present. A hardcoded hidden field does
+   not satisfy this — the placeholder is required precisely so that CSRF
+   protection cannot be disabled by a template.</li>
+</ol>
+<p>Standard CSRF field for every form:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">"hidden"</span> <span class="na">name</span><span class="o">=</span><span class="s">"csrf_token"</span> <span class="na">value</span><span class="o">=</span><span class="s">"{{csrf_token}}"</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>The check is a <strong>regex over the raw file</strong>, so names inside <code>{{#if}}</code> /
+<code>{{#each}}</code> blocks count as present even if that branch never renders. A screen
+with two mutually exclusive forms (<code>totp-setup</code>) satisfies the check by
+containing both.</p>
+<hr />
+<h3 id="loginhtml-post-action_url"><code>login.html</code> — POST <code>{{action_url}}</code><a class="headerlink" href="#loginhtml-post-action_url" title="Permanent link">&para;</a></h3>
+<p>Required names: <code>email</code>, <code>password</code>, <code>csrf_token</code></p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>action_url</code></td>
+<td>string</td>
+<td>POST target</td>
+</tr>
+<tr>
+<td><code>forgot_url</code></td>
+<td>string</td>
+<td>password recovery</td>
+</tr>
+<tr>
+<td><code>register_url</code></td>
+<td>string</td>
+<td>only meaningful when <code>registration_open</code></td>
+</tr>
+<tr>
+<td><code>registration_open</code></td>
+<td>bool</td>
+<td>show/hide the register link</td>
+</tr>
+<tr>
+<td><code>bootstrap_available</code></td>
+<td>bool</td>
+<td>true when no administrator exists yet; link to <code>{{context_path}}/_soad/auth/bootstrap</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">"post"</span> <span class="na">action</span><span class="o">=</span><span class="s">"{{action_url}}"</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">"hidden"</span> <span class="na">name</span><span class="o">=</span><span class="s">"csrf_token"</span> <span class="na">value</span><span class="o">=</span><span class="s">"{{csrf_token}}"</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">"email"</span> <span class="na">name</span><span class="o">=</span><span class="s">"email"</span> <span class="na">required</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">"password"</span> <span class="na">name</span><span class="o">=</span><span class="s">"password"</span> <span class="na">required</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">"submit"</span><span class="p">&gt;</span>Sign in<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"{{forgot_url}}"</span><span class="p">&gt;</span>Forgot password?<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+{{#if registration_open}}<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"{{register_url}}"</span><span class="p">&gt;</span>Create an account<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>{{/if}}
+{{#if bootstrap_available}}
+  <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"{{context_path}}/_soad/auth/bootstrap"</span><span class="p">&gt;</span>Set up the first administrator<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+{{/if}}
+</code></pre></div>
+<h3 id="verify-totphtml-post-action_url"><code>verify-totp.html</code> — POST <code>{{action_url}}</code><a class="headerlink" href="#verify-totphtml-post-action_url" title="Permanent link">&para;</a></h3>
+<p>Shown after a correct password when TOTP is enabled. Credentials are already held
+in the session; the form carries only the code.</p>
+<p>Required names: <code>code</code>, <code>csrf_token</code>
+Context: <code>action_url</code></p>
+<h3 id="registerhtml-post-action_url"><code>register.html</code> — POST <code>{{action_url}}</code><a class="headerlink" href="#registerhtml-post-action_url" title="Permanent link">&para;</a></h3>
+<p>Only reachable when open registration is enabled.</p>
+<p>Required names: <code>full_name</code>, <code>email</code>, <code>password</code>, <code>password_confirm</code>, <code>csrf_token</code>
+Context: <code>action_url</code>, <code>login_url</code></p>
+<h3 id="bootstraphtml-post-action_url"><code>bootstrap.html</code> — POST <code>{{action_url}}</code><a class="headerlink" href="#bootstraphtml-post-action_url" title="Permanent link">&para;</a></h3>
+<p>First-administrator setup; reachable only while no active administrator exists.</p>
+<p>Required names: <code>full_name</code>, <code>email</code>, <code>password</code>, <code>password_confirm</code>, <code>csrf_token</code>
+Context: <code>action_url</code>, <code>login_url</code>, <code>password_min_length</code> (integer, currently 10)</p>
+<p>Use <code>minlength="{{password_min_length}}"</code> on both password inputs.</p>
+<h3 id="forgothtml-post-action_url"><code>forgot.html</code> — POST <code>{{action_url}}</code><a class="headerlink" href="#forgothtml-post-action_url" title="Permanent link">&para;</a></h3>
+<p>One template serves both the empty form and the post-submit confirmation; branch
+on <code>submitted</code>.</p>
+<p>Required names: <code>email</code>, <code>csrf_token</code>
+Context: <code>action_url</code>, <code>login_url</code>, <code>submitted</code> (bool)</p>
+<p>The response is deliberately generic — it does not reveal whether the account
+exists. Do not word the confirmation as though it does.</p>
+<h3 id="resethtml-post-action_url"><code>reset.html</code> — POST <code>{{action_url}}</code><a class="headerlink" href="#resethtml-post-action_url" title="Permanent link">&para;</a></h3>
+<p>Required names: <code>token</code>, <code>password</code>, <code>password_confirm</code>, <code>csrf_token</code>
+Context: <code>action_url</code>, <code>token</code>, <code>login_url</code>, <code>password_min_length</code></p>
+<p><code>token</code> must be carried through as a hidden field:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">"hidden"</span> <span class="na">name</span><span class="o">=</span><span class="s">"token"</span> <span class="na">value</span><span class="o">=</span><span class="s">"{{token}}"</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="invitehtml-post-action_url"><code>invite.html</code> — POST <code>{{action_url}}</code><a class="headerlink" href="#invitehtml-post-action_url" title="Permanent link">&para;</a></h3>
+<p>Invitation acceptance / initial password. Identical shape to <code>reset.html</code>; a
+separate file so the wording can differ.</p>
+<p>Required names: <code>token</code>, <code>password</code>, <code>password_confirm</code>, <code>csrf_token</code>
+Context: <code>action_url</code>, <code>token</code>, <code>login_url</code>, <code>password_min_length</code></p>
+<hr />
+<p>The four screens that follow — <code>profile</code>, <code>sessions</code>, <code>totp-setup</code>,
+<code>admin-users</code> — are the signed-in management screens. They are the only ones
+that accept an inline <code>&lt;script&gt;</code> and inline event handlers (see §3), and the
+only ones that get the wide card. <code>error</code>, after them, is back to the
+pre-sign-in rules.</p>
+<p><strong>Shared shell context — on all four</strong>, so the same nav, sign-out link, and
+"signed in as" can be pasted into each:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>profile_url</code>, <code>sessions_url</code>, <code>totp_setup_url</code>, <code>admin_users_url</code></td>
+<td>string</td>
+<td>navigation</td>
+</tr>
+<tr>
+<td><code>logout_url</code></td>
+<td>string</td>
+<td>plain link; the CSRF token is already in the query string, so a template cannot build this itself</td>
+</tr>
+<tr>
+<td><code>user</code></td>
+<td>object</td>
+<td><code>id</code>, <code>email</code>, <code>full_name</code>, <code>status</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>{{admin_users_url}}</code> is present for every user; non-administrators get 403 on
+that page. Hide it or accept the 403 — there is no "is admin" flag here.</p>
+<h3 id="profilehtml-two-forms"><code>profile.html</code> — two forms<a class="headerlink" href="#profilehtml-two-forms" title="Permanent link">&para;</a></h3>
+<p>Required names: <code>full_name</code>, <code>current_password</code>, <code>password</code>, <code>password_confirm</code>,
+<code>csrf_token</code></p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>action_url</code></td>
+<td>string</td>
+<td>POST — profile update (<code>full_name</code>)</td>
+</tr>
+<tr>
+<td><code>password_action_url</code></td>
+<td>string</td>
+<td>POST — password change</td>
+</tr>
+</tbody>
+</table>
+<p>Two separate forms are required — one to <code>{{action_url}}</code> with <code>full_name</code>, one
+to <code>{{password_action_url}}</code> with <code>current_password</code> + <code>password</code> +
+<code>password_confirm</code>. Each needs its own CSRF field.</p>
+<h3 id="sessionshtml-post-revoke_action_url-per-row"><code>sessions.html</code> — POST <code>{{revoke_action_url}}</code> per row<a class="headerlink" href="#sessionshtml-post-revoke_action_url-per-row" title="Permanent link">&para;</a></h3>
+<p>Required names: <code>session_id</code>, <code>csrf_token</code></p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>revoke_action_url</code></td>
+<td>string</td>
+<td>POST target</td>
+</tr>
+<tr>
+<td><code>sessions</code></td>
+<td>array</td>
+<td>see below</td>
+</tr>
+</tbody>
+</table>
+<p>Each entry of <code>sessions</code>: <code>id</code>, <code>created_at</code>, <code>last_seen_at</code>, <code>user_agent</code>,
+<code>ip_address</code> — all strings, pre-defaulted (<code>"Unknown client"</code>,
+<code>"unknown address"</code>), newest first.</p>
+<p>Each row needs its own form; there is no bulk revoke endpoint.</p>
+<div class="highlight"><pre><span></span><code><span class="cp">{{</span><span class="m m-Attribute">#each</span> <span class="nv">sessions</span><span class="cp">}}</span>
+<span class="x">  &lt;li&gt;</span>
+<span class="x">    </span><span class="cp">{{</span><span class="nv">user_agent</span><span class="cp">}}</span><span class="x"> — </span><span class="cp">{{</span><span class="nv">ip_address</span><span class="cp">}}</span><span class="x"> — </span><span class="cp">{{</span><span class="nv">last_seen_at</span><span class="cp">}}</span>
+<span class="x">    &lt;form method="post" action="</span><span class="cp">{{</span><span class="nv">../revoke_action_url</span><span class="cp">}}</span><span class="x">"&gt;</span>
+<span class="x">      &lt;input type="hidden" name="csrf_token" value="</span><span class="cp">{{</span><span class="nv">../csrf_token</span><span class="cp">}}</span><span class="x">"&gt;</span>
+<span class="x">      &lt;input type="hidden" name="session_id" value="</span><span class="cp">{{</span><span class="nv">id</span><span class="cp">}}</span><span class="x">"&gt;</span>
+<span class="x">      &lt;button type="submit"&gt;Revoke&lt;/button&gt;</span>
+<span class="x">    &lt;/form&gt;</span>
+<span class="x">  &lt;/li&gt;</span>
+<span class="cp">{{</span><span class="m m-Attribute">/each</span><span class="cp">}}</span>
+</code></pre></div>
+<p>Note the <code>../</code> prefix inside <code>{{#each}}</code>. The validator's <code>{{csrf_token}}</code> check
+is satisfied by the shell's plain <code>{{csrf_token}}</code>, but each form still needs the
+<code>../</code>-qualified value to actually render — so include at least one bare
+<code>{{csrf_token}}</code> outside the loop if every form is inside one.</p>
+<h3 id="totp-setuphtml-two-mutually-exclusive-states"><code>totp-setup.html</code> — two mutually exclusive states<a class="headerlink" href="#totp-setuphtml-two-mutually-exclusive-states" title="Permanent link">&para;</a></h3>
+<p>Required names: <code>code</code>, <code>current_password</code>, <code>csrf_token</code> — <strong>all three must be in
+the file</strong> even though only one state renders at a time.</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>enabled</code></td>
+<td>bool</td>
+<td>branch on this</td>
+</tr>
+<tr>
+<td><code>secret</code></td>
+<td>string</td>
+<td>base32 secret; <code>""</code> when already enabled</td>
+</tr>
+<tr>
+<td><code>qr_data_url</code></td>
+<td>string</td>
+<td><code>data:image/…</code> for <code>&lt;img src="…"&gt;</code>; <code>""</code> when enabled</td>
+</tr>
+<tr>
+<td><code>setup_action_url</code></td>
+<td>string</td>
+<td>POST — enable (field <code>code</code>)</td>
+</tr>
+<tr>
+<td><code>disable_action_url</code></td>
+<td>string</td>
+<td>POST — disable (field <code>current_password</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><code>{{qr_data_url}}</code> in an <code>src</code> attribute is allowed — only <code>data:text/html</code> is
+blocked, image data URLs are fine. Show <code>{{secret}}</code> as text too, for users who
+cannot scan.</p>
+<div class="highlight"><pre><span></span><code><span class="cp">{{</span><span class="m m-Attribute">#if</span> <span class="nv">enabled</span><span class="cp">}}</span>
+<span class="x">  &lt;form method="post" action="</span><span class="cp">{{</span><span class="nv">disable_action_url</span><span class="cp">}}</span><span class="x">"&gt;</span>
+<span class="x">    &lt;input type="hidden" name="csrf_token" value="</span><span class="cp">{{</span><span class="nv">csrf_token</span><span class="cp">}}</span><span class="x">"&gt;</span>
+<span class="x">    &lt;input type="password" name="current_password" required&gt;</span>
+<span class="x">    &lt;button type="submit"&gt;Disable&lt;/button&gt;</span>
+<span class="x">  &lt;/form&gt;</span>
+<span class="cp">{{</span><span class="nv">else</span><span class="cp">}}</span>
+<span class="x">  &lt;img alt="TOTP QR code" src="</span><span class="cp">{{</span><span class="nv">qr_data_url</span><span class="cp">}}</span><span class="x">"&gt;</span>
+<span class="x">  &lt;code&gt;</span><span class="cp">{{</span><span class="nv">secret</span><span class="cp">}}</span><span class="x">&lt;/code&gt;</span>
+<span class="x">  &lt;form method="post" action="</span><span class="cp">{{</span><span class="nv">setup_action_url</span><span class="cp">}}</span><span class="x">"&gt;</span>
+<span class="x">    &lt;input type="hidden" name="csrf_token" value="</span><span class="cp">{{</span><span class="nv">csrf_token</span><span class="cp">}}</span><span class="x">"&gt;</span>
+<span class="x">    &lt;input name="code" inputmode="numeric" required&gt;</span>
+<span class="x">    &lt;button type="submit"&gt;Enable&lt;/button&gt;</span>
+<span class="x">  &lt;/form&gt;</span>
+<span class="cp">{{</span><span class="m m-Attribute">/if</span><span class="cp">}}</span>
+</code></pre></div>
+<h3 id="admin-usershtml-four-post-targets"><code>admin-users.html</code> — four POST targets<a class="headerlink" href="#admin-usershtml-four-post-targets" title="Permanent link">&para;</a></h3>
+<p>The most demanding screen. Required names: <code>email</code>, <code>user_id</code>, <code>role_code</code>,
+<code>operation</code>, <code>status</code>, <code>csrf_token</code> — <strong>all six</strong>, even for a minimal page.</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>create_action_url</code></td>
+<td>string</td>
+<td>POST — add user</td>
+</tr>
+<tr>
+<td><code>invite_action_url</code></td>
+<td>string</td>
+<td>POST — (re-)send setup link; field <code>email</code></td>
+</tr>
+<tr>
+<td><code>role_action_url</code></td>
+<td>string</td>
+<td>POST — grant/remove role</td>
+</tr>
+<tr>
+<td><code>status_action_url</code></td>
+<td>string</td>
+<td>POST — enable/disable</td>
+</tr>
+<tr>
+<td><code>users</code></td>
+<td>array</td>
+<td>see below</td>
+</tr>
+<tr>
+<td><code>roles</code></td>
+<td>array</td>
+<td><code>{ code, name }</code></td>
+</tr>
+<tr>
+<td><code>form</code></td>
+<td>object</td>
+<td>re-populates the add-user form after a validation error: <code>full_name</code>, <code>email</code>, <code>role_codes</code> (array)</td>
+</tr>
+<tr>
+<td><code>invite_link</code></td>
+<td>string</td>
+<td>one-time setup link, <code>""</code> when none</td>
+</tr>
+<tr>
+<td><code>invitation_created</code></td>
+<td>bool</td>
+<td>true only on the invite-result render, where <code>users</code> and <code>roles</code> are empty</td>
+</tr>
+</tbody>
+</table>
+<p>Each entry of <code>users</code>: <code>id</code>, <code>email</code>, <code>full_name</code>, <code>status</code>, <code>pending</code> (bool),
+<code>roles</code> (array of role-code strings), <code>next_status</code> (the value to post to flip
+enabled/disabled).</p>
+<p><code>pending</code> means the account exists but has no password — it cannot sign in until
+the setup link is followed. Render it distinctly from <code>active</code>.</p>
+<p>The four operations:</p>
+<div class="highlight"><pre><span></span><code><span class="c">{{! 1. add user — role_codes is a repeated checkbox, name is PLURAL here }}</span>
+<span class="x">&lt;form method="post" action="</span><span class="cp">{{</span><span class="nv">create_action_url</span><span class="cp">}}</span><span class="x">"&gt;</span>
+<span class="x">  &lt;input type="hidden" name="csrf_token" value="</span><span class="cp">{{</span><span class="nv">csrf_token</span><span class="cp">}}</span><span class="x">"&gt;</span>
+<span class="x">  &lt;input name="full_name" value="</span><span class="cp">{{</span><span class="nv">form.full_name</span><span class="cp">}}</span><span class="x">" required&gt;</span>
+<span class="x">  &lt;input type="email" name="email" value="</span><span class="cp">{{</span><span class="nv">form.email</span><span class="cp">}}</span><span class="x">" required&gt;</span>
+<span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">#each</span> <span class="nv">roles</span><span class="cp">}}</span>
+<span class="x">    &lt;label&gt;&lt;input type="checkbox" name="role_codes" value="</span><span class="cp">{{</span><span class="nv">code</span><span class="cp">}}</span><span class="x">"&gt; </span><span class="cp">{{</span><span class="nv">name</span><span class="cp">}}</span><span class="x">&lt;/label&gt;</span>
+<span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">/each</span><span class="cp">}}</span>
+<span class="x">  &lt;input type="password" name="password" minlength="10"&gt;</span>
+<span class="x">  &lt;input type="password" name="password_confirm" minlength="10"&gt;</span>
+<span class="x">  &lt;button type="submit"&gt;Create user&lt;/button&gt;</span>
+<span class="x">&lt;/form&gt;</span>
+<span class="c">{{! leaving both password fields empty creates a pending account + setup link }}</span>
+
+<span class="cp">{{</span><span class="m m-Attribute">#if</span> <span class="nv">invite_link</span><span class="cp">}}</span><span class="x">&lt;p&gt;&lt;a href="</span><span class="cp">{{</span><span class="nv">invite_link</span><span class="cp">}}</span><span class="x">"&gt;</span><span class="cp">{{</span><span class="nv">invite_link</span><span class="cp">}}</span><span class="x">&lt;/a&gt;&lt;/p&gt;</span><span class="cp">{{</span><span class="m m-Attribute">/if</span><span class="cp">}}</span>
+
+<span class="cp">{{</span><span class="m m-Attribute">#each</span> <span class="nv">users</span><span class="cp">}}</span>
+<span class="x">  &lt;li&gt;</span>
+<span class="x">    </span><span class="cp">{{</span><span class="nv">full_name</span><span class="cp">}}</span><span class="x"> — </span><span class="cp">{{</span><span class="nv">email</span><span class="cp">}}</span><span class="x"> — </span><span class="cp">{{</span><span class="m m-Attribute">#if</span> <span class="nv">pending</span><span class="cp">}}</span><span class="x">pending</span><span class="cp">{{</span><span class="nv">else</span><span class="cp">}}{{</span><span class="nv">status</span><span class="cp">}}{{</span><span class="m m-Attribute">/if</span><span class="cp">}}</span>
+<span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">#each</span> <span class="nv">roles</span><span class="cp">}}</span><span class="x">&lt;span&gt;</span><span class="cp">{{</span><span class="nv">this</span><span class="cp">}}</span><span class="x">&lt;/span&gt;</span><span class="cp">{{</span><span class="m m-Attribute">/each</span><span class="cp">}}</span>
+
+<span class="x">    </span><span class="c">{{! 2. grant/remove a role — role_code is SINGULAR here }}</span>
+<span class="x">    &lt;form method="post" action="</span><span class="cp">{{</span><span class="nv">../role_action_url</span><span class="cp">}}</span><span class="x">"&gt;</span>
+<span class="x">      &lt;input type="hidden" name="csrf_token" value="</span><span class="cp">{{</span><span class="nv">../csrf_token</span><span class="cp">}}</span><span class="x">"&gt;</span>
+<span class="x">      &lt;input type="hidden" name="user_id" value="</span><span class="cp">{{</span><span class="nv">id</span><span class="cp">}}</span><span class="x">"&gt;</span>
+<span class="x">      &lt;input type="hidden" name="operation" value="grant"&gt;</span>
+<span class="x">      &lt;select name="role_code"&gt;</span>
+<span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">#each</span> <span class="nv">../roles</span><span class="cp">}}</span><span class="x">&lt;option value="</span><span class="cp">{{</span><span class="nv">code</span><span class="cp">}}</span><span class="x">"&gt;</span><span class="cp">{{</span><span class="nv">name</span><span class="cp">}}</span><span class="x">&lt;/option&gt;</span><span class="cp">{{</span><span class="m m-Attribute">/each</span><span class="cp">}}</span>
+<span class="x">      &lt;/select&gt;</span>
+<span class="x">      &lt;button type="submit"&gt;Grant&lt;/button&gt;</span>
+<span class="x">    &lt;/form&gt;</span>
+
+<span class="x">    </span><span class="c">{{! 3. enable/disable }}</span>
+<span class="x">    &lt;form method="post" action="</span><span class="cp">{{</span><span class="nv">../status_action_url</span><span class="cp">}}</span><span class="x">"&gt;</span>
+<span class="x">      &lt;input type="hidden" name="csrf_token" value="</span><span class="cp">{{</span><span class="nv">../csrf_token</span><span class="cp">}}</span><span class="x">"&gt;</span>
+<span class="x">      &lt;input type="hidden" name="user_id" value="</span><span class="cp">{{</span><span class="nv">id</span><span class="cp">}}</span><span class="x">"&gt;</span>
+<span class="x">      &lt;input type="hidden" name="status" value="</span><span class="cp">{{</span><span class="nv">next_status</span><span class="cp">}}</span><span class="x">"&gt;</span>
+<span class="x">      &lt;button type="submit"&gt;</span><span class="cp">{{</span><span class="m m-Attribute">#if</span> <span class="nv">(eq</span> <span class="nv">status</span> <span class="s2">"active"</span><span class="nv">)</span><span class="cp">}}</span><span class="x">Disable</span><span class="cp">{{</span><span class="nv">else</span><span class="cp">}}</span><span class="x">Enable</span><span class="cp">{{</span><span class="m m-Attribute">/if</span><span class="cp">}}</span><span class="x">&lt;/button&gt;</span>
+<span class="x">    &lt;/form&gt;</span>
+
+<span class="x">    </span><span class="c">{{! 4. re-send setup link — only useful for pending accounts }}</span>
+<span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">#if</span> <span class="nv">pending</span><span class="cp">}}</span>
+<span class="x">    &lt;form method="post" action="</span><span class="cp">{{</span><span class="nv">../invite_action_url</span><span class="cp">}}</span><span class="x">"&gt;</span>
+<span class="x">      &lt;input type="hidden" name="csrf_token" value="</span><span class="cp">{{</span><span class="nv">../csrf_token</span><span class="cp">}}</span><span class="x">"&gt;</span>
+<span class="x">      &lt;input type="hidden" name="email" value="</span><span class="cp">{{</span><span class="nv">email</span><span class="cp">}}</span><span class="x">"&gt;</span>
+<span class="x">      &lt;button type="submit"&gt;Re-send setup link&lt;/button&gt;</span>
+<span class="x">    &lt;/form&gt;</span>
+<span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">/if</span><span class="cp">}}</span>
+<span class="x">  &lt;/li&gt;</span>
+<span class="cp">{{</span><span class="m m-Attribute">/each</span><span class="cp">}}</span>
+</code></pre></div>
+<p>Watch the two role field names: <strong><code>role_codes</code></strong> (plural, checkboxes, create
+form) and <strong><code>role_code</code></strong> (singular, select, grant/remove). Only the singular one
+is required by the validator; the plural create-form fields are optional — a
+template that omits them keeps validating and simply does not offer that feature.
+To remove a role, post <code>operation</code> = <code>remove</code> instead of <code>grant</code>.</p>
+<p><code>{{invite_link}}</code> must be shown when non-empty: with SMTP unconfigured it is the
+only way the administrator can deliver the setup link.</p>
+<h3 id="errorhtml-no-form"><code>error.html</code> — no form<a class="headerlink" href="#errorhtml-no-form" title="Permanent link">&para;</a></h3>
+<p>Used for every failure response: 400, 403 (CSRF mismatch, non-admin), 404
+(disabled feature, unknown page), 500, 503 (schema/manifest not ready).</p>
+<p>Required names: none. No form or CSRF needed.</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>status</code></td>
+<td>integer</td>
+<td>HTTP status</td>
+</tr>
+<tr>
+<td><code>error</code></td>
+<td>string</td>
+<td>the message; also in <code>{{error}}</code></td>
+</tr>
+</tbody>
+</table>
+<p>The HTTP status code is preserved regardless of what the template renders. Keep
+the message generic — it is shown to unauthenticated visitors.</p>
+<hr />
+<h2 id="7-authcss">7. <code>auth.css</code><a class="headerlink" href="#7-authcss" title="Permanent link">&para;</a></h2>
+<p>Path: <code>webapp/assets/auth-overrides/auth.css</code>, served at
+<code>{{stylesheet_url}}</code> (= <code>&lt;context&gt;/assets/auth-overrides/auth.css</code>).</p>
+<ul>
+<li>Rejected: <code>expression(</code>, <code>javascript:</code>, <code>vbscript:</code>, <code>url(data:text/html…)</code>,
+  and any <code>@import</code> or <code>url()</code> pointing at another origin (<code>https://</code>,
+  <code>http://</code>, <code>//host</code>).</li>
+<li>Limit 256 KiB.</li>
+<li><strong>Self-contained.</strong> There is no second file, no image, no font file — the
+  folder recognizes only the names in §1. Embed any image or font as a <code>data:</code>
+  URI (image/font types are fine; only <code>data:text/html</code> is blocked). Do not
+  <code>@import</code> or reference a CDN: these pages are built for air-gapped
+  deployments, and a fetch that fails leaves the login screen unstyled.</li>
+<li>If the generator emits full-page HTML overrides with self-contained class
+  names, it does <strong>not</strong> need to link <code>{{default_stylesheet_url}}</code>, and the
+  framework class names below are irrelevant.</li>
+<li>If the generator overrides <em>only some</em> screens, the non-overridden ones still
+  render with the framework layout, which links the framework stylesheet <strong>and
+  then yours</strong>. In that case <code>auth.css</code> is a cascade layer over the defaults, and
+  these are the framework's hooks:</li>
+</ul>
+<p><code>.auth-card</code> / <code>.auth-card.wide</code>, <code>.auth-mark</code>, <code>.auth-body</code>, <code>.notice</code>,
+  <code>.notice.error</code>, <code>.notice.success</code>, <code>nav.tab-bar</code>, <code>.row-main</code>,
+  <code>.row-identity</code>, <code>.row-sub</code>, <code>.row-roles</code>, <code>.row-actions</code>, <code>.badge</code>,
+  <code>.badge-active</code>, <code>.badge-disabled</code>, <code>.badge-pending</code>, <code>.chip</code>, <code>.chip-remove</code>,
+  <code>.inline</code>, <code>.form-hint</code>, <code>.link-box</code>, <code>.role-picker</code>, <code>.role-option</code>.</p>
+<p><code>.wide</code> is applied to <code>profile</code>, <code>sessions</code>, <code>totp-setup</code>, and <code>admin-users</code>;
+  the other screens are the narrow centered card.</p>
+<p><strong>Recommended:</strong> for a consistent result, generate either all 12 HTML files, or
+none of them plus <code>auth.css</code> only. A partial HTML set means overridden and
+framework screens sit side by side in the same flow.</p>
+<hr />
+<h2 id="8-marksvg-optional-logo">8. <code>mark.svg</code> (optional logo)<a class="headerlink" href="#8-marksvg-optional-logo" title="Permanent link">&para;</a></h2>
+<p>Path: <code>webapp/WEB-INF/auth-overrides/mark.svg</code>.</p>
+<p><strong>This only affects screens rendered by the framework layout.</strong> An overridden
+HTML page does not receive it — inline the logo in that page's own markup
+instead. It is worth generating only when shipping <code>auth.css</code> without HTML
+overrides.</p>
+<p>Not a Handlebars template — inlined verbatim. Its rules:</p>
+<ul>
+<li>The whole file is one <code>&lt;svg&gt;…&lt;/svg&gt;</code> element. No <code>&lt;?xml?&gt;</code>, no <code>&lt;!DOCTYPE&gt;</code>,
+  no <code>&lt;!ENTITY&gt;</code>, nothing before or after the root tag.</li>
+<li>No <code>&lt;script&gt;</code>, no <code>on…=</code> handlers, no <code>&lt;iframe&gt;</code>/<code>&lt;object&gt;</code>/<code>&lt;embed&gt;</code>/
+  <code>&lt;foreignObject&gt;</code>.</li>
+<li><code>href</code>/<code>xlink:href</code> may only be a local <code>#fragment</code> (e.g. <code>&lt;use&gt;</code> referencing a
+  <code>&lt;symbol&gt;</code> in the same file). No external file, no <code>data:</code> URL.</li>
+<li>Build from shape elements: <code>&lt;svg&gt;</code>, <code>&lt;g&gt;</code>, <code>&lt;path&gt;</code>, <code>&lt;circle&gt;</code>, <code>&lt;ellipse&gt;</code>,
+  <code>&lt;rect&gt;</code>, <code>&lt;polygon&gt;</code>, <code>&lt;use&gt;</code>.</li>
+<li>24 KiB limit.</li>
+<li>Set a <code>viewBox</code>; omit <code>width</code>/<code>height</code>. Any <code>class</code> or <code>aria-hidden</code> on the
+  root is stripped and replaced with <code>class="auth-mark" aria-hidden="true"</code>, so
+  sizing comes from CSS.</li>
+<li>Shown on the narrow screens only (login, register, forgot, reset, invite,
+  verify-2FA, error). Wide management screens never show it.</li>
+</ul>
+<hr />
+<h2 id="9-generator-checklist">9. Generator checklist<a class="headerlink" href="#9-generator-checklist" title="Permanent link">&para;</a></h2>
+<p>Per HTML file:</p>
+<ul>
+<li>[ ] Complete document: doctype, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code></li>
+<li>[ ] <code>&lt;title&gt;{{title}}&lt;/title&gt;</code> and the <code>{{stylesheet_url}}</code> link (only if
+      <code>auth.css</code> is generated)</li>
+<li>[ ] Both <code>{{message}}</code> and <code>{{error}}</code> rendered</li>
+<li>[ ] Every required input name from §6, <strong>quoted</strong>: <code>name="email"</code></li>
+<li>[ ] A literal <code>{{csrf_token}}</code> placeholder, plus a CSRF hidden field in every
+      form (<code>../csrf_token</code> inside <code>{{#each}}</code>)</li>
+<li>[ ] Every form has an <code>action</code> attribute pointing at the screen's <code>*_action_url</code></li>
+<li>[ ] No <code>{{{…}}}</code>, and no <code>&lt;script src=…&gt;</code> or <code>&lt;script type="module"&gt;</code> anywhere</li>
+<li>[ ] On a pre-sign-in screen: no <code>&lt;script&gt;</code> at all and no <code>on…=</code> attribute
+      (check prose text too). On <code>profile</code> / <code>sessions</code> / <code>totp-setup</code> /
+      <code>admin-users</code>: inline script and handlers are fine</li>
+<li>[ ] Only the §5 helpers used</li>
+<li>[ ] Under 128 KiB, UTF-8</li>
+</ul>
+<p>Per output set:</p>
+<ul>
+<li>[ ] <code>auth.css</code> at <code>webapp/assets/auth-overrides/</code>, <strong>not</strong> <code>WEB-INF/</code></li>
+<li>[ ] No files other than the names in §1</li>
+<li>[ ] No external URL anywhere — no CDN, font host, or remote image. This is
+      enforced, not advisory: an <code>https://</code>, <code>http://</code>, or <code>//host</code> URL in
+      <code>href</code>/<code>src</code>/<code>action</code>/<code>formaction</code>, or in a CSS <code>@import</code>/<code>url()</code>,
+      rejects the file</li>
+</ul>
+<p>Verification after copying in: load each route below and confirm the page is
+yours, not the framework's. A framework-looking page means the file was rejected
+— the server log names the screen and the reason.</p>
+<div class="highlight"><pre><span></span><code>GET  /_soad/auth/login          → login.html
+POST /_soad/auth/login          → verify-totp.html (TOTP users)
+GET  /_soad/auth/register       → register.html      (open registration only)
+GET  /_soad/auth/bootstrap      → bootstrap.html     (no admin yet)
+GET  /_soad/auth/forgot         → forgot.html
+GET  /_soad/auth/reset?token=…  → reset.html
+GET  /_soad/auth/invite?token=… → invite.html
+GET  /_soad/auth/profile        → profile.html
+GET  /_soad/auth/sessions       → sessions.html
+GET  /_soad/auth/totp/setup     → totp-setup.html
+GET  /_soad/auth/admin/users    → admin-users.html
+GET  /_soad/auth/nonexistent    → error.html (404)
+GET  /_soad/auth/health         → readiness JSON (not overridable)
+</code></pre></div>
+<hr />
+<h2 id="10-scope">10. Scope<a class="headerlink" href="#10-scope" title="Permanent link">&para;</a></h2>
+<p>An override changes presentation only. It cannot change credential verification,
+session handling, CSRF, roles, permissions, rate limiting, or token lifetimes,
+and it cannot add or remove a route. For different authentication <em>behavior</em>,
+use a custom provider instead.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../application-security/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Application security">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Application security
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../transaction-filters/" class="md-footer__link md-footer__link--next" aria-label="Next: Transaction filters">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Transaction filters
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.footer", "content.code.copy", "search.suggest"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "profile": "authenticated",
+  "auth_mode": "local",
+  "registration": "invite_only",
+  "rationale": "Projects and attachments are private to their owners. Route grants do not bypass ownership.",
+  "roles": [
+    {"code": "admin", "name": "Administrator"},
+    {"code": "member", "name": "Member"}
+  ],
+  "permissions": [
+    {"code": "projects.read", "roles": ["admin", "member"]},
+    {"code": "projects.write", "roles": ["admin", "member"]},
+    {"code": "projects.delete", "roles": ["admin"]},
+    {"code": "tasks.read", "roles": ["admin", "member"]},
+    {"code": "tasks.write", "roles": ["admin", "member"]}
+  ]
+}

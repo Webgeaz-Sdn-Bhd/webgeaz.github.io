@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Edit project</title><link rel="stylesheet" href="{{ctxPath}}/assets/tracker/tracker.css">
+</head>
+<body>
+  <section class="mx-auto max-w-2xl p-4">
+    <h1>{{#if project.id}}Edit project{{else}}Create project{{/if}}</h1>
+    {{#if error}}<p role="alert" class="text-red-700">{{error}}</p>{{/if}}
+    <form method="post" action="{{ctxPath}}/t/tracker/project/save">
+      <input type="hidden" name="csrf_token" value="{{csrf_token}}">
+      <input type="hidden" name="id" value="{{project.id}}">
+      <label>Project name <input name="name" value="{{project.name}}" maxlength="120" required></label>
+      <button type="submit">Save project</button>
+    </form>
+    {{#if project.id}}
+    <details class="my-6">
+      <summary>Delete project (administrator permission required)</summary>
+      <p>Deleting also removes all its tasks and attachments. This cannot be undone here.</p>
+      <form method="post" action="{{ctxPath}}/t/tracker/project/delete">
+        <input type="hidden" name="csrf_token" value="{{csrf_token}}">
+        <input type="hidden" name="id" value="{{project.id}}">
+        <button type="submit">Permanently delete this project</button>
+      </form>
+    </details>
+    {{/if}}
+    <a href="{{ctxPath}}/t/tracker/project">Back to projects</a>
+  </section>
+</body>
+</html>
