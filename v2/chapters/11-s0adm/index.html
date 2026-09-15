@@ -1257,8 +1257,86 @@ Unsaved editor drafts are not deployed source; check the saved version before
 export or release.</p>
 <p>System settings and deployment actions require elevated IDE privileges.
 Features also depend on the image, license, datasource, and installed tools.
-The deployment screen reports unavailable builds when Kaniko is absent; a
-standalone image does not imply in-cluster builds are enabled.</p>
+Release builds are disabled until <code>deployment.builder</code> is set to <code>docker</code> or
+<code>kubernetes</code>. Both modes stage the same validated application-only context;
+the resulting image is pushed but not rolled out automatically.</p>
+<p>Build the Kubernetes IDE with the default target, or select the Docker-only
+target when building an IDE image that will run under Docker:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>app
+docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>soad-ide:latest<span class="w"> </span>.
+docker<span class="w"> </span>build<span class="w"> </span>--target<span class="w"> </span>ide-docker<span class="w"> </span>-t<span class="w"> </span>soad-ide-docker:latest<span class="w"> </span>.
+</code></pre></div>
+<p>The default image contains neither Docker CLI nor Kaniko. For a Docker-only
+IDE, use the <code>ide-docker</code> image, set <code>deployment_builder=docker</code>, and connect
+its Docker client to a protected Engine (for example, a mounted Docker
+socket with the container user granted its socket group). The Deployment form
+asks for registry credentials on each build; it does not save or prefill them.
+The client sends the staged context to the Engine, builds <code>Dockerfile-runtime</code>,
+and pushes the image. Treat Engine access as host-level authority and restrict
+the IDE accordingly. A Docker build leaves its image in the Engine cache; remove
+old images through normal Engine maintenance if disk usage grows.</p>
+<p>For an in-cluster IDE, set <code>deployment_builder=kubernetes</code> and apply the
+<a href="../../examples/s0adm/release-builder-kubernetes.yaml">release controller RBAC example</a>
+in the IDE's namespace. Set the IDE pod's <code>serviceAccountName</code> to
+<code>soad-release-controller</code>. Provision a <code>kubernetes.io/dockerconfigjson</code> Secret
+named <code>soad-release-registry</code>, with credentials that can pull the configured
+base runtime image and push the destination image. Provision a separate Secret
+named <code>soad-release-source</code> with a high-entropy <code>token</code> key. Mount that key
+read-only into the IDE at <code>/var/run/secrets/soad-release-source/token</code>.</p>
+<p>Create the registry Secret with <code>kubectl create secret docker-registry</code> (or
+an equivalent standard Docker <code>config.json</code>). Its <code>.dockerconfigjson</code> data
+must use Docker's <code>auth</code> entry; do not hand-write <code>username</code> / <code>password</code>
+fields. For example:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>docker-registry<span class="w"> </span>soad-release-registry<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--docker-server<span class="o">=</span>&lt;registry-host&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--docker-username<span class="o">=</span>&lt;registry-user&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--docker-password<span class="o">=</span>&lt;registry-password&gt;
+kubectl<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>soad-release-source<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">token</span><span class="o">=</span>&lt;high-entropy-token&gt;
+</code></pre></div>
+<p><strong>Important:</strong> <code>deployment_kube_registry_secret</code> and
+<code>deployment_kube_source_secret</code> below are literal Kubernetes Secret
+<code>metadata.name</code> values. They are not references to a Secret key and must not
+contain registry credentials or the source token. Keep the source token out of
+the IDE container environment; mount it only as the file shown below.
+Configure these environment variables on the IDE container (declare <code>POD_IP</code>
+first so Kubernetes expands its value):</p>
+<div class="highlight"><pre><span></span><code><span class="nt">serviceAccountName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">soad-release-controller</span>
+<span class="nt">containers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">soad</span>
+<span class="w">    </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POD_IP</span>
+<span class="w">        </span><span class="nt">valueFrom</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">fieldRef</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">fieldPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">status.podIP</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deployment_builder</span>
+<span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deployment_source_url</span>
+<span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://$(POD_IP):8080</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deployment_source_token_file</span>
+<span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/run/secrets/soad-release-source/token</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deployment_kube_registry_secret</span>
+<span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">soad-release-registry</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deployment_kube_source_secret</span>
+<span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">soad-release-source</span>
+<span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">release-source-token</span>
+<span class="w">        </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/run/secrets/soad-release-source</span>
+<span class="w">        </span><span class="nt">readOnly</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">volumes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">release-source-token</span>
+<span class="w">    </span><span class="nt">secret</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">secretName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">soad-release-source</span>
+</code></pre></div>
+<p>The Job fetches the archive directly from the originating IDE pod, then builds
+with a standalone Kaniko image. Allow Job-to-IDE pod traffic on port 8080 in
+your NetworkPolicy. The Job's pod needs egress to the base and destination
+registries; the IDE pod needs the Kubernetes API. Its fetch and builder
+containers run as root inside the Job pod to write the shared build context;
+they do not mount a host socket. A Job expires 24 hours after
+completion, so collect build logs before then. If a release build fails, the
+previous published image URL remains in S0ADM; retry after fixing the reported
+cause. To roll back an image, deploy an earlier retained image tag or digest.</p>
 <h2 id="configure-the-ai-assistant">Configure the AI assistant<a class="headerlink" href="#configure-the-ai-assistant" title="Permanent link">¶</a></h2>
 <p>As superadmin, open System Settings → Applications → an application → AI
 assistant. Configure provider family, endpoint, API key, model, and enabled state.
