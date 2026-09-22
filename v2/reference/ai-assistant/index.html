@@ -1636,6 +1636,13 @@ explicit endpoint, since the endpoint <em>is</em> the choice of gateway.</p>
 save. This is the quickest way on a self-hosted instance. The settings are
 platform-wide: one provider serves every application, whichever application's page
 you open them from.</p>
+<p>The <strong>Usage report</strong> link in that same box opens a superadmin-only table covering
+all AI conversations, including archived ones. Filter by application or download
+the full table as CSV. Each row totals provider-reported API calls and token
+categories for one conversation. A blank CSV token value (or a dash in the
+table) means the provider did not report that metric; it is not zero. Cached
+input is part of total input, and reasoning is part of output, so do not add
+those columns to the totals again. This report requires migration 010.</p>
 <h3 id="from-configuration-environment-managed">From configuration / environment (managed)<a class="headerlink" href="#from-configuration-environment-managed" title="Permanent link">¶</a></h3>
 <p>Set them in <code>sufia.properties</code> or as environment variables — the usual way to
 inject config in a container or Kubernetes deployment.</p>
@@ -1736,6 +1743,17 @@ to open the panel pre-focused on the transaction you're viewing.</p>
 <p>Type what you want and send (⌘/Ctrl + Enter). The assistant streams its thinking
 and shows each step it takes ("Reading schema for table <code>contact</code>", "Writing
 <code>contact.py</code>", and so on).</p>
+<p><strong>New chat</strong> archives the current transcript and starts an independent
+conversation for the same transaction. Archived messages are available under
+<strong>All conversations</strong> but are never included in the new model request. Starting
+a new chat is one click unless a source draft is staged, in which case the IDE
+asks explicitly before discarding it.</p>
+<p>DeepSeek model configurations, including DeepSeek models routed through an
+OpenAI-compatible gateway such as OpenRouter, also show <strong>Quick</strong> and
+<strong>Standard</strong> reasoning. Quick is the transaction-chat default; Standard is used
+for whole-app dashboard generation. The selection is frozen for each run and retained by the conversation.
+After a run, the panel reports measured provider tokens and API-call count when
+the provider supplies them; unavailable counters remain unknown.</p>
 <hr>
 <h2 id="the-approval-gate">The approval gate<a class="headerlink" href="#the-approval-gate" title="Permanent link">¶</a></h2>
 <p>In ordinary editor chat with auto-accept disabled, prepared source changes appear
@@ -1908,7 +1926,7 @@ and <strong>All conversations</strong> to browse past chats.</p>
 <div class="admonition warning">
 <p class="admonition-title">What is sent to the model</p>
 <p>To do its work, the assistant sends relevant context to your configured model
-provider — your request, the transaction files it's working on, schema details,
+provider — your request, transaction files it reads on demand, schema details,
 and, when debugging, log excerpts. Choose a provider you trust with your project
 data, and be aware that anything present in the server log (which the log tool
 may read) can be included when you ask it to debug.</p>

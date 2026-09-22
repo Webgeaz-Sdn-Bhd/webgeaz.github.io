@@ -1227,6 +1227,10 @@ operator against the installed version.</p>
 <td>009_user_ui_theme.sql</td>
 <td>User theme preference</td>
 </tr>
+<tr>
+<td>010_ai_conversations_usage.sql</td>
+<td>Independent AI conversations, runs, and usage</td>
+</tr>
 </tbody>
 </table>
 <p>Back up before changes. Stop the S0ADM container before applying an embedded-H2
@@ -1235,6 +1239,13 @@ file-lock ambiguity. Use only the migration applicable to the installed release
 and database target. For MySQL use your normal reviewed migration client.</p>
 <p>Existing installs need the schema update and refreshed models, not just a newer
 container image.</p>
+<p>Migration 010 is required before the updated assistant is enabled. Stop S0ADM,
+take a control-plane database backup, apply the migration, then restart so the
+models regenerate. Existing transaction-scoped transcripts are retained as one
+archived conversation per user/application/transaction scope; the next panel
+open starts a fresh active conversation. Rollback requires restoring the matching
+pre-upgrade database backup because older code cannot distinguish conversation
+IDs.</p>
 <h2 id="application-migrations">Application migrations<a class="headerlink" href="#application-migrations" title="Permanent link">¶</a></h2>
 <p>Keep ordered, version-controlled business SQL in your application project.
 The tracker initial schema is for a fresh database; evolve it using new
