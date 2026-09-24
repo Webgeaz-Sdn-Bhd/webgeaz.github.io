@@ -964,21 +964,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Customizing built-in authentication pages">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#changing-the-logo" class="md-nav__link">
-    <span class="md-ellipsis">
-      Changing the logo
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -1323,21 +1308,6 @@
       Customizing built-in authentication pages
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Customizing built-in authentication pages">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#changing-the-logo" class="md-nav__link">
-    <span class="md-ellipsis">
-      Changing the logo
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1696,99 +1666,22 @@ password recovery requires mail configuration. Set <code>sufia_hostname</code> t
 public HTTPS origin (for example, <code>https://app.example.com</code>) when the runtime is
 behind a reverse proxy so emailed links use the external address.</p>
 <h2 id="customizing-built-in-authentication-pages">Customizing built-in authentication pages<a class="headerlink" href="#customizing-built-in-authentication-pages" title="Permanent link">¶</a></h2>
-<p>Local authentication supports validated Handlebars overrides under:</p>
-<div class="highlight"><pre><span></span><code>webapp/WEB-INF/auth-overrides/
-</code></pre></div>
-<p>The supported files are <code>login.html</code>, <code>verify-totp.html</code>, <code>register.html</code>, <code>bootstrap.html</code>,
-<code>forgot.html</code>, <code>reset.html</code>, <code>invite.html</code>, <code>profile.html</code>, <code>sessions.html</code>,
-<code>totp-setup.html</code>, <code>admin-users.html</code>, and <code>error.html</code>. A shared stylesheet may
-be placed at <code>webapp/assets/auth-overrides/auth.css</code>. Public mode has no login
-UI, and custom providers own their complete login flow.</p>
-<p>Every page receives escaped common values including:</p>
-<div class="highlight"><pre><span></span><code>{{title}}
-{{csrf_token}}
-{{message}}
-{{error}}
-{{context_path}}
-{{default_stylesheet_url}}
-{{stylesheet_url}}
-</code></pre></div>
-<p>Page contexts also provide their action/navigation URLs and applicable token,
-user, role, TOTP, or session-list data. Existing login placeholders such as
-<code>{{action_url}}</code> and <code>{{forgot_url}}</code> remain supported.</p>
-<p><code>admin-users</code> additionally provides <code>{{create_action_url}}</code> for the add-user
-form, whose fields are <code>full_name</code>, <code>email</code>, the optional <code>password</code> and
-<code>password_confirm</code>, and a repeated <code>role_codes</code> checkbox per entry in
-<code>{{roles}}</code>. Leaving both password fields empty creates the account pending and
-issues a one-time setup link, returned as <code>{{invite_link}}</code>; each entry in
-<code>{{users}}</code> carries a <code>pending</code> flag for that state. These inputs are optional
-in an override — a template that omits them keeps validating, and simply does
-not offer the feature.</p>
-<p>Overrides are limited to 128 KiB per HTML page and 256 KiB for the stylesheet.
-They must compile, retain the page's required form actions and input names, and
-render <code>{{csrf_token}}</code> for state-changing forms. Executable URLs,
-frames/objects, <code>&lt;base&gt;</code>, and unescaped triple-brace values are rejected on
-every screen. So is any URL pointing at another origin: an <code>https://</code>,
-<code>http://</code>, or <code>//host</code> value in <code>href</code>/<code>xlink:href</code>/<code>src</code>/<code>action</code>/<code>formaction</code>,
-or in an <code>@import</code>/<code>url()</code> in the stylesheet — no CDN stylesheet, remote image,
-font host, or off-site form target. Relative paths, <code>{{context_path}}/…</code>,
-<code>#fragment</code>, <code>mailto:</code>, and <code>data:</code> URIs of image or font types are unaffected.
-A missing or invalid file logs a warning and falls back to the framework page.</p>
-<p>Script is allowed by screen, not globally:</p>
-<ul>
-<li>The four signed-in management screens -- <code>profile</code>, <code>sessions</code>, <code>totp-setup</code>,
-  <code>admin-users</code> -- accept an <strong>inline</strong> <code>&lt;script&gt;</code> and inline event handlers.
-  They are reached only after <code>_require_user</code> (and, for <code>admin-users</code>, the
-  <code>auth.users.manage</code> permission), so the reader is already authenticated, and
-  these list-and-row pages want a modal or a disclosure toggle to be usable.</li>
-<li>Every other screen is shown to an anonymous visitor and rejects both, because
-  script there can read the password field and the CSRF token.</li>
-<li><strong>No screen accepts script from outside the application.</strong> <code>&lt;script src=...&gt;</code>
-  and <code>&lt;script type="module"&gt;</code> (whose <code>import</code> can fetch remote code with no
-  <code>src</code>) are rejected everywhere: a fetched script can change under the
-  deployment, and it fails entirely in an air-gapped install.</li>
-</ul>
-<p>The four relaxed routes also carry a <code>Content-Security-Policy</code> response header
-(<code>script-src 'self' 'unsafe-inline'</code>, <code>connect-src 'self'</code>, <code>object-src 'none'</code>,
-<code>frame-ancestors 'none'</code>) so the browser enforces the same in/out distinction on
-what a regex over the markup cannot see -- a remote <code>import()</code> or <code>fetch()</code> from
-inside a script body. The sign-in flow sends no CSP.</p>
-<p>The transaction-editor AI stages these files through the normal diff and
-approval workflow. Deleting an override restores the framework default. An
-override changes presentation only; it never replaces credential verification,
-sessions, CSRF, roles, or permissions.</p>
-<p>For different authentication behavior rather than different styling, use a
-custom provider.</p>
-<h3 id="changing-the-logo">Changing the logo<a class="headerlink" href="#changing-the-logo" title="Permanent link">¶</a></h3>
-<p>The narrow, single-purpose screens (sign in, register, forgot, reset, invite,
-verify-2FA, error) show a small mark above the title. By default this is the
-framework's own SOAD icon; a developer can replace it by placing a bare,
-self-contained SVG at:</p>
-<div class="highlight"><pre><span></span><code>webapp/WEB-INF/auth-overrides/mark.svg
-</code></pre></div>
-<p>This is validated like the other overrides but is <strong>not</strong> a Handlebars
-template -- it is inlined as-is into the page, once per narrow screen, so it
-has its own, narrower rules:</p>
-<ul>
-<li>The whole file must be a single <code>&lt;svg&gt;...&lt;/svg&gt;</code> element: no XML
-  declaration, <code>&lt;!DOCTYPE&gt;</code>, or entity, and nothing before/after the root tag.</li>
-<li>No <code>&lt;script&gt;</code>, inline event handlers (<code>onload</code>, <code>onclick</code>, ...), frames,
-  <code>&lt;object&gt;</code>/<code>&lt;embed&gt;</code>, or <code>&lt;foreignObject&gt;</code> (which can smuggle arbitrary
-  HTML/script inside an SVG).</li>
-<li><code>href</code>/<code>xlink:href</code> may only point at a local <code>#fragment</code> (e.g. a <code>&lt;use&gt;</code>
-  referencing a <code>&lt;symbol&gt;</code> defined earlier in the same file) -- no external
-  file or <code>data:</code> URL, keeping the mark a single self-contained asset for
-  air-gapped deployments, same as everything else this stylesheet ships.</li>
-<li>Limited to 24 KiB.</li>
-</ul>
-<p>Any <code>class</code>/<code>aria-hidden</code> attribute on the root <code>&lt;svg&gt;</code> is stripped and
-replaced by the framework (<code>class="auth-mark" aria-hidden="true"</code>), so sizing
-comes from the page's own CSS regardless of what the file declares -- set a
-<code>viewBox</code> and skip <code>width</code>/<code>height</code> on the root element and let the page size
-it. A missing or invalid <code>mark.svg</code> falls back to the framework mark, same as
-any other override. The transaction-editor AI can stage it too, via
-<code>stage_auth_override</code> with <code>screen: "mark"</code>. Wide management screens
-(profile, sessions, 2FA, admin users) never show the mark, override or not.</p>
+<p>For local authentication, create a transaction in the reserved <code>auth</code> group
+with the exact screen code, such as <code>auth/login</code>, <code>auth/forgot</code>, or
+<code>auth/admin_users</code>. Its <code>view(ctx)</code> prepares a normal Handlebars transaction
+view. The framework renders it at the existing <code>/_soad/auth/*</code> route while
+retaining built-in credential, session, CSRF, and account handling. Direct
+<code>/t/auth/&lt;screen-code&gt;</code> requests return 404 in local mode.</p>
+<p>The <code>auth/login</code> transaction may also define <code>before_login(ctx)</code> and
+<code>after_login(ctx, user)</code> for session setup around a successful login. A hook
+failure stops sign-in and revokes any newly created session. No
+<code>Auth_provider</code> implementation or manifest route mapping is needed.</p>
+<p>Missing or invalid transaction pages fall back to the framework page. The
+optional stylesheet at <code>webapp/assets/auth-overrides/auth.css</code> continues to
+style built-in pages without any transaction. The optional logo asset remains
+at <code>webapp/WEB-INF/auth-overrides/mark.svg</code>. See the
+<a href="../auth-overrides/">authentication page transaction contract</a> for screen names,
+view context, hooks, and rendered-page safety rules.</p>
 <h2 id="switching-providers">Switching providers<a class="headerlink" href="#switching-providers" title="Permanent link">¶</a></h2>
 <p>In the IDE, open <strong>Settings → Application</strong> and choose:</p>
 <ul>

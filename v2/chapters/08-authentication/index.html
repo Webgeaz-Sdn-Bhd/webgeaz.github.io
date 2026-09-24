@@ -1377,17 +1377,15 @@ idle timeout. This guide's same-site tracker deployments explicitly choose
 The local auth session record also has its own expiry; changing the servlet
 idle timeout does not change that database session lifetime.</p>
 <h2 id="override-appearance-without-replacing-authentication">Override appearance without replacing authentication<a class="headerlink" href="#override-appearance-without-replacing-authentication" title="Permanent link">¶</a></h2>
-<p>Put validated templates under <code>WEB-INF/auth-overrides/</code>; shared CSS belongs at
-<code>assets/auth-overrides/auth.css</code>. Start with <code>login.html</code>, and retain its field
-names, action URLs, CSRF field, and required page structure.</p>
-<p>A template is not an ordinary application view: the override validator permits
-only its supported template/markup contract. Do not reuse the tracker layout or
-load a CDN. Use the full <a href="../../reference/auth-overrides/">screen-by-screen contract</a>
-for the exact required inputs and context for every screen, including bootstrap.</p>
-<p>Override <code>mark.svg</code> to replace the small-screen logo. Missing or invalid
-templates/styles/marks fall back to the bundled UI and log the reason. Removing
-an override restores the default. Presentation overrides do not change password,
-session, or permission verification.</p>
+<p>Create a transaction in the <code>auth</code> group with an exact screen code, such as
+<code>auth/login</code> or <code>auth/forgot</code>. Its <code>view(ctx)</code> prepares the normal transaction
+view for the built-in <code>/_soad/auth/*</code> page. Keep the form action, required field
+names, and CSRF token. The framework still performs credential and session
+checks. See the <a href="../../reference/auth-overrides/">authentication page contract</a>
+for all screen codes, available values, and optional login hooks.</p>
+<p>For styling alone, use <code>assets/auth-overrides/auth.css</code>; built-in pages link it
+automatically. The separate <code>mark.svg</code> asset changes the small-screen logo.
+Missing or invalid transaction pages fall back to the bundled UI.</p>
 <h2 id="replace-authentication-behavior">Replace authentication behavior<a class="headerlink" href="#replace-authentication-behavior" title="Permanent link">¶</a></h2>
 <p>Choose <strong>Custom application provider</strong> and a lowercase module such as
 <code>security/auth_provider</code>. Its <code>Auth_provider</code> class must implement:</p>
@@ -1431,10 +1429,8 @@ and fail-closed rules. The skeleton deliberately grants nothing until implemente
 After changing modes, publish matching metadata/SQL and test before deploying.
 Keep old local tables during an initial rollback window; the runtime does not
 drop them automatically.</p>
-<p>Transaction-owned auth pages are an advanced local-provider integration,
-distinct from templates and custom providers. Their route mapping must be
-registered in the manifest; do not implement a second password store or assume
-the archived roadmap is a current API contract.</p>
+<p>Authentication page transactions need no manifest route mapping. The
+<code>Auth_provider</code> interface applies only to custom authentication mode.</p>
 
 
 
